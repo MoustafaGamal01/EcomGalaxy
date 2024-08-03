@@ -1,0 +1,197 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Gotham, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f1f2f7;
+        }
+
+        .container {
+            width: 80%;
+            margin: 80px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: darkorange;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .cart-items {
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+            .cart-item:last-child {
+                border-bottom: none;
+            }
+
+        .item-image {
+            flex: 1;
+        }
+
+            .item-image img {
+                width: 100px;
+                height: 100px;
+                border-radius: 10px;
+            }
+
+        .item-details {
+            flex: 3;
+            padding: 0 20px;
+        }
+
+        .item-name {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .item-price {
+            color: #f7a440;
+            font-size: 16px;
+        }
+
+        .item-quantity {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+            .item-quantity input {
+                width: 40px;
+                text-align: center;
+                margin: 0 10px;
+                padding: 5px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+
+        .remove-item {
+            flex: 1;
+            text-align: right;
+        }
+
+            .remove-item button {
+                background-color: #ff4d4d;
+                border: none;
+                padding: 10px 20px;
+                color: white;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+
+                .remove-item button:hover {
+                    background-color: #e60000;
+                }
+
+        .cart-summary {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            text-align: right;
+        }
+
+            .cart-summary .total-price {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .cart-summary button {
+                background-color: #f7a440;
+                border: none;
+                padding: 15px 30px;
+                color: white;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: 18px;
+                transition: background-color 0.3s ease;
+            }
+
+                .cart-summary button:hover {
+                    background-color: #e68a00;
+                }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">My Shopping Cart</div>
+        <div class="cart-items">
+            <div class="cart-item">
+                <div class="item-image">
+                    <img src="https://via.placeholder.com/100" alt="Product Image">
+                </div>
+                <div class="item-details">
+                    <div class="item-name">Product Name</div>
+                    <div class="item-price">$10.00</div>
+                </div>
+                <div class="item-quantity">
+                    <button onclick="decreaseQuantity(this)">-</button>
+                    <input type="text" value="1" readonly>
+                    <button onclick="increaseQuantity(this)">+</button>
+                </div>
+                <div class="remove-item">
+                    <button onclick="removeItem(this)">Remove</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="cart-summary">
+            <div class="total-price">Total: $30.00</div>
+            <button>Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        function increaseQuantity(button) {
+            var input = button.previousElementSibling;
+            input.value = parseInt(input.value) + 1;
+            updateTotal();
+        }
+
+        function decreaseQuantity(button) {
+            var input = button.nextElementSibling;
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+                updateTotal();
+            }
+        }
+
+        function removeItem(button) {
+            var item = button.parentElement.parentElement;
+            item.remove();
+            updateTotal();
+        }
+
+        function updateTotal() {
+            var total = 0;
+            document.querySelectorAll('.cart-item').forEach(function (item) {
+                var price = parseFloat(item.querySelector('.item-price').textContent.replace('$', ''));
+                var quantity = parseInt(item.querySelector('input').value);
+                total += price * quantity;
+            });
+            document.querySelector('.total-price').textContent = 'Total: $' + total.toFixed(2);
+        }
+    </script>
+</body>
+</html>

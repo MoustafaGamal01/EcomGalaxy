@@ -1,0 +1,160 @@
+﻿@model Category
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Page</title>
+    <style>
+        .product-view { *
+        {
+            box-sizing: border-box;
+        }
+
+        .body {
+            background: #f1f2f7;
+        }
+        .button-container {
+            display: flex;
+            gap: 10px; /* Adjust the gap between the buttons as needed */
+        }
+
+            .button-container button {
+                outline: 0;
+                border: 1px solid #d9d9d9;
+                padding: 18px 0px;
+                margin-bottom: 30px;
+                color: #515151;
+                text-transform: uppercase;
+                width: 125px;
+                font-family: inherit;
+                transition: all 0.3s ease;
+                font-weight: 500;
+                cursor: pointer;
+                background: none;
+                border-radius: 10px;
+            }
+
+                .button-container button:hover {
+                    border: 1px solid darkorange;
+                    color: darkorange;
+                }
+        body {
+            margin: 0;
+            font-family: Gotham, sans-serif;
+            padding-top: 60px; 
+        }
+
+        .card {
+            width: 750px;
+            height: 475px;
+            background: white;
+            margin: 170px auto; 
+            box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+            transition: all 0.3s;
+            position: relative; 
+        }
+
+            .card:hover {
+                box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            }
+
+        .photo {
+            padding: 70px;
+            width: 45%;
+            text-align: center;
+            float: left;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative; 
+        }
+
+        .photo img {
+            max-height: 300px;
+            width: auto;
+            display: block;
+        }
+
+        .description {
+            padding: 52px;
+            float: left;
+            width: 52%;
+            /* border-left: 1px solid #efefef; */
+        }
+
+        .description h1 {
+            color: #515151;
+            font-weight: 500;
+            padding-top: 15px;
+            margin: 0;
+            font-size: 30px;
+        }
+
+        .description h2 {
+            color: #515151;
+            margin: 0;
+            font-size:18px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .description p {
+            font-size: 14px;
+            line-height: 20px;
+            color: #727272;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        .description button {
+            outline: 0;
+            border: 1px solid #d9d9d9;
+            padding: 18px 0px;
+            margin-bottom: 30px;
+            color: #515151;
+            text-transform: uppercase;
+            width: 125px;
+            font-family: inherit;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            cursor: pointer;
+            background: none;
+            border-radius: 10px;
+        }
+
+        .description button:hover {
+            border: 1px solid darkorange;
+            color: darkorange;
+        }
+
+        .description h2:hover {
+            border: 1px solid Red;
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="product-view">
+    <div class="card">
+        <div class="photo">
+            <img id="categoryImage" src="/images/@Model.CategoryImage" alt="category Image">
+        </div>
+        <div class="description">
+            <h1>@Model.Name</h1>
+            <h2>Category</h2>
+            <br>
+            <div class="button-container">
+                <form method="post" action="/Category/DeleteCategory/@Model.Id" onsubmit="return confirm('Are you sure you want to delete this Category?');">
+                    <button type="submit">Delete Category</button>
+                </form>
+                <button onclick="window.location.href='/Category/UpdateCategory/@Model.Id';">Edit Category</button>
+            </div>
+        </div>
+    </div>
+    <div/>
+</body>
+</html>

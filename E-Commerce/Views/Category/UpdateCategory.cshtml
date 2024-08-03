@@ -1,0 +1,112 @@
+﻿@model Category
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <style>
+        .container {
+            padding: 70px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .body {
+            background: #f1f2f7;
+        }
+        .card {
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+            .card h2 {
+                margin-bottom: 20px;
+                color: #001f3f;
+                font-size: 24px;
+            }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                color: #001f3f;
+                font-weight: bold;
+            }
+
+            .form-group input,
+            .form-group select {
+                width: 96%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+
+                .form-group input:focus,
+                .form-group select:focus {
+                    border-color: #001f3f;
+                    outline: none;
+                }
+
+            .form-group .text-danger {
+                color: #ff0000;
+                font-size: 0.875em;
+            }
+
+        .btn-submit {
+            background-color: #001f3f;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            .btn-submit:hover {
+                background-color: darkorange;
+            }
+
+        .current-images img {
+            max-width: 100px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>Edit Category</h2>
+            <form method="post" asp-action="SaveUpdateCategory" asp-controller="Category" asp-route-id="@Model.Id" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label asp-for="Name"><strong>Name</strong></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label><strong>Default Image</strong></label>
+                    <div class="current-images">
+                        <img src="@Url.Content("~/images/" + Model.CategoryImage)" alt="Current Image" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><strong>Upload New Image</strong></label>
+                    <input name="newImage" type="file" class="form-control" />
+                </div>
+
+                <button type="submit" class="btn-submit">Save</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

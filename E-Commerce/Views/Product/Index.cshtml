@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Gotham, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f1f2f7;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+
+            background-color: #f5f5f5; /* Light background for search bar area */
+            margin-top: 50px; /* Add space below the fixed navbar */
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px; /* Adjusted max width */
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
+
+        .search-button {
+            background-color: darkorange;
+            border: none;
+            padding: 11px;
+            color: white;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .search-button i {
+                font-size: 18px;
+            }
+
+        .dropdown {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-left: 10px;
+            background-color: white;
+            font-size: 16px;
+        }
+
+        .price-range {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+            .price-range input {
+                width: 60px;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                margin-right: 5px;
+                font-size: 16px;
+            }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+            width: 300px;
+            height: 410px;
+            margin: 5px;
+            text-align: center;
+            font-family: Gotham;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: box-shadow 0.3s ease;
+        }
+
+            .card:hover {
+                box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
+            }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 250px; /* Fixed height */
+            overflow: hidden;
+        }
+
+        .product-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+            opacity: 1;
+        }
+
+        .price {
+            color: grey;
+            font-size: 22px;
+            margin: 10px 0;
+        }
+
+        .card h1 {
+            font-size: 24px;
+            color: black;
+            margin: 10px 0;
+        }
+
+        .card p {
+            margin: 0 0 10px 0;
+        }
+
+        .card button {
+            border: none;
+            outline: 0;
+            padding: 12px;
+            color: white;
+            background-color: darkorange;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            margin: 10px 0; /* Add margin if needed */
+        }
+
+            .card button:hover {
+                opacity: 0.7;
+            }
+
+        .card-link, .button-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <div class="search-bar">
+            <input type="text" id="search-input" class="search-input" placeholder="Search for products...">
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <select id="sort-dropdown" class="dropdown">
+            <option value="">Sort by Price</option>
+            <option value="high-to-low">High to Low</option>
+            <option value="low-to-high">Low to High</option>
+        </select>
+        <select id="rating-dropdown" class="dropdown">
+            <option value="">Filter by Rating</option>
+            <option value="1">1 Star</option>
+            <option value="2">2 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="5">5 Stars</option>
+        </select>
+        <div class="price-range">
+            <input type="text" id="price-from" placeholder="From">
+            <input type="text" id="price-to" placeholder="To">
+        </div>
+    </div>
+    <div class="container" id="product-container">
+        @foreach (var product in Model)
+        {
+            <div class="card" data-name="@product.ProductName" data-description="@product.ProductDescription" data-price="@product.ProductPrice" data-rating="@product.ProductRating">
+                <a href="/Product/ProductDetails/@product.ProductId" class="card-link">
+                    <div class="image-container">
+                        <img src="/images/@product.ProductImages[0]" alt="Product Image" class="product-image">
+                    </div>
+                    <h1>@product.ProductName</h1>
+                    <p class="price">@product.ProductPrice EGP</p>
+                    <p>@product.ProductDescription</p>
+                </a>
+                <a href="/Home/Index" class="button-link">
+                    <button class="add-to-cart-button">Add To Cart</button>
+                </a>
+            </div>
+        }
+    </div>
+
+    <script>
+        document.getElementById('search-input').addEventListener('input', function () {
+            filterProducts();
+        });
+
+        document.getElementById('sort-dropdown').addEventListener('change', function () {
+            sortProducts();
+        });
+
+        document.getElementById('rating-dropdown').addEventListener('change', function () {
+            filterProducts();
+        });
+
+        document.getElementById('price-from').addEventListener('input', function () {
+            filterProducts();
+        });
+
+        document.getElementById('price-to').addEventListener('input', function () {
+            filterProducts();
+        });
+
+        function filterProducts() {
+            const searchValue = document.getElementById('search-input').value.toLowerCase();
+            const ratingValue = document.getElementById('rating-dropdown').value;
+            const priceFromValue = parseFloat(document.getElementById('price-from').value) || 0;
+            const priceToValue = parseFloat(document.getElementById('price-to').value) || Infinity;
+            const products = document.querySelectorAll('.card');
+
+            products.forEach(product => {
+                const productName = product.getAttribute('data-name').toLowerCase();
+                const productDescription = product.getAttribute('data-description').toLowerCase();
+                const productRating = parseInt(product.getAttribute('data-rating'));
+                const productPrice = parseFloat(product.getAttribute('data-price'));
+
+                if (
+                    (productName.includes(searchValue) || productDescription.includes(searchValue) || searchValue === '') &&
+                    (ratingValue === '' || productRating == ratingValue) &&
+                    (productPrice >= priceFromValue && productPrice <= priceToValue)
+                ) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        function sortProducts() {
+            const sortValue = document.getElementById('sort-dropdown').value;
+            const productContainer = document.getElementById('product-container');
+            const products = Array.from(productContainer.getElementsByClassName('card'));
+
+            products.sort((a, b) => {
+                const priceA = parseFloat(a.getAttribute('data-price'));
+                const priceB = parseFloat(b.getAttribute('data-price'));
+
+                if (sortValue === 'high-to-low') {
+                    return priceB - priceA;
+                } else if (sortValue === 'low-to-high') {
+                    return priceA - priceB;
+                }
+                return 0;
+            });
+
+            products.forEach(product => {
+                productContainer.appendChild(product);
+            });
+        }
+    </script>
+</body>
+</html>

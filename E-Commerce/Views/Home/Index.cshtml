@@ -1,0 +1,246 @@
+﻿@model IEnumerable<Category>
+@{
+    ViewBag.Title = "Home";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <style>
+        .midtext {
+            text-align: center;
+            font-size: 1vw;
+            font-weight: bold;
+            margin-top: 4vw;
+        }
+
+        .container {
+            width: 100%;
+            padding-top: 0;
+        }
+
+        .picture {
+            position: relative;
+            width: 100%;
+            height: 30.56vw;
+            overflow: hidden; /* Ensure content stays within bounds */
+        }
+
+        .picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            padding: 0 20px; 
+        }
+
+        .overlay h1 {
+            font-size: 2.5vw; 
+            margin: 0;
+            padding-bottom: 10px;
+        }
+
+        .overlay h2 {
+            font-size: 1.5vw; 
+            margin: 0;
+            padding-bottom: 20px; 
+        }
+
+        .overlay .shop-now-button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 18px;
+            color: white;
+            background-color: transparent; 
+            border: 2px solid white; 
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .overlay .shop-now-button:hover {
+            background-color: white; 
+            color: black;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            column-gap: 1px; 
+            row-gap: 15px;
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px;
+            margin: 0 auto; 
+            width: 100%;
+            max-width: 1200px; 
+        }
+
+        .card {
+            box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 300px; /* Maximum width of the card */
+            height: 410px;
+            text-align: center;
+            font-family: Calibri, sans-serif;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: box-shadow 0.3s ease;
+            border-radius: 10px; /* Curvy edges */
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 278px; /* Fixed height */
+            overflow: hidden;
+            border-top-left-radius: 10px; /* Match the card's border-radius */
+            border-top-right-radius: 10px; /* Match the card's border-radius */
+        }
+
+        .product-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+            opacity: 1;
+        }
+
+        .price {
+            color: grey;
+            font-size: 22px;
+            margin: 10px 0;
+        }
+
+        .card h1 {
+            font-size: 24px;
+            color: black;
+            margin: 10px 0;
+        }
+
+        .card p {
+            margin: 0 0 10px 0;
+        }
+
+        .card button {
+            border: none;
+            outline: 0;
+            padding: 12px;
+            color: white;
+            background-color: darkorange;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            margin: 10px 0; /* Add margin if needed */
+            border-bottom-left-radius: 10px; /* Match the card's border-radius */
+            border-bottom-right-radius: 10px; /* Match the card's border-radius */
+        }
+
+        .card button:hover {
+            opacity: 0.7;
+        }
+
+        .view-all-button {
+            text-align: center;
+            margin: 20px 0; /* Space above and below the button */
+        }
+
+        .view-all-button a {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 18px;
+            color: white;
+            background-color: #1e1e1e;
+            text-decoration: none;
+            border-radius: 10px; /* Match the card's border-radius */
+            transition: background-color 0.3s ease;
+        }
+
+        .view-all-button a:hover {
+            opacity: 80%;
+        }
+
+        .rectangle {
+            width: 1200px;
+            height: 600px;
+            border-radius: 15px; /* Slightly curvy edges */
+            overflow: hidden; /* Ensure the image doesn't overflow */
+            margin: 20px auto; /* Center horizontally with auto margins */
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5; /* Optional: Add a background color if needed */
+        }
+
+        .rectangle-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure the image covers the rectangle */
+        }
+      
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="picture">
+            <img src="~/images/background1.png" alt="Picture">
+            <div class="overlay">
+                <h1>Shop the Latest Trends</h1>
+                <h2>Find your favorite styles and more!</h2>
+                <a href="/Product/Index" class="shop-now-button">Shop Now</a>
+            </div>
+        </div>
+    </div>
+    <div class="midtext">
+        <h1>Categories</h1>
+    </div>
+    <div class="card-container">
+        @foreach (var category in @Model)
+        {
+            <a href="/Product/GetProductByCategory?categoryTitle=@category.Name" class="card">
+                <div class="image-container">
+                    <img src="/images/@category.CategoryImage" alt="Product Image" class="product-image">
+                </div>
+                <h1>@category.Name</h1>
+                <p>Shop Trendy @category.Name Now.</p>
+                <button>Shop Now</button>
+            </a>
+
+        }
+    </div>
+    <div class="view-all-button">
+        <a href="/Product/Index">View All Products</a>
+    </div>
+    <br></br>
+    <br></br>
+    <div class="rectangle">
+        <img src="/images/background2.png" alt="Rectangle Image" class="rectangle-image">
+    </div>
+    <br></br>
+
+</body>
+</html>

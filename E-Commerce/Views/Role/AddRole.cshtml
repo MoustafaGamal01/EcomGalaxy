@@ -1,0 +1,97 @@
+﻿@model EcomGalaxy.ViewModel.RoleViewModel
+
+@{
+    ViewData["Title"] = "AddRole";
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		.container {
+			padding: 70px;
+			max-width: 600px;
+			margin: auto;
+		}
+
+		.body {
+			background: #f1f2f7;
+		}
+
+		.card {
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+			border-radius: 10px;
+			background-color: #fff;
+			padding: 20px;
+			margin: 20px 0;
+		}
+
+			.card h2 {
+				margin-bottom: 20px;
+				color: #001f3f;
+				font-size: 24px;
+			}
+
+		.form-group {
+			margin-bottom: 15px;
+		}
+
+			.form-group label {
+				display: block;
+				margin-bottom: 5px;
+				color: #001f3f;
+				font-weight: bold;
+			}
+
+			.form-group input,
+			.form-group select {
+				width: 96%;
+				padding: 10px;
+				border: 1px solid #ddd;
+				border-radius: 5px;
+			}
+
+				.form-group input:focus,
+				.form-group select:focus {
+					border-color: #001f3f;
+					outline: none;
+				}
+
+			.form-group .text-danger {
+				color: #ff0000;
+				font-size: 0.875em;
+			}
+
+		.btn-submit {
+			background-color: #001f3f;
+			color: #fff;
+			border: none;
+			padding: 10px 20px;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 16px;
+		}
+
+			.btn-submit:hover {
+				background-color: #4580b5;
+			}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="card">
+			<h2>Add New Role</h2>
+			<form method="post" asp-action="SaveAddRole" asp-controller="Role">
+				<div asp-validation-summary="All"></div>
+				<div class="form-group">
+					<label asp-for="RoleName"><strong>Name</strong></label>
+					<input asp-for="RoleName" class="form-control" />
+					<span asp-validation-for="RoleName" class="text-danger"></span>
+				</div>
+
+				
+				<button type="submit" class="btn-submit">Add Role</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

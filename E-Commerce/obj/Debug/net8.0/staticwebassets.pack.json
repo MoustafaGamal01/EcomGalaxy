@@ -1,0 +1,441 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\EcomGalaxy.bundle.scp.css",
+      "PackagePath": "staticwebassets\\EcomGalaxy.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\css\\Blog-Template.css",
+      "PackagePath": "staticwebassets\\css\\Blog-Template.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\css\\Post-Template.css",
+      "PackagePath": "staticwebassets\\css\\Post-Template.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\css\\Product-Details-Template.css",
+      "PackagePath": "staticwebassets\\css\\Product-Details-Template.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\css\\Product-List-Template.css",
+      "PackagePath": "staticwebassets\\css\\Product-List-Template.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\css\\Thank-You-Template.css",
+      "PackagePath": "staticwebassets\\css\\Thank-You-Template.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\css\\index.css",
+      "PackagePath": "staticwebassets\\css\\index.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\css\\nicepage.css",
+      "PackagePath": "staticwebassets\\css\\nicepage.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\css\\styles.css",
+      "PackagePath": "staticwebassets\\css\\styles.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\1.jpg",
+      "PackagePath": "staticwebassets\\images\\1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\1.png",
+      "PackagePath": "staticwebassets\\images\\1.png"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\2.jpg",
+      "PackagePath": "staticwebassets\\images\\2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\Ad1.jpg",
+      "PackagePath": "staticwebassets\\images\\Ad1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\Elven1.jpg",
+      "PackagePath": "staticwebassets\\images\\Elven1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\Elven2.jpg",
+      "PackagePath": "staticwebassets\\images\\Elven2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\EmptyProfilePic.jpeg",
+      "PackagePath": "staticwebassets\\images\\EmptyProfilePic.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\Iphone2.jpg",
+      "PackagePath": "staticwebassets\\images\\Iphone2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\NB1.jpg",
+      "PackagePath": "staticwebassets\\images\\NB1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\PFGITHUB.png",
+      "PackagePath": "staticwebassets\\images\\PFGITHUB.png"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\PhonesCover.jpg",
+      "PackagePath": "staticwebassets\\images\\PhonesCover.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\Picsart_23-01-31_21-58-37-47.png",
+      "PackagePath": "staticwebassets\\images\\Picsart_23-01-31_21-58-37-47.png"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\SE.jpg",
+      "PackagePath": "staticwebassets\\images\\SE.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\SE2.jpg",
+      "PackagePath": "staticwebassets\\images\\SE2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\Sam1.jpg",
+      "PackagePath": "staticwebassets\\images\\Sam1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\Sh1.jpg",
+      "PackagePath": "staticwebassets\\images\\Sh1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\Sh333.jpg",
+      "PackagePath": "staticwebassets\\images\\Sh333.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\ShoesCover.jpeg",
+      "PackagePath": "staticwebassets\\images\\ShoesCover.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\Wch1.jpg",
+      "PackagePath": "staticwebassets\\images\\Wch1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\background1.png",
+      "PackagePath": "staticwebassets\\images\\background1.png"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\background2.png",
+      "PackagePath": "staticwebassets\\images\\background2.png"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\cart.png",
+      "PackagePath": "staticwebassets\\images\\cart.png"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\cat.jpg",
+      "PackagePath": "staticwebassets\\images\\cat.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\champ14ns.png",
+      "PackagePath": "staticwebassets\\images\\champ14ns.png"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\pexels-photo-1464625.jpeg",
+      "PackagePath": "staticwebassets\\images\\pexels-photo-1464625.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\sh2.jpg",
+      "PackagePath": "staticwebassets\\images\\sh2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\stark's-heart.png",
+      "PackagePath": "staticwebassets\\images\\stark's-heart.png"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\wadwaw.jpg",
+      "PackagePath": "staticwebassets\\images\\wadwaw.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\watchCover.jpeg",
+      "PackagePath": "staticwebassets\\images\\watchCover.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\wch3.jpg",
+      "PackagePath": "staticwebassets\\images\\wch3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\wch5.jpg",
+      "PackagePath": "staticwebassets\\images\\wch5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\wchwhwh.jpg",
+      "PackagePath": "staticwebassets\\images\\wchwhwh.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\wtch2.jpg",
+      "PackagePath": "staticwebassets\\images\\wtch2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\wtch4.jpg",
+      "PackagePath": "staticwebassets\\images\\wtch4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\js\\datatables-simple-demo.js",
+      "PackagePath": "staticwebassets\\js\\datatables-simple-demo.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\js\\jquery-1.9.1.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery-1.9.1.min.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\js\\nicepage.js",
+      "PackagePath": "staticwebassets\\js\\nicepage.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\js\\scripts.js",
+      "PackagePath": "staticwebassets\\js\\scripts.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EcomGalaxy.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.EcomGalaxy.props",
+      "PackagePath": "build\\EcomGalaxy.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.EcomGalaxy.props",
+      "PackagePath": "buildMultiTargeting\\EcomGalaxy.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.EcomGalaxy.props",
+      "PackagePath": "buildTransitive\\EcomGalaxy.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

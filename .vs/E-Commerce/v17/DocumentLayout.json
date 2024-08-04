@@ -3,19 +3,39 @@
   "WorkspaceRootPath": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\models\\shoppingcartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\models\\shoppingcartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Migrations\\20240804104648_AddingShoppingCartItemModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:E-Commerce\\Migrations\\20240804104648_AddingShoppingCartItemModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\models\\mycontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\models\\mycontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|C:\\Users\\AIA\\Desktop\\EcomGalaxy\\e-commerce\\controllers\\shoppingcartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\controllers\\shoppingcartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|C:\\Users\\AIA\\Desktop\\EcomGalaxy\\e-commerce\\models\\shoppingcart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\models\\shoppingcart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\viewmodel\\shoppingcartviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\viewmodel\\shoppingcartviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\models\\shoppingcart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\models\\shoppingcart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\controllers\\shoppingcartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\controllers\\shoppingcartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\views\\shoppingcart\\viewcart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|C:\\Users\\AIA\\Desktop\\EcomGalaxy\\e-commerce\\views\\shoppingcart\\viewcart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\views\\shoppingcart\\viewcart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
@@ -26,8 +46,47 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\appsettings.json",
+              "RelativeDocumentMoniker": "E-Commerce\\appsettings.json",
+              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\appsettings.json",
+              "RelativeToolTip": "E-Commerce\\appsettings.json",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAkAAABAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-08-04T10:48:17.568Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "20240804104648_AddingShoppingCartItemModel.cs",
+              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Migrations\\20240804104648_AddingShoppingCartItemModel.cs",
+              "RelativeDocumentMoniker": "E-Commerce\\Migrations\\20240804104648_AddingShoppingCartItemModel.cs",
+              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Migrations\\20240804104648_AddingShoppingCartItemModel.cs",
+              "RelativeToolTip": "E-Commerce\\Migrations\\20240804104648_AddingShoppingCartItemModel.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAADgvxQAAABOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-04T10:46:48.546Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MyContext.cs",
+              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Models\\MyContext.cs",
+              "RelativeDocumentMoniker": "E-Commerce\\Models\\MyContext.cs",
+              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Models\\MyContext.cs",
+              "RelativeToolTip": "E-Commerce\\Models\\MyContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-04T10:44:58.278Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
@@ -35,19 +94,45 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "ShoppingCartItem.cs",
+              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Models\\ShoppingCartItem.cs",
+              "RelativeDocumentMoniker": "E-Commerce\\Models\\ShoppingCartItem.cs",
+              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Models\\ShoppingCartItem.cs",
+              "RelativeToolTip": "E-Commerce\\Models\\ShoppingCartItem.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-04T10:39:31.929Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Models\\Product.cs",
+              "RelativeDocumentMoniker": "E-Commerce\\Models\\Product.cs",
+              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Models\\Product.cs",
+              "RelativeToolTip": "E-Commerce\\Models\\Product.cs",
+              "ViewState": "AQIAABoAAAAAAAAAAADwvzIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-04T10:22:36.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "ShoppingCart.cs",
               "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Models\\ShoppingCart.cs",
               "RelativeDocumentMoniker": "E-Commerce\\Models\\ShoppingCart.cs",
               "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Models\\ShoppingCart.cs",
               "RelativeToolTip": "E-Commerce\\Models\\ShoppingCart.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAgwBgAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-03T16:59:42.981Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "ShoppingCartViewModel.cs",
               "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\ViewModel\\ShoppingCartViewModel.cs",
               "RelativeDocumentMoniker": "E-Commerce\\ViewModel\\ShoppingCartViewModel.cs",
@@ -60,7 +145,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "ViewCart.cshtml",
               "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Views\\ShoppingCart\\ViewCart.cshtml",
               "RelativeDocumentMoniker": "E-Commerce\\Views\\ShoppingCart\\ViewCart.cshtml",
@@ -68,18 +153,17 @@
               "RelativeToolTip": "E-Commerce\\Views\\ShoppingCart\\ViewCart.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-08-03T16:37:26.395Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T16:37:26.395Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "ShoppingCartController.cs",
               "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Controllers\\ShoppingCartController.cs",
               "RelativeDocumentMoniker": "E-Commerce\\Controllers\\ShoppingCartController.cs",
               "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Controllers\\ShoppingCartController.cs",
               "RelativeToolTip": "E-Commerce\\Controllers\\ShoppingCartController.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAQwBIAAAA3AAAA",
+              "ViewState": "AQIAAAgAAAAAAAAAAADgvxQAAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-03T16:36:42.8Z",
               "EditorCaption": ""

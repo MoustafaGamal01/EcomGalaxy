@@ -14,11 +14,11 @@ namespace EcomGalaxy.Models
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
-        
+        public virtual ICollection<ShoppingCartItem>? ShoppingCartItems { get; set; }
+
         public ShoppingCart()
         {
-            Products = new List<Product>();
+            ShoppingCartItems = new List<ShoppingCartItem>();
         }
     }
 }

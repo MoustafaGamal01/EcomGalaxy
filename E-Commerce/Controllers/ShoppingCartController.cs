@@ -18,7 +18,7 @@
         [HttpPost]
         public async Task<IActionResult> AddItemToCart()
         {
-            await _shoppingCartService.AddShoppingCartAsync();
+            //await _shoppingCartService.AddShoppingCartAsync();
             return View();
         }
     }

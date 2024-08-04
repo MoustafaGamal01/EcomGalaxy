@@ -18,6 +18,8 @@ namespace EcomGalaxy.Models
         public DbSet<Payment> payments { get; set; }
         //public DbSet<Image> Images { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

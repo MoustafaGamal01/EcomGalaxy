@@ -196,9 +196,5 @@ namespace EcomGalaxy.Services
 			return answer;
 
 		}
-
-        
-
-
     }
 }

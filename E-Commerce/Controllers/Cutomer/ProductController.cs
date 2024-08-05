@@ -19,22 +19,6 @@ namespace EcomGalaxy.Controllers.Cutomer
             _productService = productService;
             _categoryService = categoryService;
         }
-
-        //private List<ProductViewModel> FromProductToProductVM(List<ProductViewModel> productsVm, IEnumerable<Product> products)
-        //{
-        //    var prdVMs = products.Select(p => new ProductViewModel
-        //    {
-        //        ProductId = p.Id,
-        //        ProductName = p.Name.Length > 18 ? p.Name.Substring(0, 18)+"..." : p.Name,
-        //        ProductDescription = p.Description.Length > 20 ? p.Description.Substring(0, 20)+"..." : p.Description,
-        //        ProductImages = p.ProductImagePath,
-        //        ProductPrice = p.Price,
-        //        ProductStock = p.StockQuantity,
-        //        CategoryId = p.CategoryId
-        //    }).ToList();
-
-        //    return prdVMs;
-        //}
         
         public async Task<IActionResult> Index()
         {

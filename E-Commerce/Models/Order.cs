@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace EcomGalaxy.Models
 {
-
     public enum OrderStatus
     {
         Pending,
@@ -38,8 +37,12 @@ namespace EcomGalaxy.Models
         public int ShoppingCartId { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
 
-        [ForeignKey("ApplicationUser")]
-        public string? ApplicationUserId { get; set; }
-        public ApplicationUser? ApplicationUser { get; set; }
+        [ForeignKey("Customer")]
+        public string? CustomerId { get; set; }
+        public ApplicationUser? Customer { get; set; }
+
+        [ForeignKey("Seller")]
+        public string? SellerId { get; set; }
+        public ApplicationUser Seller { get; set; }
     }
 }

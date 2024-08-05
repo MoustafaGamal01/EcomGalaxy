@@ -2,11 +2,11 @@
 {
     public interface IShoppingCartRepository
     {
-        Task<bool?> AddShoppingCart(ShoppingCart shoppingCart);
-        Task<bool?> UpdateShoppingCart(int ShoppingCartId, ShoppingCart shoppingCart);
-        Task<bool?> DeleteShoppingCart(int shoppingCartId);
-        Task<ShoppingCart> GetShoppingCartById(int shoppingCartId);
-        Task<IEnumerable<ShoppingCart>> GetAllShoppingCarts();
-        Task<ShoppingCart> GetShoppingCartByUserId(string userId);
+        Task<ShoppingCart> GetShoppingCartByUserIdAsync(string userId);
+        Task AddShoppingCartAsync(ShoppingCart cart);
+        Task AddShoppingCartItemAsync(ShoppingCartItem item);
+        Task<ShoppingCartItem> GetShoppingCartItemAsync(int cartId, int productId);
+        Task RemoveShoppingCartItemAsync(ShoppingCartItem item);
+        Task SaveChangesAsync();
     }
 }

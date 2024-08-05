@@ -1,0 +1,122 @@
+﻿@model Payment
+
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		.container {
+			padding: 70px;
+			max-width: 600px;
+			margin: auto;
+		}
+
+		.body {
+			background: #f1f2f7;
+		}
+
+		.card {
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+			border-radius: 10px;
+			background-color: #fff;
+			padding: 20px;
+			margin: 20px 0;
+		}
+
+			.card h2 {
+				margin-bottom: 20px;
+				color: #001f3f;
+				font-size: 24px;
+			}
+
+		.form-group {
+			margin-bottom: 15px;
+		}
+
+			.form-group label {
+				display: block;
+				margin-bottom: 5px;
+				color: #001f3f;
+				font-weight: bold;
+			}
+
+			.form-group input,
+			.form-group select {
+				width: 80%;
+				padding: 10px;
+				border: 1px solid #ddd;
+				border-radius: 5px;
+			}
+
+				.form-group input:focus,
+				.form-group select:focus {
+					border-color: #001f3f;
+					outline: none;
+				}
+
+			.form-group .text-danger {
+				color: #ff0000;
+				font-size: 0.875em;
+			}
+
+		.flex-container {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.flex-item {
+			flex: 1;
+			margin-right: 10px;
+		}
+
+			.flex-item:last-child {
+				margin-right: 0;
+			}
+
+		.btn-submit {
+			background-color: #001f3f;
+			color: #fff;
+			border: none;
+			padding: 10px 20px;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 16px;
+		}
+
+			.btn-submit:hover {
+				background-color: #4580b5;
+			}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="card">
+			<h2>Payment Details</h2>
+			<form method="post" asp-action="SaveCategory" asp-controller="Category">
+				<div class="form-group">
+					<label asp-for="Name"><strong>Name</strong></label>
+					<input asp-for="Name" class="form-control" placeholder="Name on the card" />
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="CardNumber"><strong>Card Number</strong></label>
+					<input asp-for="CardNumber" class="form-control" placeholder="0000 0000 0000 0000" />
+					<span asp-validation-for="CardNumber" class="text-danger"></span>
+				</div>
+				<div class="flex-container">
+					<div class="form-group flex-item">
+						<label asp-for="ExpiryDate"><strong>Expiration Date</strong></label>
+						<input asp-for="ExpiryDate" class="form-control" placeholder="MM/YY" />
+						<span asp-validation-for="ExpiryDate" class="text-danger"></span>
+					</div>
+					<div class="form-group flex-item">
+						<label asp-for="CVV"><strong>CVV</strong></label>
+						<input asp-for="CVV" class="form-control" placeholder="XXX" />
+						<span asp-validation-for="CVV" class="text-danger"></span>
+					</div>
+				</div>
+				<button type="submit" class="btn-submit">Submit</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

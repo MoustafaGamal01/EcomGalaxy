@@ -12,7 +12,7 @@ namespace EcomGalaxy.Repositories
 
         public async Task<bool?> AddPaymentAsync(Payment Payment)
         {
-            _context.payments.Add(Payment);
+            _context.Payments.Add(Payment);
             return await _context.SaveChangesAsync() > 0;
         }
 
@@ -23,18 +23,18 @@ namespace EcomGalaxy.Repositories
             {
                 throw new InvalidOperationException($"Payment with ID {PayId} not found.");
             }
-            _context.payments.Remove(existPayment);
+            _context.Payments.Remove(existPayment);
             return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<IEnumerable<Payment>> GetAllPaymentsAsync()
         {
-            return await _context.payments.ToListAsync();
+            return await _context.Payments.ToListAsync();
         }
 
         public Task<Payment> GetPaymentByIdAsync(int PayId)
         {
-            return _context.payments.FirstOrDefaultAsync(p => p.Id == PayId);
+            return _context.Payments.FirstOrDefaultAsync(p => p.Id == PayId);
         }
 
         public async Task<bool?> UpdatePaymentAsync(int PayId, Payment Payment)

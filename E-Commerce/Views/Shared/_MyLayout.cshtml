@@ -1,5 +1,5 @@
 ﻿@inject UserManager<ApplicationUser> UserManager
-
+@inject IShoppingCartService _shoppingCartService
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -224,7 +224,7 @@
                         else
                         {
                             <li class="Home-page"><a href="/Home/Index/">Home</a></li>
-                            <li class="About-us"><a href="#">About</a></li>
+                            @* <li class="About-us"><a href="#">About</a></li> *@
                             <li class="ShopPrd"><a href="/Product/Index/">Shop</a></li>
                             <li class="contact-info"><a href="#contact-info">Contact</a></li>
                         }
@@ -235,7 +235,7 @@
             <div class="cart">
                 @if (User.Identity.IsAuthenticated == true)
                 {
-                    <a href="/Account/Profile">Welcome @UserManager.GetUserAsync(User).Result.Name </a>
+                    <a href="/Account/Profile">Hello @UserManager.GetUserAsync(User).Result.Name </a>
                     <a href="/Account/Logout">Logout</a>
                 }
                 else
@@ -246,9 +246,9 @@
                 @if (User.Identity.IsAuthenticated == true)
                 {
                     if (User.IsInRole("Customer") == true){
-                    <a href="/cart">
+                    <a href="/ShoppingCart/ViewCart">
                         <img src="/images/cart.png" alt="Cart">
-                        <span class="cart-count">2</span>
+                            <span class="cart-count">  @_shoppingCartService.GetOrCreateShoppingCartAsync(@UserManager.GetUserId(User)).Result.ShoppingCartItems.Count @* //////// *@</span>
                     </a>
                     }
                 }

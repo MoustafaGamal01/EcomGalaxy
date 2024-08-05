@@ -7,6 +7,5 @@
         public string productDescription { get; set; }
     
         public double productPrice { get; set; }
-
     }
 }

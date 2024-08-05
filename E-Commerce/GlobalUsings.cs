@@ -26,3 +26,15 @@ global using EcomGalaxy.Models;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc;
 global using System.Diagnostics;
+global using System.Security.Claims;
+global using System.Linq;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using EcomGalaxy.Services;
+global using Microsoft.IdentityModel.Tokens;
+global using System.Text;
+global using System.Configuration;
+
+
+
+
+

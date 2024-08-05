@@ -41,8 +41,9 @@ namespace EcomGalaxy.Repositories
         public async Task<IEnumerable<Order>> GetOrdersByUserIdAsync(string userId)
         {
             return await _context.Orders
-                .Include(o => o.ApplicationUser)
-                .Where(o => o.ApplicationUserId == userId)
+                .Include(o => o.Customer)
+                .Include(o => o.Seller)
+                .Where(o => (o.CustomerId == userId) || (o.SellerId == userId))
                 .ToListAsync();
         }
 

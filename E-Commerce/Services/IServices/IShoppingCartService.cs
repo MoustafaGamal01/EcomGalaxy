@@ -2,11 +2,9 @@
 {
     public interface IShoppingCartService
     {
-        Task<bool?> AddShoppingCartAsync(ShoppingCart shoppingCart);
-        Task<bool?> UpdateShoppingCartAsync(int ShoppingCartId, ShoppingCart shoppingCart);
-        Task<bool?> DeleteShoppingCartAsync(int shoppingCartId);
-        Task<ShoppingCart> GetShoppingCartByIdAsync(int shoppingCartId);
-        Task<IEnumerable<ShoppingCart>> GetAllShoppingCartsAsync();
-        Task<ShoppingCart> GetShoppingCartByUserIdAsync(string userId);
+        Task<ShoppingCart> GetOrCreateShoppingCartAsync(string userId);
+        Task AddToCartAsync(string userId, int productId/*, int quantity*/);
+        Task RemoveFromCartAsync(int cartItemId, int cartId);
+        Task UpdateCartItemQuantityAsync(int cartItemId, int cartId, int quantity);
     }
 }

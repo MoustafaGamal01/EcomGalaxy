@@ -2,41 +2,66 @@
 {
     public class ShoppingCartService : IShoppingCartService
     {
-        private readonly IShoppingCartRepository _shoppingCartRepository;
+        private readonly IShoppingCartRepository _cartRepository;
 
-        public ShoppingCartService(IShoppingCartRepository shoppingCartRepository)
+        public ShoppingCartService(IShoppingCartRepository cartRepository)
         {
-            this._shoppingCartRepository = shoppingCartRepository;
+            _cartRepository = cartRepository;
         }
 
-        public async Task<bool?> AddShoppingCartAsync(ShoppingCart shoppingCart)
+        public async Task<ShoppingCart> GetOrCreateShoppingCartAsync(string userId)
         {
-            return await _shoppingCartRepository.AddShoppingCart(shoppingCart);
+            var cart = await _cartRepository.GetShoppingCartByUserIdAsync(userId);
+            if (cart == null)
+            {
+                cart = new ShoppingCart { ApplicationUserId = userId };
+                await _cartRepository.AddShoppingCartAsync(cart);
+                await _cartRepository.SaveChangesAsync();
+            }
+            return cart;
         }
 
-        public async Task<bool?> DeleteShoppingCartAsync(int shoppingCartId)
+        public async Task AddToCartAsync(string userId, int productId)
         {
-            return await _shoppingCartRepository.DeleteShoppingCart(shoppingCartId);
+            var cart = await GetOrCreateShoppingCartAsync(userId);
+            var cartItem = await _cartRepository.GetShoppingCartItemAsync(cart.Id, productId);
+
+            if (cartItem == null)
+            {
+                cartItem = new ShoppingCartItem
+                {
+                    ShoppingCartId = cart.Id,
+                    ProductId = productId,
+                    Quantity = 1
+                };
+                await _cartRepository.AddShoppingCartItemAsync(cartItem);
+            }
+            else
+            {
+                cartItem.Quantity += 1;
+            }
+
+            await _cartRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ShoppingCart>> GetAllShoppingCartsAsync()
+        public async Task RemoveFromCartAsync(int productId, int cartId)
         {
-            return await _shoppingCartRepository.GetAllShoppingCarts();
+            var cartItem = await _cartRepository.GetShoppingCartItemAsync(cartId, productId); 
+            if (cartItem != null)
+            {
+                await _cartRepository.RemoveShoppingCartItemAsync(cartItem);
+                await _cartRepository.SaveChangesAsync();
+            }
         }
 
-        public async Task<ShoppingCart> GetShoppingCartByIdAsync(int shoppingCartId)
+        public async Task UpdateCartItemQuantityAsync(int producId, int cartId, int quantity)
         {
-            return await _shoppingCartRepository.GetShoppingCartById(shoppingCartId);
-        }
-
-        public async Task<ShoppingCart> GetShoppingCartByUserIdAsync(string userId)
-        {
-            return await _shoppingCartRepository.GetShoppingCartByUserId(userId);
-        }
-
-        public async Task<bool?> UpdateShoppingCartAsync(int ShopCartId, ShoppingCart shoppingCart)
-        {
-            return await _shoppingCartRepository.UpdateShoppingCart(ShopCartId, shoppingCart);
+            var cartItem = await _cartRepository.GetShoppingCartItemAsync(cartId, producId); 
+            if (cartItem != null)
+            {
+                cartItem.Quantity = quantity;
+                await _cartRepository.SaveChangesAsync();
+            }
         }
     }
 }

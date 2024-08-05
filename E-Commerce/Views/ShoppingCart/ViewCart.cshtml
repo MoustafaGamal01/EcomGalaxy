@@ -1,4 +1,4 @@
-﻿
+﻿@model EcomGalaxy.Models.ShoppingCart
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +24,7 @@
         }
 
         .header {
+            font-weight: bold;
             background-color: darkorange;
             color: white;
             padding: 20px;
@@ -52,9 +53,10 @@
         }
 
             .item-image img {
-                width: 100px;
-                height: 100px;
+                width: 150px;
+                height: 150px;
                 border-radius: 10px;
+                margin-left: 40px;
             }
 
         .item-details {
@@ -64,11 +66,18 @@
 
         .item-name {
             font-size: 18px;
+            font-weight: bold;
             margin-bottom: 10px;
         }
 
+        .item-descr {
+            color: gray;
+            font-weight: 400;
+        }
+
         .item-price {
-            color: #f7a440;
+            font-weight: bold;
+            color: darkorange;
             font-size: 16px;
         }
 
@@ -92,6 +101,10 @@
             text-align: right;
         }
 
+            .remove-item form {
+                display: inline;
+            }
+
             .remove-item button {
                 background-color: #ff4d4d;
                 border: none;
@@ -104,6 +117,26 @@
 
                 .remove-item button:hover {
                     background-color: #e60000;
+                }
+
+        .update-item {
+            flex: 1;
+            text-align: right;
+            margin-left: 10px;
+        }
+
+            .update-item button {
+                background-color: #4CAF50;
+                border: none;
+                padding: 10px 20px;
+                color: white;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+
+                .update-item button:hover {
+                    background-color: #45a049;
                 }
 
         .cart-summary {
@@ -131,67 +164,95 @@
                 .cart-summary button:hover {
                     background-color: #e68a00;
                 }
+
+        .notification {
+            display: none;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #4caf50; 
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+
+            .notification.fade-out {
+                opacity: 0;
+            }
     </style>
 </head>
 <body>
+    <div id="notification" class="notification">Item added to cart</div>
+
     <div class="container">
         <div class="header">My Shopping Cart</div>
         <div class="cart-items">
-            <div class="cart-item">
-                <div class="item-image">
-                    <img src="https://via.placeholder.com/100" alt="Product Image">
+            @foreach (var item in Model.ShoppingCartItems)
+            {
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="/images/@item.Product.ProductImagePath[0]" alt="Product Image">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">@item.Product.Name</div>
+                        <div class="item-descr">@item.Product.Description</div>
+                        <br />
+                        <div class="item-price">@item.Product.Price EGP</div>
+                    </div>
+                    <div class="item-quantity">
+                        <form asp-action="UpdateQuantity" asp-controller="ShoppingCart" method="post">
+                            <input type="hidden" name="cartId" value="@Model.Id" />
+                            <input type="hidden" name="productId" value="@item.Product.Id" />
+                            <input type="number" name="quantity" value="@item.Quantity" min="1" max="@item.Product.StockQuantity" />
+                            <button type="submit" class="update-item-button">Update Qtty</button>
+                        </form>
+                    </div>
+                    <div class="remove-item">
+                        <form asp-action="RemoveFromCart" asp-controller="ShoppingCart" method="post">
+                            <input type="hidden" name="productId" value="@item.Product.Id" />
+                            <input type="hidden" name="cartId" value="@Model.Id" />
+                            <button type="submit">Remove</button>
+                        </form>
+                    </div>
                 </div>
-                <div class="item-details">
-                    <div class="item-name">Product Name</div>
-                    <div class="item-price">$10.00</div>
-                </div>
-                <div class="item-quantity">
-                    <button onclick="decreaseQuantity(this)">-</button>
-                    <input type="text" value="1" readonly>
-                    <button onclick="increaseQuantity(this)">+</button>
-                </div>
-                <div class="remove-item">
-                    <button onclick="removeItem(this)">Remove</button>
-                </div>
-            </div>
-
+            }
         </div>
         <div class="cart-summary">
-            <div class="total-price">Total: $30.00</div>
-            <button>Proceed to Checkout</button>
+            <div class="total-price">Total Price: @Model.ShoppingCartItems.Sum(i => i.Product.Price * i.Quantity) EGP</div>
+            <form asp-action="Checkoutform" asp-controller="ShoppingCart" method="get">
+                <button type="submit">Proceed to Checkout</button>
+            </form>
         </div>
     </div>
 
     <script>
-        function increaseQuantity(button) {
-            var input = button.previousElementSibling;
-            input.value = parseInt(input.value) + 1;
-            updateTotal();
+
+        function showNotification(message) {
+            var notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+
+            setTimeout(function () {
+                notification.classList.add('fade-out');
+                setTimeout(function () {
+                    notification.style.display = 'none';
+                    notification.classList.remove('fade-out');
+                }, 500); 
+            }, 5000); 
         }
 
-        function decreaseQuantity(button) {
-            var input = button.nextElementSibling;
-            if (parseInt(input.value) > 1) {
-                input.value = parseInt(input.value) - 1;
-                updateTotal();
-            }
+        document.addEventListener('DOMContentLoaded', function () {
+        @if (TempData["Notification"] != null)
+        {
+            <text>
+                    showNotification('@TempData["Notification"]');
+            </text>
         }
-
-        function removeItem(button) {
-            var item = button.parentElement.parentElement;
-            item.remove();
-            updateTotal();
-        }
-
-        function updateTotal() {
-            var total = 0;
-            document.querySelectorAll('.cart-item').forEach(function (item) {
-                var price = parseFloat(item.querySelector('.item-price').textContent.replace('$', ''));
-                var quantity = parseInt(item.querySelector('input').value);
-                total += price * quantity;
-            });
-            document.querySelector('.total-price').textContent = 'Total: $' + total.toFixed(2);
-        }
+        });
     </script>
 </body>
 </html>

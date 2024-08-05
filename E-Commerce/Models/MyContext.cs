@@ -15,9 +15,9 @@ namespace EcomGalaxy.Models
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<Payment> payments { get; set; }
-        //public DbSet<Image> Images { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
 
 

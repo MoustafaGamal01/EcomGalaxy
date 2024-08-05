@@ -9,52 +9,41 @@ namespace EcomGalaxy.Repositories
 
         public ShoppingCartRepository(MyContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
-        public async Task<bool?> AddShoppingCart(ShoppingCart shoppingCart)
+        public async Task<ShoppingCart> GetShoppingCartByUserIdAsync(string userId)
         {
-            _context.ShoppingCarts.Add(shoppingCart);
-            return await _context.SaveChangesAsync() > 0;
+            return await _context.ShoppingCarts
+                .Include(c => c.ShoppingCartItems)
+                .ThenInclude(i => i.Product)
+                .FirstOrDefaultAsync(c => c.ApplicationUserId == userId);
         }
 
-        public async Task<bool?> DeleteShoppingCart(int shoppingCartId)
+        public async Task AddShoppingCartAsync(ShoppingCart cart)
         {
-            var existingShopCart = await GetShoppingCartById(shoppingCartId);
-            if (existingShopCart == null)
-            {
-                throw new InvalidOperationException($"ShoppingCart with ID {shoppingCartId} not found.");
-            }
-            _context.ShoppingCarts.Remove(existingShopCart);
-            return await _context.SaveChangesAsync() > 0;
+            await _context.ShoppingCarts.AddAsync(cart);
         }
 
-        public async Task<IEnumerable<ShoppingCart>> GetAllShoppingCarts()
+        public async Task AddShoppingCartItemAsync(ShoppingCartItem item)
         {
-            return await _context.ShoppingCarts.ToListAsync();
+            await _context.ShoppingCartItems.AddAsync(item);
         }
 
-        public async Task<ShoppingCart> GetShoppingCartById(int shoppingCartId)
+        public async Task<ShoppingCartItem> GetShoppingCartItemAsync(int cartId, int productId)
         {
-            return await _context.ShoppingCarts.FirstOrDefaultAsync(s=>s.Id == shoppingCartId);  
+            return await _context.ShoppingCartItems
+                .FirstOrDefaultAsync(i => i.ShoppingCartId == cartId && i.ProductId == productId);
         }
 
-        public Task<ShoppingCart> GetShoppingCartByUserId(string userId)
+        public async Task RemoveShoppingCartItemAsync(ShoppingCartItem item)
         {
-            return _context.ShoppingCarts
-                .Include(s => s.ApplicationUser)
-                .FirstOrDefaultAsync(s => s.ApplicationUserId == userId);
+            _context.ShoppingCartItems.Remove(item);
         }
 
-        public async Task<bool?> UpdateShoppingCart(int ShopCartId, ShoppingCart shoppingCart)
+        public async Task SaveChangesAsync()
         {
-            var existingShopCart = await GetShoppingCartById(ShopCartId);
-            if (existingShopCart == null)
-            {
-                throw new InvalidOperationException($"ShoppingCart with ID {ShopCartId} not found.");
-            }
-            _context.Entry(existingShopCart).CurrentValues.SetValues(shoppingCart);
-            return await _context.SaveChangesAsync() > 0;   
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -1,5 +1,4 @@
-using EcomGalaxy.Services;
-using System.Configuration;
+
 
 namespace EcomGalaxy
 {
@@ -21,7 +20,7 @@ namespace EcomGalaxy
                 .AddDefaultTokenProviders();
 
             builder.Services.Configure<DataProtectionTokenProviderOptions>(option =>
-                option.TokenLifespan = TimeSpan.FromHours(2));
+                option.TokenLifespan = TimeSpan.FromHours(2));           
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductService, ProductService>();

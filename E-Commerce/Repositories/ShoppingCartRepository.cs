@@ -1,7 +1,4 @@
-﻿
-using EcomGalaxy.Models;
-
-namespace EcomGalaxy.Repositories
+﻿namespace EcomGalaxy.Repositories
 {
     public class ShoppingCartRepository : IShoppingCartRepository
     {
@@ -44,6 +41,19 @@ namespace EcomGalaxy.Repositories
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
+        }
+
+        public async Task ClearCartAsync(int cartId)
+        {
+            var cart = await _context.ShoppingCarts
+                .Include(c => c.ShoppingCartItems)
+                .FirstOrDefaultAsync(c => c.Id == cartId);
+
+            if (cart != null)
+            {
+                _context.ShoppingCartItems.RemoveRange(cart.ShoppingCartItems);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

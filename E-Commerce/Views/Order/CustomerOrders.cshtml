@@ -1,0 +1,152 @@
+﻿@model List<OrdersMainViewModel>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <style>
+        .orders-container {
+            width: 100%;
+            max-width: 700px;
+            padding-top: 10px;
+            padding-bottom: 30px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .order-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+
+            .order-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+            .order-header h2 {
+                margin: 0;
+                color: #333;
+            }
+
+        .order-date {
+            color: #777;
+            font-size: 0.9em;
+        }
+
+        .order-body p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+            .order-body p strong {
+                color: #000;
+                font-weight: bold;
+            }
+
+        .order-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .details-button {
+            background-color: #ff6f00;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.2s;
+        }
+
+            .details-button:hover {
+                background-color: #e65c00;
+            }
+
+        .cancel-button {
+            background-color: red;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.2s;
+        }
+
+            .cancel-button:hover {
+                background-color: darkred;
+            }
+
+        .orders-header {
+            text-align: center;
+            margin-top: 70px;
+        }
+
+            .orders-header h1 {
+                font-size: 2.5em;
+                color: #333;
+                margin: 0;
+            }
+    </style>
+    <script>
+        function confirmCancellation() {
+            return confirm('Are you sure you want to cancel this order?');
+        }
+    </script>
+</head>
+<body>
+    <div class="orders-header">
+        <h1>My Orders</h1>
+    </div>
+    <div class="orders-container">
+        @foreach (var order in Model)
+        {
+            <div class="order-card">
+                <div class="order-header">
+                    <h2>Order #@order.OrderId</h2>
+                    <p class="order-date">Shipped on: @order.OrderDate</p>
+                </div>
+                <div class="order-body">
+                    <p><strong>Order Status: @order.OrderStatus</strong></p>
+                    <p><strong>Payment Status: @order.PaymentStatus</strong></p>
+                    @if (@order.ProductsCount == 1){
+						<p><strong>Order Description: Order has @order.ProductsCount Item</strong></p>
+					}
+					else {
+                    <p><strong>Order Description: Order has @order.ProductsCount Items</strong></p>
+                    }
+                    <p><strong>Total: </strong> @order.TotalAmount</p>
+                </div>
+                <div class="order-footer">
+                    <form asp-action="OrderDetails" asp-controller="Order" method="get" style="margin: 0;">
+                        <button class="details-button" type="submit">Order Details</button>
+                        <input type="hidden" name="orderId" value="@order.OrderId" />
+                    </form>
+                    <form asp-action="CancelOrder" asp-controller="Order" method="post" onsubmit="return confirmCancellation();" style="margin: 0;">
+                        <button class="cancel-button" type="submit">Cancel Order</button>
+                        <input type="hidden" name="orderId" value="@order.OrderId" />
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-﻿@model Payment
+﻿@model OrderCheckOutViewModel
 
 <!DOCTYPE html>
 <html>
@@ -91,7 +91,7 @@
 	<div class="container">
 		<div class="card">
 			<h2>Payment Details</h2>
-			<form method="post" asp-action="SaveCategory" asp-controller="Category">
+			<form method="post" asp-action="Checkout" asp-controller="ShoppingCart">
 				<div class="form-group">
 					<label asp-for="Name"><strong>Name</strong></label>
 					<input asp-for="Name" class="form-control" placeholder="Name on the card" />

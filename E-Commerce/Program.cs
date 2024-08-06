@@ -25,7 +25,7 @@ namespace EcomGalaxy
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-            builder.Services.AddScoped<ICategoryService,CategoryService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
             builder.Services.AddScoped<IReviewService,ReviewService>();
             builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
@@ -36,7 +36,8 @@ namespace EcomGalaxy
             builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
-            
+            builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
+            builder.Services.AddScoped<IOrderItemsService, OrderItemsService>();
 
             var emailConfig = builder.Configuration
                 .GetSection("EmailSettings")

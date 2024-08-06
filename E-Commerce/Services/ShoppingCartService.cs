@@ -3,10 +3,20 @@
     public class ShoppingCartService : IShoppingCartService
     {
         private readonly IShoppingCartRepository _cartRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly IPaymentRepository _paymentRepository;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderItemsRepository _orderItemsRepository;
 
-        public ShoppingCartService(IShoppingCartRepository cartRepository)
+        public ShoppingCartService(IShoppingCartRepository cartRepository,
+            IProductRepository productRepository, IPaymentRepository paymentRepository,
+            IOrderRepository orderRepository, IOrderItemsRepository orderItemsRepository)
         {
             _cartRepository = cartRepository;
+            _productRepository = productRepository;
+            _paymentRepository = paymentRepository;
+            _orderRepository = orderRepository;
+            _orderItemsRepository = orderItemsRepository;
         }
 
         public async Task<ShoppingCart> GetOrCreateShoppingCartAsync(string userId)
@@ -63,5 +73,102 @@
                 await _cartRepository.SaveChangesAsync();
             }
         }
+
+        public async Task ClearShoppingCart(string userId)
+        {
+            var cart = await _cartRepository.GetShoppingCartByUserIdAsync(userId);
+            if(cart != null)
+            {
+                await _cartRepository.ClearCartAsync(cart.Id);
+                await _cartRepository.SaveChangesAsync();
+            }
+        }
+
+        public async Task Checkout(string userId, OrderCheckOutViewModel orderVM)
+        {
+            var payment = new Payment
+            {
+                Name = orderVM.Name,
+                CardNumber = orderVM.CardNumber,
+                CVV = orderVM.CVV,
+                ExpiryDate = orderVM.ExpiryDate,
+                CustomerId = userId, 
+                PaymentDate = DateTime.Now,
+                Status = PaymentStatus.Paid
+            };
+
+            // if payment was succ. created
+            if (payment == null)
+            {
+                throw new Exception("Payment could not be processed.");
+            }
+
+            // find the cart
+            var cart = await GetOrCreateShoppingCartAsync(userId);
+            if (cart == null || !cart.ShoppingCartItems.Any())
+            {
+                throw new Exception("Shopping cart is empty.");
+            }
+
+            // Create order
+            var order = new Order
+            {
+                CustomerId = userId, 
+                Date = DateTime.Now,
+                Status = OrderStatus.Shipped,
+                ShoppingCartId = cart.Id
+            };
+
+            order.TotalPrice = cart.ShoppingCartItems.Sum(i=>i.Product.Price * i.Quantity);
+
+            payment.Amount = order.TotalPrice;
+            
+            await _paymentRepository.AddPaymentAsync(payment);
+            
+            order.PaymentId = payment.Id;
+            
+            order.Payment = payment;
+            
+            await _orderRepository.AddOrderAsync(order);
+            
+            await _cartRepository.SaveChangesAsync();
+
+            // add orderItems & update Qtty of prds
+            foreach (var cartItem in cart.ShoppingCartItems)
+            {
+                var product = await _productRepository.GetProductByIdAsync(cartItem.ProductId);
+                if (product == null)
+                {
+                    throw new Exception("Product not found.");
+                }
+
+                // Update product stock
+                if (product.StockQuantity < cartItem.Quantity)
+                {
+                    throw new Exception($"Not enough stock for product {product.Name}.");
+                }
+                product.StockQuantity -= cartItem.Quantity;
+                await _productRepository.UpdateProductAsync(product.Id, product);
+
+                // Create order item
+                var orderItem = new OrderItem
+                {
+                    OrderId = order.Id,
+                    ProductId = cartItem.ProductId,
+                    Quantity = cartItem.Quantity,
+                    Price = product.Price * cartItem.Quantity,
+                    SellerId = product.ApplicationUserId
+                };
+
+                await _orderItemsRepository.AddOrderItemAsync(orderItem);
+                order.OrderItems.Add(orderItem);
+            }
+            await _orderRepository.UpdateOrderAsync(order.Id, order);
+
+            await _cartRepository.SaveChangesAsync(); 
+
+            await _cartRepository.ClearCartAsync(cart.Id);
+        }
+
     }
 }

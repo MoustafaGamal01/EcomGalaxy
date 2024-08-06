@@ -42,8 +42,7 @@ namespace EcomGalaxy.Repositories
         {
             return await _context.Orders
                 .Include(o => o.Customer)
-                .Include(o => o.Seller)
-                .Where(o => (o.CustomerId == userId) || (o.SellerId == userId))
+                .Where(o => (o.CustomerId == userId))
                 .ToListAsync();
         }
 

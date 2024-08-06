@@ -132,7 +132,7 @@ namespace EcomGalaxy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("EcomGalaxy.Models.Order", b =>
@@ -144,18 +144,13 @@ namespace EcomGalaxy.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CustomerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PaymentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SellerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("ShoppingCartId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -170,11 +165,41 @@ namespace EcomGalaxy.Migrations
 
                     b.HasIndex("PaymentId");
 
+                    b.ToTable("Orders", (string)null);
+                });
+
+            modelBuilder.Entity("EcomGalaxy.Models.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SellerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
                     b.HasIndex("SellerId");
 
-                    b.HasIndex("ShoppingCartId");
-
-                    b.ToTable("Orders");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("EcomGalaxy.Models.Payment", b =>
@@ -188,10 +213,6 @@ namespace EcomGalaxy.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("CVV")
                         .IsRequired()
                         .HasMaxLength(3)
@@ -200,6 +221,10 @@ namespace EcomGalaxy.Migrations
                     b.Property<string>("CardNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ExpiryDate")
                         .IsRequired()
@@ -211,11 +236,17 @@ namespace EcomGalaxy.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("CustomerId");
 
-                    b.ToTable("payments");
+                    b.ToTable("Payments", (string)null);
                 });
 
             modelBuilder.Entity("EcomGalaxy.Models.Product", b =>
@@ -262,7 +293,7 @@ namespace EcomGalaxy.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("EcomGalaxy.Models.Review", b =>
@@ -295,7 +326,7 @@ namespace EcomGalaxy.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("EcomGalaxy.Models.ShoppingCart", b =>
@@ -314,7 +345,7 @@ namespace EcomGalaxy.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("ShoppingCarts");
+                    b.ToTable("ShoppingCarts", (string)null);
                 });
 
             modelBuilder.Entity("EcomGalaxy.Models.ShoppingCartItem", b =>
@@ -340,7 +371,7 @@ namespace EcomGalaxy.Migrations
 
                     b.HasIndex("ShoppingCartId");
 
-                    b.ToTable("ShoppingCartItems");
+                    b.ToTable("ShoppingCartItems", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -480,7 +511,9 @@ namespace EcomGalaxy.Migrations
                 {
                     b.HasOne("EcomGalaxy.Models.ApplicationUser", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("EcomGalaxy.Models.Payment", "Payment")
                         .WithMany()
@@ -488,34 +521,45 @@ namespace EcomGalaxy.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Customer");
+
+                    b.Navigation("Payment");
+                });
+
+            modelBuilder.Entity("EcomGalaxy.Models.OrderItem", b =>
+                {
+                    b.HasOne("EcomGalaxy.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EcomGalaxy.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EcomGalaxy.Models.ApplicationUser", "Seller")
                         .WithMany()
                         .HasForeignKey("SellerId");
 
-                    b.HasOne("EcomGalaxy.Models.ShoppingCart", "ShoppingCart")
-                        .WithMany()
-                        .HasForeignKey("ShoppingCartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Order");
 
-                    b.Navigation("Customer");
-
-                    b.Navigation("Payment");
+                    b.Navigation("Product");
 
                     b.Navigation("Seller");
-
-                    b.Navigation("ShoppingCart");
                 });
 
             modelBuilder.Entity("EcomGalaxy.Models.Payment", b =>
                 {
-                    b.HasOne("EcomGalaxy.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("EcomGalaxy.Models.ApplicationUser", "Customer")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationUser");
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("EcomGalaxy.Models.Product", b =>
@@ -631,6 +675,11 @@ namespace EcomGalaxy.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EcomGalaxy.Models.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("EcomGalaxy.Models.Product", b =>

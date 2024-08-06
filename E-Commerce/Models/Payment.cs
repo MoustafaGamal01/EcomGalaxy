@@ -4,6 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EcomGalaxy.Models
 {
+    public enum PaymentStatus
+    {
+        Paid,
+        WhenHanded,
+        Declined
+    }
     public class Payment
     {
         public int Id { get; set; }
@@ -27,10 +33,15 @@ namespace EcomGalaxy.Models
         [MaxLength(5, ErrorMessage = "Expiry Date cannot be longer than 5 characters.")]
         public string ExpiryDate { get; set; }
 
+        public PaymentStatus Status { get; set; }  
+
+        public DateTime PaymentDate { get; set; } 
+        
         // Navigational Props
         [ValidateNever]
-        [ForeignKey("ApplicationUser")]
-        public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        [ForeignKey("Customer")]
+        public string CustomerId { get; set; }
+        public ApplicationUser Customer { get; set; }
+
     }
 }

@@ -17,8 +17,9 @@ namespace EcomGalaxy.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -62,8 +63,8 @@ namespace EcomGalaxy.Models
             //    .Property(s => s.TotalPrice)
             //    .HasColumnType("decimal(18,2)");
 
-            // ApplicationUser
 
+            // ApplicationUser
             modelBuilder.Entity<ApplicationUser>()
                 .Property(u => u.Name)
                 .IsUnicode(true);

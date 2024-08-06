@@ -1,0 +1,239 @@
+﻿@model IEnumerable<OrderItemViewModel>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Gotham, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f1f2f7;
+        }
+
+        .container {
+            width: 80%;
+            margin: 80px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .header {
+            font-weight: bold;
+            background-color: darkorange;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .cart-items {
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+            .cart-item:last-child {
+                border-bottom: none;
+            }
+
+        .item-image {
+            flex: 1;
+        }
+
+            .item-image img {
+                width: 150px;
+                height: 150px;
+                border-radius: 10px;
+                margin-left: 40px;
+            }
+
+        .item-details {
+            flex: 3;
+            padding: 0 20px;
+        }
+
+        .item-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .item-descr {
+            color: gray;
+            font-weight: 400;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: darkorange;
+            font-size: 16px;
+        }
+
+        .item-quantity {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+            .item-quantity input {
+                width: 40px;
+                text-align: center;
+                margin: 0 10px;
+                padding: 5px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+
+        .remove-item {
+            flex: 1;
+            text-align: right;
+        }
+
+            .remove-item form {
+                display: inline;
+            }
+
+            .remove-item button {
+                background-color: #ff4d4d;
+                border: none;
+                padding: 10px 20px;
+                color: white;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+
+                .remove-item button:hover {
+                    background-color: #e60000;
+                }
+
+        .update-item {
+            flex: 1;
+            text-align: right;
+            margin-left: 10px;
+        }
+
+            .update-item button {
+                background-color: #4CAF50;
+                border: none;
+                padding: 10px 20px;
+                color: white;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+
+                .update-item button:hover {
+                    background-color: #45a049;
+                }
+
+        .cart-summary {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            text-align: right;
+        }
+
+            .cart-summary .total-price {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .cart-summary button {
+                background-color: #f7a440;
+                border: none;
+                padding: 15px 30px;
+                color: white;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: 18px;
+                transition: background-color 0.3s ease;
+            }
+
+                .cart-summary button:hover {
+                    background-color: #e68a00;
+                }
+
+        .notification {
+            display: none;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #4caf50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+
+            .notification.fade-out {
+                opacity: 0;
+            }
+    </style>
+</head>
+<body>
+    <div id="notification" class="notification">Item added to cart</div>
+
+    <div class="container">
+        <div class="header">Order #@ViewBag.OrderId</div>
+        <div class="cart-items">
+            @foreach (var item in Model)
+            {
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="/images/@item.ProductImage" alt="Product Image">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">@item.ProductName</div>
+                        <div class="item-descr">@item.ProductDescription</div>
+                        <br />
+                        <div class="item-name">Quantity: @item.Quantity</div>
+                        <br />
+                        <div class="item-price">Total: @item.TotalPrice EGP</div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script>
+
+        function showNotification(message) {
+            var notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+
+            setTimeout(function () {
+                notification.classList.add('fade-out');
+                setTimeout(function () {
+                    notification.style.display = 'none';
+                    notification.classList.remove('fade-out');
+                }, 500);
+            }, 5000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+        @if (TempData["Notification"] != null)
+        {
+            <text>
+                    showNotification('@TempData["Notification"]');
+            </text>
+        }
+                });
+    </script>
+</body>
+</html>

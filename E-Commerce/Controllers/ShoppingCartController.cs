@@ -55,5 +55,18 @@ namespace EcomGalaxy.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Checkout(OrderCheckOutViewModel orderVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+                await _shoppingCartService.Checkout(user, orderVM);
+            }
+            return RedirectToAction("CustomerOrders", "Order");
+        }
+
     }
 }

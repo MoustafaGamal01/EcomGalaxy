@@ -37,6 +37,12 @@ namespace EcomGalaxy.Repositories
             return _context.Payments.FirstOrDefaultAsync(p => p.Id == PayId);
         }
 
+        public async Task<Payment> GetPaymentByOrderId(int orderId)
+        {
+            return await _context.Payments
+                .FirstOrDefaultAsync(p => p.Id == orderId);
+        }
+
         public async Task<bool?> UpdatePaymentAsync(int PayId, Payment Payment)
         {
             var existPayment = await GetPaymentByIdAsync(PayId);

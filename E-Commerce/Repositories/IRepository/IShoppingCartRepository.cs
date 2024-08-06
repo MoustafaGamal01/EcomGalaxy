@@ -7,6 +7,7 @@
         Task AddShoppingCartItemAsync(ShoppingCartItem item);
         Task<ShoppingCartItem> GetShoppingCartItemAsync(int cartId, int productId);
         Task RemoveShoppingCartItemAsync(ShoppingCartItem item);
+        Task ClearCartAsync(int cartId);
         Task SaveChangesAsync();
     }
 }

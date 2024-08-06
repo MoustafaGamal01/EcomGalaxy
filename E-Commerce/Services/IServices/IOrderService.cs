@@ -13,5 +13,9 @@
         Task<Order> GetOrderByIdAsync(int orderId);
 
         Task<IEnumerable<Order>> GetOrdersByUserIdAsync(string userId);
+
+        Task<IEnumerable<OrderItemViewModel>> OrderDetails(int orderId);
+
+        Task<IEnumerable<OrdersMainViewModel>> CustomerOrders(string userId);
     }
 }

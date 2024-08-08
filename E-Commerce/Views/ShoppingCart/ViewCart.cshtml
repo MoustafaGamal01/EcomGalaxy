@@ -1,4 +1,4 @@
-﻿@model EcomGalaxy.Models.ShoppingCart
+﻿@model ShoppingCart
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +14,12 @@
             background: #f1f2f7;
         }
 
+        .empty-cart{
+            font-family:Gotham, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            margin-right:575px;
+        }
         .container {
             width: 80%;
             margin: 80px auto;
@@ -190,6 +196,10 @@
 
     <div class="container">
         <div class="header">My Shopping Cart</div>
+        @if (Model.ShoppingCartItems.Count == 0)
+        {
+            <h2 style="text-align: center;">Your cart is empty.</h2>
+        }
         <div class="cart-items">
             @foreach (var item in Model.ShoppingCartItems)
             {
@@ -221,12 +231,15 @@
                 </div>
             }
         </div>
-        <div class="cart-summary">
-            <div class="total-price">Total Price: @Model.ShoppingCartItems.Sum(i => i.Product.Price * i.Quantity) EGP</div>
+        @if (Model.ShoppingCartItems.Count != 0)
+        {
+            <div class="cart-summary">
+                <div class="total-price">Total Price: @Model.ShoppingCartItems.Sum(i => i.Product.Price * i.Quantity) EGP</div>
             <form asp-action="Checkoutform" asp-controller="ShoppingCart" method="get">
                 <button type="submit">Proceed to Checkout</button>
             </form>
-        </div>
+            </div>
+        }
     </div>
 
     <script>

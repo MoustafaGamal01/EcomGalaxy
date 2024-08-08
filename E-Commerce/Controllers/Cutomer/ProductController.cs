@@ -8,16 +8,18 @@ namespace EcomGalaxy.Controllers.Cutomer
 {
     public class ProductController : Controller
     {
-        private readonly MyContext context;
         private readonly IProductService _productService;
-        
         private readonly ICategoryService _categoryService;
+        private readonly IReviewService _reviewService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProductController(MyContext context, IProductService productService, ICategoryService categoryService)
+        public ProductController(MyContext context, IProductService productService,
+            ICategoryService categoryService, IReviewService reviewService, UserManager<ApplicationUser> userManager)
         {
-            this.context = context;
             _productService = productService;
             _categoryService = categoryService;
+            _reviewService = reviewService;
+            _userManager = userManager;
         }
         
         public async Task<IActionResult> Index()
@@ -50,10 +52,13 @@ namespace EcomGalaxy.Controllers.Cutomer
         }
 
         [HttpGet]
-        public async Task<IActionResult> ProductDetails(int id)
+        public async Task<IActionResult> ProductDetails(int Id)
         {
-            Product product = await _productService.GetProductByIdAsync(id);
-            return View(product);
+            var userId = _userManager.GetUserId(User);
+            
+            ProductDetailsFormViewModel productFormViewModel = await _productService.ProductDetails(Id, userId);
+
+            return View(productFormViewModel);
         }
 
         [HttpGet]
@@ -154,5 +159,6 @@ namespace EcomGalaxy.Controllers.Cutomer
 
             return View(prdVms);
         }
+
     }
 }

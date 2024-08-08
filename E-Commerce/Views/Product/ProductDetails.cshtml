@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model ProductDetailsFormViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,29 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Page</title>
     <style>
-        .product-view { *
-        {
+        .product-page * {
             box-sizing: border-box;
         }
 
-        .body {
+        .product-page body {
             background: #f1f2f7;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
         }
-        .card {
+
+        .product-page .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 50px;
+        }
+
+        .product-page .card {
             width: 750px;
-            height: 475px;
             background: white;
-            margin: 170px auto; /* Center the card horizontally with some margin from top */
+            margin: 20px;
             box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
             transition: all 0.3s;
-            position: relative; /* Needed for positioning arrows */
+            position: relative;
         }
 
-        .card:hover {
-            box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-        }
+            .product-page .card:hover {
+                box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            }
 
-        .photo {
+        .product-page .photo {
             padding: 70px;
             width: 45%;
             text-align: center;
@@ -36,23 +45,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative; /* Needed for positioning arrows */
+            position: relative;
         }
 
-        .photo img {
-            max-height: 260px;
-            width: auto; /* Ensure image scales correctly */
-            display: block; /* Ensures that margins are applied correctly */
-        }
+            .product-page .photo img {
+                max-height: 260px;
+                width: auto;
+                display: block;
+            }
 
-        .description {
+        .product-page .description {
             padding: 52px;
             float: left;
             width: 52%;
-            /* border-left: 1px solid #efefef; */
         }
 
-            .description h1 {
+            .product-page .description h1 {
                 color: #515151;
                 font-weight: 500;
                 padding-top: 15px;
@@ -60,22 +68,22 @@
                 font-size: 30px;
             }
 
-            .description h2 {
+            .product-page .description h2 {
                 color: #515151;
                 margin: 0;
                 text-transform: uppercase;
                 font-weight: 500;
             }
 
-            .description h4 {
+            .product-page .description h4 {
                 margin: 0;
                 color: #727272;
                 text-transform: uppercase;
                 font-weight: 500;
-                font-size: 12px;
+                font-size: 14px;
             }
 
-            .description p {
+            .product-page .description p {
                 font-size: 14px;
                 line-height: 20px;
                 color: #727272;
@@ -83,7 +91,7 @@
                 margin: 0;
             }
 
-            .description button {
+            .product-page .description button {
                 outline: 0;
                 border: 1px solid #d9d9d9;
                 padding: 18px 0px;
@@ -97,20 +105,19 @@
                 font-weight: 500;
                 cursor: pointer;
                 background: none;
-                /* make it a abit curvy*/
                 border-radius: 10px;
             }
 
-            .description button:hover {
-                border: 1px solid darkorange;
-                color: darkorange;
-            }
+                .product-page .description button:hover {
+                    border: 1px solid darkorange;
+                    color: darkorange;
+                }
 
-        .arrow {
+        .product-page .arrow {
             position: absolute;
             top: 50%;
             width: 25px;
-            height:25px;
+            height: 25px;
             background-color: rgba(0,0,0,0.5);
             color: white;
             border: none;
@@ -123,46 +130,132 @@
             transform: translateY(-50%);
         }
 
-        .arrow-left {
+        .product-page .arrow-left {
             left: 10px;
         }
 
-        .arrow-right {
+        .product-page .arrow-right {
             right: 10px;
         }
+
+        .product-page .comments-card {
+            width: 400px;
+            background: white;
+            margin: 20px;
+            box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+            transition: all 0.3s;
+            padding: 20px;
+            position: relative;
+        }
+
+            .product-page .comments-card:hover {
+                box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            }
+
+        .product-page .comments-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .product-page .comments-card h3 {
+            color: #515151;
+            font-weight: 500;
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .product-page .comments-card button {
+            outline: 0;
+            border: 1px solid #d9d9d9;
+            padding: 10px;
+            color: #515151;
+            text-transform: uppercase;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            cursor: pointer;
+            background: none;
+            border-radius: 10px;
+        }
+
+            .product-page .comments-card button:hover {
+                border: 1px solid darkorange;
+                color: darkorange;
+            }
+
+        .product-page .comment {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #efefef;
+        }
+
+            .product-page .comment h4 {
+                margin: 0;
+                color: #727272;
+                font-weight: 500;
+                font-size: 16px;
+            }
+
+            .product-page .comment p {
+                margin: 5px 0 0 0;
+                color: #515151;
+                font-size: 14px;
+            }
     </style>
 </head>
 <body>
-    <div class="product-view">
-        <div class="card">
-            <div class="photo">
-                <button class="arrow arrow-left" onclick="changeImage(-1)">&#9664;</button>
-                <img id="productImage" src="/images/@Model.ProductImagePath[0]" alt="Product Image">
-                <button class="arrow arrow-right" onclick="changeImage(1)">&#9654;</button>
+    <div class="product-page">
+        <div class="container">
+            <div class="card">
+                <div class="photo">
+                    <button class="arrow arrow-left" onclick="changeImage(-1)">&#9664;</button>
+                    <img id="productImage" src="/images/@Model.Images[0]" alt="Product Image">
+                    <button class="arrow arrow-right" onclick="changeImage(1)">&#9654;</button>
+                </div>
+                <div class="description">
+                    <h2>@Model.Name</h2>
+                    <h4>Rate @Model.Rate</h4>
+                    <h1>@Model.Price EGP</h1>
+                    <p>@Model.Description</p>
+                    <form asp-controller="ShoppingCart" asp-action="AddToCart" method="post">
+                        <input type="hidden" name="productId" value="@Model.ProductId" />
+                        <button type="submit">Add to Cart</button>
+                    </form>
+                </div>
             </div>
-            <div class="description">
-                <h2>@Model.Name</h2>
-                @* <h4>@Model.Category.Name</h4> *@
-                <h1>@Model.Price EGP</h1>
-                <p>@Model.Description</p>
-                <br>
-                <form asp-controller="ShoppingCart" asp-action="AddToCart" method="post">
-                    <input type="hidden" name="productId" value="@Model.Id" />
-                    <button type="submit">Add to Cart</button>
-                </form>
+            <div class="comments-card">
+                <div class="comments-header">
+                    <h3><b>Reviews</b></h3>
+                    <form asp-action="AddReviewForm" asp-controller="Review" method="get">
+                        <input type="hidden" name="productId" value="@Model.ProductId" />
+                        <input type="hidden" name="userId" value="@Model.UserId"></input>
+                        <button type="submit">Add Review</button>
+                    </form>
+                </div>
+                @foreach (var item in Model.Reviews)
+                {
+                    <div class="comment">
+                        <h4>@item.UserName</h4>
+                        <p>@item.Message</p>
+                    </div>
+                }
             </div>
         </div>
     </div>
 
-
     <script>
-        // Array of image paths
-        const images = @Html.Raw(Json.Serialize(Model.ProductImagePath));
+        const images = @Html.Raw(Json.Serialize(Model.Images));
         let currentIndex = 0;
 
         function changeImage(direction) {
             currentIndex = (currentIndex + direction + images.length) % images.length;
             document.getElementById('productImage').src = '/images/' + images[currentIndex];
+        }
+
+        function addReview() {
+            alert("Add review functionality to be implemented.");
         }
     </script>
 </body>

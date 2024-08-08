@@ -1,14 +1,22 @@
 ﻿using EcomGalaxy.Models;
 using EcomGalaxy.Services.IServices;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace EcomGalaxy.Services
 {
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
-        public ProductService(IProductRepository productRepository)
+        private readonly IReviewService _reviewService;
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public ProductService(IProductRepository productRepository, IReviewService reviewService,
+            UserManager<ApplicationUser> userManager)
         {
             _productRepository = productRepository;
+            _reviewService = reviewService;
+            _userManager = userManager;
         }
 
         private List<ProductViewModel> FromProductToProductVM(List<ProductViewModel> productsVm, IEnumerable<Product> products)
@@ -135,6 +143,39 @@ namespace EcomGalaxy.Services
         public async Task<IEnumerable<Product>> FilterProductsByPrice(int from, int to)
         {
             return await _productRepository.FilterProductsByPrice(from, to);
+        }
+
+        public async Task<ProductDetailsFormViewModel> ProductDetails(int productId, string userId)
+        {
+            var product = await _productRepository.GetProductByIdAsync(productId);
+            var reviews = await _reviewService.GetReviewsByProductIdAsync(productId);
+            List< ShowReviewViewModel> reviewsVM = new List<ShowReviewViewModel>();
+
+            foreach (var review in reviews)
+            {
+                var user = await _userManager.FindByIdAsync(review.ApplicationUserId);
+                ShowReviewViewModel reviewVM = new ShowReviewViewModel
+                {
+                    Message = review.Message,
+                    Rating = review.Rating,
+                    UserName = user.Name
+                };
+                reviewsVM.Add(reviewVM);
+            }
+
+            ProductDetailsFormViewModel productFormViewModel = new ProductDetailsFormViewModel
+            {
+                ProductId = product.Id,
+                UserId = userId,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                Images = product.ProductImagePath,
+                Reviews = reviewsVM,
+                Rate = product.AverageRating
+            };
+
+            return productFormViewModel;
         }
     }
 }

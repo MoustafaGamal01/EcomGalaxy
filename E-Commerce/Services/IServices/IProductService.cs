@@ -36,5 +36,6 @@ namespace EcomGalaxy.Services.IServices
 
         Task<IEnumerable<Product>> FilterProductsByPrice(int from, int to);
 
+        Task<ProductDetailsFormViewModel> ProductDetails(int productId, string userId);
     }
 }

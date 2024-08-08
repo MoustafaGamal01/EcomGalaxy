@@ -135,6 +135,10 @@
 <body>
     <div class="container">
         <div class="header">Orders</div>
+        @if(Model.Count() == 0)
+        {
+            <h2 style="text-align: center;">There's no orders yet.</h2>
+        }
         <div class="cart-items">
             @foreach (var item in Model)
             {

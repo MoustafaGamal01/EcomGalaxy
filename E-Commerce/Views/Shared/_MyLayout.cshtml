@@ -211,8 +211,7 @@
                     {
                         <li class="Home-page"><a href="/Home/Index/">Home</a></li>
                         <li class="AddRole"><a href="/Role/AddRole">Add Role</a></li>
-                        <li class="AddUser"><a href="/Account/AddUserForm">Add User</a></li>
-                        @* <li class="AddPrd"><a href="/Product/ManageProducts">Manage Products</a></li> *@
+                        <li class="AddUser"><a href="/User/ManageUsers">Manage Users</a></li>
                         <li class="Addcat"><a href="/Category/ManageCategories">Manage Categories</a></li>
                         <li class="Home-page"><a href="/Order/AdminOrders/">Manage Orders</a></li>
                     }
@@ -238,13 +237,13 @@
             <div class="cart">
                 @if (User.Identity.IsAuthenticated == true)
                 {
-                    <a href="/Account/Profile">Hello @UserManager.GetUserAsync(User).Result.Name </a>
-                    <a href="/Account/Logout">Logout</a>
+                    <a href="/User/Profile">Hello @UserManager.GetUserAsync(User).Result.Name </a>
+                    <a href="/Auth/Logout">Logout</a>
                 }
                 else
                 {
-                    <a href="/Account/LoginForm">Login</a>
-                    <a href="/Account/RegisterForm">Register</a>
+                    <a href="/Auth/LoginForm">Login</a>
+                    <a href="/Auth/RegisterForm">Register</a>
                 }
                 @if (User.Identity.IsAuthenticated == true)
                 {

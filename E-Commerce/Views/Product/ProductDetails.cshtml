@@ -228,11 +228,14 @@
             <div class="comments-card">
                 <div class="comments-header">
                     <h3><b>Reviews</b></h3>
-                    <form asp-action="AddReviewForm" asp-controller="Review" method="get">
-                        <input type="hidden" name="productId" value="@Model.ProductId" />
-                        <input type="hidden" name="userId" value="@Model.UserId"></input>
-                        <button type="submit">Add Review</button>
-                    </form>
+                    @if (User.Identity.IsAuthenticated == true)
+                    {
+                        <form asp-action="AddReviewForm" asp-controller="Review" method="get">
+                            <input type="hidden" name="productId" value="@Model.ProductId" />
+                            <input type="hidden" name="userId" value="@Model.UserId"></input>
+                            <button type="submit">Add Review</button>
+                        </form>
+                    }
                 </div>
                 @foreach (var item in Model.Reviews)
                 {

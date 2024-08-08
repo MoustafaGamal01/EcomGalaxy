@@ -1,5 +1,3 @@
-
-
 namespace EcomGalaxy
 {
     public class Program
@@ -38,6 +36,9 @@ namespace EcomGalaxy
             builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
             builder.Services.AddScoped<IOrderItemsService, OrderItemsService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+
 
             var emailConfig = builder.Configuration
                 .GetSection("EmailSettings")
@@ -61,7 +62,7 @@ namespace EcomGalaxy
             app.MapRazorPages();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Account}/{action=LoginForm}/{id?}");
+                pattern: "{controller=Auth}/{action=LoginForm}/{id?}");
 
             app.Run();
         }

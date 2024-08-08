@@ -26,10 +26,6 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\AIA\Desktop\EcomGalaxy\E-Commerce
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/Account/AddUserForm.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBZGRVc2VyRm9ybS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/Account/ChangeEmailForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDaGFuZ2VFbWFpbEZvcm0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -46,20 +42,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDaGFuZ2VVc2VybmFtZUZvcm0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/Account/LoginForm.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbkZvcm0uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/Account/Profile.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxQcm9maWxlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/Account/RegisterForm.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3RlckZvcm0uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/Account/ResetPasswordForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZXNldFBhc3N3b3JkRm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/Auth/LoginForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbkZvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/Auth/RegisterForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxSZWdpc3RlckZvcm0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/Category/AddCategory.cshtml]
@@ -146,10 +138,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/Shared/_Dashboard.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9EYXNoYm9hcmQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/Shared/_MyLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9NeUxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -164,6 +152,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/ShoppingCart/ViewCart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcHBpbmdDYXJ0XFZpZXdDYXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/User/AddUserForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxBZGRVc2VyRm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/User/ManageUsers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxNYW5hZ2VVc2Vycy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/User/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/AIA/Desktop/EcomGalaxy/E-Commerce/Views/_ViewImports.cshtml]

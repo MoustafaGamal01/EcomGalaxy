@@ -15,12 +15,10 @@ namespace EcomGalaxy.Controllers.Admin
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IAccountService _accountService;
 		private readonly IEmailSender _emailSender;
-		private readonly List<string> _roles;
 
         public AccountController(UserManager<ApplicationUser> userManager, 
             SignInManager<ApplicationUser> signInManager, IAccountService accountService, IEmailSender emailSender)
         {
-            _roles = new List<string> { "Admin", "Seller" };
             _userManager = userManager;
             _signInManager = signInManager;
             _accountService = accountService;
@@ -28,139 +26,7 @@ namespace EcomGalaxy.Controllers.Admin
 		}
 
 
-        [HttpGet]
-        public IActionResult AddUserForm()
-        {
-            ViewData["MyRoles"] = _roles;
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddUser(UserRegisterViewModel userRegisterVM)
-        {
-            if (ModelState.IsValid)
-            {
-                List<string> answer = await _accountService.AddUser(userRegisterVM);
-
-                if (answer.Count == 0)
-                {
-                    RedirectToAction("", "");
-                }
-                else if (answer[0] == "EmailExists")
-                {
-                    ModelState.AddModelError("", "Email Is Already Taken");
-                    return View("RegisterForm", userRegisterVM);
-                }
-                else
-                {
-                    foreach (var item in answer)
-                    {
-                        ModelState.AddModelError("", item);
-                    }
-                }
-            }
-            ViewData["MyRoles"] = _roles;
-            return View("AddUserForm", userRegisterVM);
-        }
-
-        [HttpGet]
-        public IActionResult RegisterForm()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(CustomerRegisterViewModel customerRegisterVM)
-        {
-            if (ModelState.IsValid)
-            {
-                // Create Acc
-                List<string> answer = await _accountService.Register(customerRegisterVM);
-                if (answer.Count == 0)
-                {
-                    return RedirectToAction("LoginForm", "Account");
-                }
-                else if (answer[0] == "EmailExists")
-                {
-                    ModelState.AddModelError("", "Email already exists.");
-                    return View("RegisterForm", customerRegisterVM);
-                }
-                else
-                {
-                    foreach (var item in answer)
-                    {
-                        ModelState.AddModelError("", item);
-                    }
-                }
-            }
-            return View("RegisterForm", customerRegisterVM);
-        }
-
-        [HttpGet]
-        public IActionResult LoginForm()
-        {
-            return View();
-        }
-        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel loginVM)
-        {
-            if (ModelState.IsValid)
-            {
-                // Calling it 
-                ResultEnum result = await _accountService.Login(loginVM);
-                if(result == ResultEnum.Done)
-                {
-                    string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
-                    if (role == "Admin")
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else if (role == "Seller")
-                    {
-                        return RedirectToAction("ProductsForSeller", "Product");
-                    }
-                    else // Cutomer
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-            }
-            ModelState.AddModelError("", "Invalid Email or Password.");
-            return View("LoginForm", loginVM);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Logout()
-        {
-            ResultEnum result = await _accountService.Logout();
-            if (result == ResultEnum.Done)
-            {
-                LoginViewModel loginView = new LoginViewModel();
-                return RedirectToAction("LoginForm", loginView);
-            }
-            return Json("Can't Logout");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Profile()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            ProfileViewModel profileVM = new ProfileViewModel();
-
-            profileVM.Name = user.Name;
-            profileVM.UserName = user.UserName;
-            profileVM.Email = user.Email;
-            profileVM.Country = user.Country;
-            profileVM.City = user.City;
-            profileVM.Street = user.Street;
-            profileVM.PostalCode = user.PostalCode;
-
-            return View(profileVM);
-        }
+       
 
         [HttpGet]
         public IActionResult ChangePasswordForm()
@@ -201,7 +67,7 @@ namespace EcomGalaxy.Controllers.Admin
                 List<string> result = await _accountService.ChangeUsername(changeUsernameVM, UserId);
                 if(result.Count == 0)
                 {
-                    return RedirectToAction("Profile", "Account");
+                    return RedirectToAction("Profile", "Auth");
 				}
                 else if (result[0] == "UsernameExists")
                 {
@@ -234,7 +100,7 @@ namespace EcomGalaxy.Controllers.Admin
 				List<string> result = await _accountService.ChangeFullName(changeFullNameViewModel, UserId);
 				if (result.Count == 0)
 				{
-					return RedirectToAction("Profile", "Account");
+					return RedirectToAction("Profile", "Auth");
 				}
 				else
 				{

@@ -84,7 +84,7 @@
             }
         }
 
-        public async Task Checkout(string userId, OrderCheckOutViewModel orderVM)
+        private Payment Pay(string userId, OrderCheckOutViewModel orderVM)
         {
             var payment = new Payment
             {
@@ -92,12 +92,30 @@
                 CardNumber = orderVM.CardNumber,
                 CVV = orderVM.CVV,
                 ExpiryDate = orderVM.ExpiryDate,
-                CustomerId = userId, 
+                CustomerId = userId,
                 PaymentDate = DateTime.Now,
                 Status = orderVM.PaymentStatus
             };
+            return payment;
+        }
 
-            // if payment was succ. created
+        private Order MakeOrder(string userId, ShoppingCart cart)
+        {
+            var order = new Order
+            {
+                CustomerId = userId,
+                OrderedDate = DateTime.Now,
+                //ShippedDate = DateTime.Now,
+                Status = OrderStatus.Processing,
+                ShoppingCartId = cart.Id
+            };
+            return order;
+        }
+
+        public async Task Checkout(string userId, OrderCheckOutViewModel orderVM)
+        {
+            // make payment
+            var payment = Pay(userId, orderVM);
             if (payment == null)
             {
                 throw new Exception("Payment could not be processed.");
@@ -111,15 +129,8 @@
             }
 
             // Create order
-            var order = new Order
-            {
-                CustomerId = userId, 
-                OrderedDate = DateTime.Now,
-                //ShippedDate = DateTime.Now,
-                Status = OrderStatus.Processing,
-                ShoppingCartId = cart.Id
-            };
-
+            var order = MakeOrder(userId, cart);
+            // total price of the order
             order.TotalPrice = cart.ShoppingCartItems.Sum(i=>i.Product.Price * i.Quantity);
 
             payment.Amount = order.TotalPrice;
@@ -164,6 +175,7 @@
                 await _orderItemsRepository.AddOrderItemAsync(orderItem);
                 order.OrderItems.Add(orderItem);
             }
+
             await _orderRepository.UpdateOrderAsync(order.Id, order);
 
             await _cartRepository.SaveChangesAsync(); 

@@ -86,6 +86,16 @@
 				background-color: #4580b5;
 			}
 	</style>
+	<script>
+		function handlePaymentMethodChange() {
+			var paymentMethod = document.getElementById("PaymentStatus").value;
+			var fields = document.querySelectorAll(".payment-input");
+
+			fields.forEach(function(field) {
+				field.disabled = paymentMethod === "CashOnDelivery";
+			});
+		}
+	</script>
 </head>
 <body>
 	<div class="container">
@@ -93,24 +103,32 @@
 			<h2>Payment Details</h2>
 			<form method="post" asp-action="Checkout" asp-controller="ShoppingCart">
 				<div class="form-group">
+					<label asp-for="PaymentStatus"><strong>Payment Method</strong></label>
+					<select asp-for="PaymentStatus" class="form-control" id="PaymentStatus" onchange="handlePaymentMethodChange()">
+						<option value="Paid">Pay Online</option>
+						<option value="CashOnDelivery">Cash on Delivery</option>
+					</select>
+					<span asp-validation-for="PaymentStatus" class="text-danger"></span>
+				</div>
+				<div class="form-group">
 					<label asp-for="Name"><strong>Name</strong></label>
-					<input asp-for="Name" class="form-control" placeholder="Name on the card" />
+					<input asp-for="Name" class="form-control payment-input" placeholder="Name on the card" />
 					<span asp-validation-for="Name" class="text-danger"></span>
 				</div>
 				<div class="form-group">
 					<label asp-for="CardNumber"><strong>Card Number</strong></label>
-					<input asp-for="CardNumber" class="form-control" placeholder="0000 0000 0000 0000" />
+					<input asp-for="CardNumber" class="form-control payment-input" placeholder="0000 0000 0000 0000" />
 					<span asp-validation-for="CardNumber" class="text-danger"></span>
 				</div>
 				<div class="flex-container">
 					<div class="form-group flex-item">
 						<label asp-for="ExpiryDate"><strong>Expiration Date</strong></label>
-						<input asp-for="ExpiryDate" class="form-control" placeholder="MM/YY" />
+						<input asp-for="ExpiryDate" class="form-control payment-input" placeholder="MM/YY" />
 						<span asp-validation-for="ExpiryDate" class="text-danger"></span>
 					</div>
 					<div class="form-group flex-item">
 						<label asp-for="CVV"><strong>CVV</strong></label>
-						<input asp-for="CVV" class="form-control" placeholder="XXX" />
+						<input asp-for="CVV" class="form-control payment-input" placeholder="XXX" />
 						<span asp-validation-for="CVV" class="text-danger"></span>
 					</div>
 				</div>

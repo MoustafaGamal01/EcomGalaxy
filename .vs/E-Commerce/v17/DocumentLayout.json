@@ -3,28 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\controllers\\shoppingcartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\controllers\\shoppingcartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\views\\order\\customerorders.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\views\\order\\customerorders.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\services\\shoppingcartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\services\\shoppingcartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|C:\\Users\\AIA\\Desktop\\EcomGalaxy\\e-commerce\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\services\\iservices\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\services\\iservices\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|C:\\Users\\AIA\\Desktop\\EcomGalaxy\\e-commerce\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|C:\\Users\\AIA\\Desktop\\EcomGalaxy\\e-commerce\\controllers\\shoppingcartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\controllers\\shoppingcartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\AIA\\Desktop\\EcomGalaxy\\e-commerce\\views\\order\\sellerorders.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:e-commerce\\views\\order\\sellerorders.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\views\\order\\adminorders.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\views\\order\\adminorders.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\views\\shared\\_mylayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\views\\shared\\_mylayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,80 +42,80 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ShoppingCartController.cs",
-              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Controllers\\ShoppingCartController.cs",
-              "RelativeDocumentMoniker": "E-Commerce\\Controllers\\ShoppingCartController.cs",
-              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Controllers\\ShoppingCartController.cs",
-              "RelativeToolTip": "E-Commerce\\Controllers\\ShoppingCartController.cs",
-              "ViewState": "AQIAADYAAAAAAAAAAAAAAEQAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-06T20:45:07.26Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ShoppingCartService.cs",
-              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Services\\ShoppingCartService.cs",
-              "RelativeDocumentMoniker": "E-Commerce\\Services\\ShoppingCartService.cs",
-              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Services\\ShoppingCartService.cs",
-              "RelativeToolTip": "E-Commerce\\Services\\ShoppingCartService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-06T20:32:13.459Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CustomerOrders.cshtml",
-              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Views\\Order\\CustomerOrders.cshtml",
-              "RelativeDocumentMoniker": "E-Commerce\\Views\\Order\\CustomerOrders.cshtml",
-              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Views\\Order\\CustomerOrders.cshtml",
-              "RelativeToolTip": "E-Commerce\\Views\\Order\\CustomerOrders.cshtml",
-              "ViewState": "AQIAACwAAAAAAAAAAAAAAIcAAAAUAAAA",
+              "DocumentIndex": 5,
+              "Title": "_MyLayout.cshtml",
+              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Views\\Shared\\_MyLayout.cshtml",
+              "RelativeDocumentMoniker": "E-Commerce\\Views\\Shared\\_MyLayout.cshtml",
+              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Views\\Shared\\_MyLayout.cshtml",
+              "RelativeToolTip": "E-Commerce\\Views\\Shared\\_MyLayout.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAANgAAABJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-08-06T20:02:28.09Z",
+              "WhenOpened": "2024-08-07T16:06:04.768Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "OrderService.cs",
-              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Services\\OrderService.cs",
-              "RelativeDocumentMoniker": "E-Commerce\\Services\\OrderService.cs",
-              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Services\\OrderService.cs",
-              "RelativeToolTip": "E-Commerce\\Services\\OrderService.cs",
-              "ViewState": "AQIAAB8AAAAAAAAAAAAkwEwAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-06T19:52:20.041Z",
+              "Title": "AdminOrders.cshtml",
+              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Views\\Order\\AdminOrders.cshtml",
+              "RelativeDocumentMoniker": "E-Commerce\\Views\\Order\\AdminOrders.cshtml",
+              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Views\\Order\\AdminOrders.cshtml",
+              "RelativeToolTip": "E-Commerce\\Views\\Order\\AdminOrders.cshtml",
+              "ViewState": "AQIAAIsAAAAAAAAAAAAAAJoAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-08-07T16:11:32.594Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IOrderService.cs",
-              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Services\\IServices\\IOrderService.cs",
-              "RelativeDocumentMoniker": "E-Commerce\\Services\\IServices\\IOrderService.cs",
-              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Services\\IServices\\IOrderService.cs",
-              "RelativeToolTip": "E-Commerce\\Services\\IServices\\IOrderService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAABNAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-06T19:52:14.144Z",
+              "DocumentIndex": 3,
+              "Title": "SellerOrders.cshtml",
+              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Views\\Order\\SellerOrders.cshtml",
+              "RelativeDocumentMoniker": "E-Commerce\\Views\\Order\\SellerOrders.cshtml",
+              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Views\\Order\\SellerOrders.cshtml",
+              "RelativeToolTip": "E-Commerce\\Views\\Order\\SellerOrders.cshtml",
+              "ViewState": "AQIAAJQAAAAAAAAAAAAmwJwAAABWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-08-07T12:47:38.191Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "ShoppingCartController.cs",
+              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Controllers\\ShoppingCartController.cs",
+              "RelativeDocumentMoniker": "E-Commerce\\Controllers\\ShoppingCartController.cs",
+              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Controllers\\ShoppingCartController.cs",
+              "RelativeToolTip": "E-Commerce\\Controllers\\ShoppingCartController.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAswDwAAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-07T12:37:38.706Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "OrderController.cs",
               "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Controllers\\OrderController.cs",
               "RelativeDocumentMoniker": "E-Commerce\\Controllers\\OrderController.cs",
               "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Controllers\\OrderController.cs",
               "RelativeToolTip": "E-Commerce\\Controllers\\OrderController.cs",
-              "ViewState": "AQIAACUAAAAAAAAAAAAkwDsAAAAAAAAA",
+              "ViewState": "AQIAAF8AAAAAAAAAAAAjwG0AAAA9AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-06T19:49:37.617Z",
+              "WhenOpened": "2024-08-07T12:40:55.763Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrderService.cs",
+              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Services\\OrderService.cs",
+              "RelativeDocumentMoniker": "E-Commerce\\Services\\OrderService.cs",
+              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Services\\OrderService.cs",
+              "RelativeToolTip": "E-Commerce\\Services\\OrderService.cs",
+              "ViewState": "AQIAAHIAAAAAAAAAAAAswIcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-07T12:42:42.23Z",
               "EditorCaption": ""
             }
           ]

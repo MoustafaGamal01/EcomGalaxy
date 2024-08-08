@@ -23,7 +23,9 @@ namespace EcomGalaxy.Models
         public double TotalPrice { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public DateTime OrderedDate { get; set; }
+
+        public DateTime? ShippedDate { get; set; }
 
         [Required]
         public OrderStatus Status { get; set; }

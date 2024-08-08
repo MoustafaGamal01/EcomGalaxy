@@ -94,7 +94,7 @@
                 ExpiryDate = orderVM.ExpiryDate,
                 CustomerId = userId, 
                 PaymentDate = DateTime.Now,
-                Status = PaymentStatus.Paid
+                Status = orderVM.PaymentStatus
             };
 
             // if payment was succ. created
@@ -114,8 +114,9 @@
             var order = new Order
             {
                 CustomerId = userId, 
-                Date = DateTime.Now,
-                Status = OrderStatus.Shipped,
+                OrderedDate = DateTime.Now,
+                //ShippedDate = DateTime.Now,
+                Status = OrderStatus.Processing,
                 ShoppingCartId = cart.Id
             };
 

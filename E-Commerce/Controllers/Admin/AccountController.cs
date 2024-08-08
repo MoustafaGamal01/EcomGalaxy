@@ -146,9 +146,20 @@ namespace EcomGalaxy.Controllers.Admin
         }
 
         [HttpGet]
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(User);
+            ProfileViewModel profileVM = new ProfileViewModel();
+
+            profileVM.Name = user.Name;
+            profileVM.UserName = user.UserName;
+            profileVM.Email = user.Email;
+            profileVM.Country = user.Country;
+            profileVM.City = user.City;
+            profileVM.Street = user.Street;
+            profileVM.PostalCode = user.PostalCode;
+
+            return View(profileVM);
         }
 
         [HttpGet]

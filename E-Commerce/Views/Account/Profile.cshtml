@@ -1,4 +1,4 @@
-﻿@inject UserManager<ApplicationUser> UserManager
+﻿@model ProfileViewModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -141,33 +141,52 @@
                         <a href="#">
                             <img src="/images//EmptyProfilePic.jpeg" alt="">
                         </a>
-                        <h1><b>@User.Identity.Name</b></h1>
-                        <p>@UserManager.GetUserAsync(User).Result.Email</p>
+                        <h1><b>@Model.Name</b></h1>
+                        <p>@Model.Email</p>
                     </div>
                     <ul>
-                       
                     </ul>
                 </div>
             </div>
             <div class="profile-info col-md-9">
                 <div class="info">
                     <label>Full Name</label>
-                    <span>@UserManager.GetUserAsync(User).Result.Name</span>
+                    <span>@Model.Name</span>
                     <a class="fa fa-pencil" href="/Account/ChangeFullNameForm"></a>
                 </div>
                 <div class="info">
                     <label>Username</label>
-                    <span>@UserManager.GetUserAsync(User).Result.UserName</span>
+                    <span>@Model.UserName</span>
                     <a class="fa fa-pencil" href="/Account/ChangeUsernameForm"></a>
                 </div>
                 <div class="info">
                     <label>Email</label>
-                    <span>@UserManager.GetUserAsync(User).Result.Email</span>
+                    <span>@Model.Email</span>
                     <a class="fa fa-pencil" href="/Account/ChangeEmailForm"></a>
                 </div>
                 <div class="info">
                     <label>Password</label>
                     <span>*********</span>
+                    <a class="fa fa-pencil" href="/Account/ChangePasswordForm"></a>
+                </div>
+                <div class="info">
+                    <label>Country</label>
+                    <span>@Model.Country</span>
+                    <a class="fa fa-pencil" href="/Account/ChangePasswordForm"></a>
+                </div>
+                <div class="info">
+                    <label>City</label>
+                    <span>@Model.City</span>
+                    <a class="fa fa-pencil" href="/Account/ChangePasswordForm"></a>
+                </div>
+                <div class="info">
+                    <label>Street</label>
+                    <span>@Model.Street</span>
+                    <a class="fa fa-pencil" href="/Account/ChangePasswordForm"></a>
+                </div>
+                <div class="info">
+                    <label>Postal Code</label>
+                    <span>@Model.PostalCode</span>
                     <a class="fa fa-pencil" href="/Account/ChangePasswordForm"></a>
                 </div>
             </div>

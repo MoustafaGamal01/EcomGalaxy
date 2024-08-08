@@ -1,0 +1,221 @@
+﻿@model IEnumerable<SellerOrderItemViewModel>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Gotham, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f1f2f7;
+        }
+
+        .container {
+            width: 80%;
+            margin: 80px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .header {
+            font-weight: bold;
+            background-color: darkorange;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .cart-items {
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            position: relative;
+        }
+
+            .cart-item:last-child {
+                border-bottom: none;
+            }
+
+        .item-image {
+            flex: 1;
+            text-align: center;
+        }
+
+            .item-image img {
+                width: 150px;
+                height: 150px;
+                border-radius: 10px;
+                margin: 0 auto;
+            }
+
+        .item-details {
+            flex: 3;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .item-name, .item-descr, .item-price, .item-quantity, .item-address {
+            margin-bottom: 10px;
+            font-family: Gotham, sans-serif;
+            font-weight: bold;
+        }
+
+        .item-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .item-descr {
+            color: gray;
+            font-weight: 400;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: darkorange;
+            font-size: 16px;
+        }
+
+        .item-quantity {
+            font-weight: bold;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4caf50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 1000;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+
+        .item-address {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .order-received-button {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+        }
+
+            .order-received-button button {
+                background-color: darkorange;
+                border: none;
+                padding: 10px 20px;
+                color: white;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+
+                .order-received-button button:hover {
+                    background-color: #e68a00;
+                }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">My Orders</div>
+        <div class="cart-items">
+            @foreach (var item in Model)
+            {
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="/images/@item.ProductImage" alt="Product Image">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Product Name: @item.ProductName</div>
+                        <div class="item-descr">Description: @item.ProductDescription</div>
+                        <div class="item-quantity">Quantity: @item.Quantity</div>
+                        <div class="item-price">Total Price: @item.TotalPrice EGP</div>
+                        <div class="item-address">User City: @item.userCity</div>
+                        <div class="item-address">User Country: @item.userCountry</div>
+                        <div class="item-address">User Street: @item.userStreet</div>
+                        <div class="item-address">User Postal Code: @item.userPostalCode</div>
+                        <div class="item-address">Order ID: @item.OrderId</div>
+                        <div class="item-address">Product ID: @item.ProductId</div>
+                        <div class="item-address">Order Item ID: @item.Id</div>
+                        <div class="item-address">Order Status: @item.userOrderStatus</div>
+
+                    </div>
+                    @if (item.userOrderStatus == OrderStatus.Processing)
+                    {
+                        <div class="order-received-button">
+                            <form asp-action="ShipOrder" asp-controller="Order" method="post" onsubmit="handleShipOrder(event)">
+                                <input type="hidden" name="orderId" value="@item.OrderId"></input>
+                                <button type="submit" class="btn btn-default">Ship Order</button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</body>
+<script>
+    function showNotification(message, duration) {
+        var notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(function () {
+            notification.remove();
+        }, duration);
+    }
+
+    function handleShipOrder(event) {
+        event.preventDefault(); 
+
+        var form = event.target.closest('form'); 
+        var actionUrl = form.action;
+
+        fetch(actionUrl, {
+            method: 'POST',
+            body: new FormData(form)
+        }).then(response => {
+            if (response.ok) {
+                showNotification('Order Shipped Successfully', 4000); 
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    function handleRecivedOrder(event) {
+        event.preventDefault();
+
+        var form = event.target.closest('form');
+        var actionUrl = form.action;
+
+        fetch(actionUrl, {
+            method: 'POST',
+            body: new FormData(form)
+        }).then(response => {
+            if (response.ok) {
+                showNotification('Order Shipped Successfully', 4000);
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+</html>

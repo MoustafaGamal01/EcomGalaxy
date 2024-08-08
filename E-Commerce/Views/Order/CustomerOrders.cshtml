@@ -31,19 +31,23 @@
 
         .order-header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column; 
+            gap: 5px;
             margin-bottom: 10px;
         }
+
+        .order-date {
+            color: #777;
+            margin-left:400px;
+            margin-top:-15px;   
+            font-size: 0.9em;
+        }
+
 
             .order-header h2 {
                 margin: 0;
                 color: #333;
             }
-
-        .order-date {
-            color: #777;
-            font-size: 0.9em;
-        }
 
         .order-body p {
             margin-bottom: 10px;
@@ -122,18 +126,26 @@
             <div class="order-card">
                 <div class="order-header">
                     <h2>Order #@order.OrderId</h2>
-                    <p class="order-date">Shipped on: @order.OrderDate</p>
+                    <p class="order-date">Ordered on: @order.OrderDate</p>
+                    @if(order.OrderStatus == OrderStatus.Shipped){
+                        <p class="order-date">Shipped on: @order.ShippedDate</p>
+                    }
                 </div>
                 <div class="order-body">
                     <p><strong>Order Status: @order.OrderStatus</strong></p>
-                    <p><strong>Payment Status: @order.PaymentStatus</strong></p>
+                    @if(@order.PaymentStatus == PaymentStatus.CashOnDelivery){
+                        <p><strong>Payment Status: Cash on Delivery</strong></p>
+                    } else
+                    {
+                        <p><strong>Payment Status: Paid</strong></p>
+                    }
                     @if (@order.ProductsCount == 1){
 						<p><strong>Order Description: Order has @order.ProductsCount Item</strong></p>
 					}
 					else {
                     <p><strong>Order Description: Order has @order.ProductsCount Items</strong></p>
                     }
-                    <p><strong>Total: </strong> @order.TotalAmount</p>
+                    <p><strong>Total: </strong> @order.TotalAmount EGP</p>
                 </div>
                 <div class="order-footer">
                     <form asp-action="OrderDetails" asp-controller="Order" method="get" style="margin: 0;">

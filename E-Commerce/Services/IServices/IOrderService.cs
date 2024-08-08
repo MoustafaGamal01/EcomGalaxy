@@ -14,8 +14,12 @@
 
         Task<IEnumerable<Order>> GetOrdersByUserIdAsync(string userId);
 
-        Task<IEnumerable<OrderItemViewModel>> OrderDetails(int orderId);
+        Task<IEnumerable<CustomerOrderItemViewModel>> OrderDetails(int orderId);
 
         Task<IEnumerable<OrdersMainViewModel>> CustomerOrders(string userId);
+
+        Task<IEnumerable<SellerOrderItemViewModel>> OrderSellerDetails(string userId);
+
+        Task<IEnumerable<AdminOrderItemViewModel>> OrderAdminDetails();
     }
 }

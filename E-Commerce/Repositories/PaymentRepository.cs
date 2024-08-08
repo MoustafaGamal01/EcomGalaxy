@@ -32,9 +32,9 @@ namespace EcomGalaxy.Repositories
             return await _context.Payments.ToListAsync();
         }
 
-        public Task<Payment> GetPaymentByIdAsync(int PayId)
+        public async Task<Payment> GetPaymentByIdAsync(int PayId)
         {
-            return _context.Payments.FirstOrDefaultAsync(p => p.Id == PayId);
+            return await _context.Payments.FirstOrDefaultAsync(p => p.Id == PayId);
         }
 
         public async Task<Payment> GetPaymentByOrderId(int orderId)

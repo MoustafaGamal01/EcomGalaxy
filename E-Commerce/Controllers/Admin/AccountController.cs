@@ -25,9 +25,6 @@ namespace EcomGalaxy.Controllers.Admin
 			_emailSender = emailSender;
 		}
 
-
-       
-
         [HttpGet]
         public IActionResult ChangePasswordForm()
         {
@@ -51,6 +48,7 @@ namespace EcomGalaxy.Controllers.Admin
             }
             return View("ChangePasswordForm", new ChangePasswordViewModel());
         }
+        
         [HttpGet]
         public IActionResult ChangeUsernameForm()
         {

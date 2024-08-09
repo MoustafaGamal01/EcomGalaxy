@@ -89,7 +89,8 @@ namespace EcomGalaxy.Controllers
                 LoginViewModel loginView = new LoginViewModel();
                 return RedirectToAction("LoginForm", loginView);
             }
-            return Json("Can't Logout");
+            ModelState.AddModelError("", "Can't logout.");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

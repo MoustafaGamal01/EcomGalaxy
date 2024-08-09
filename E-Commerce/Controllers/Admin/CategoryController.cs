@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EcomGalaxy.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EcomGalaxy.Controllers.Admin
 {
@@ -84,7 +85,9 @@ namespace EcomGalaxy.Controllers.Admin
             var ok = await _categoryService.UpdateCategoryAsync(category.Name, category);
             if (ok == true) return RedirectToAction("UpdateCategory", new { id = category.Id });
             
-            return  Json("Category Exists");
+            
+            ModelState.AddModelError("", "Category Exists");
+            return View("UpdateCategory", new { id = category.Id});
         }
 
         [HttpPost]
@@ -94,7 +97,8 @@ namespace EcomGalaxy.Controllers.Admin
             bool?ok = await _categoryService.DeleteCategoryAsync(id);
             if (ok == true)
                 return RedirectToAction("ManageCategories");
-            return Json("Category Not Deleted");
+            ModelState.AddModelError("", "Can't delete category");
+            return RedirectToAction("ManageCategories");
         }
     }
 }

@@ -25,6 +25,7 @@ namespace EcomGalaxy.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddReview(AddReviewViewModel addReviewVM)
         {
             if (ModelState.IsValid)

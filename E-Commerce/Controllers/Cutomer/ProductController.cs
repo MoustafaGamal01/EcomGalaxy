@@ -21,7 +21,8 @@ namespace EcomGalaxy.Controllers.Cutomer
             _reviewService = reviewService;
             _userManager = userManager;
         }
-        
+
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var prdVms =  await _productService.GetAllProductsAsync();
@@ -61,7 +62,7 @@ namespace EcomGalaxy.Controllers.Cutomer
             return View(productFormViewModel);
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             string sellerId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
@@ -138,13 +139,16 @@ namespace EcomGalaxy.Controllers.Cutomer
             return View(prds);
         }
 
-        [HttpGet]
-        // This method must be Post So update it
+        [HttpPost]
         public async Task<IActionResult> ManageProductDetails(int id)
         {
             var prd = await _productService.GetProductByIdAsync(id);
             string sellerId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            if(prd.ApplicationUserId == sellerId)
+
+            var user = await _userManager.GetUserAsync(User);
+            var role = await _userManager.IsInRoleAsync(user, "Admin");
+
+            if (prd.ApplicationUserId == sellerId || role)
             {
                 return View(prd);
             }

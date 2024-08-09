@@ -21,6 +21,7 @@ namespace EcomGalaxy.Controllers
             _paymentService = paymentService;
         }
 
+        [HttpGet]
         public IActionResult AllOrders()
         {
             return View();

@@ -172,9 +172,10 @@
                     <p class="price">@product.ProductPrice EGP</p>
                     <p>@product.ProductDescription</p>
                 </a>
-                <a href="/Product/ManageProductDetails/@product.ProductId" class="button-link">
-                    <button class="add-to-cart-button">Details</button>
-                </a>
+                <form asp-action="ManageProductDetails" asp-controller="Product" method="post" class="button-link">
+                    <input name="id" value="@product.ProductId" type="hidden">
+                    <button type="submit" class="add-to-cart-button">Details</button>
+                </form>
             </div>
         }
     </div>

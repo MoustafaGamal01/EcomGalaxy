@@ -13,7 +13,7 @@ namespace EcomGalaxy.Controllers
             _categoryService = categoryService;
         }
 
-        [Authorize]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             IEnumerable<Category> categories = await _categoryService.GetAllCategoriesAsync();

@@ -72,7 +72,7 @@ namespace EcomGalaxy.Controllers
             return View(profileVM);
         }
 
-       [HttpGet]
+        [HttpGet]
         public async Task<IActionResult> ManageUsers()
         {
             var users = await _userManager.Users.ToListAsync();

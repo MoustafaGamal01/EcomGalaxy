@@ -1,4 +1,6 @@
-﻿namespace EcomGalaxy.Repositories.IRepository
+﻿using EcomGalaxy.Models.Product;
+
+namespace EcomGalaxy.Repositories.IRepository
 {
     public interface IProductRepository
     {

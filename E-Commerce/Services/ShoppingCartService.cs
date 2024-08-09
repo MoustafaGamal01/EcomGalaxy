@@ -1,4 +1,8 @@
-﻿namespace EcomGalaxy.Services
+﻿using EcomGalaxy.Models.Payment;
+using EcomGalaxy.Models.ShoppingCart;
+using EcomGalaxy.ViewModel.Order;
+
+namespace EcomGalaxy.Services
 {
     public class ShoppingCartService : IShoppingCartService
     {

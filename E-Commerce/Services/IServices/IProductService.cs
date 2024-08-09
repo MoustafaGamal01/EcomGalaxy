@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using EcomGalaxy.Models.Product;
+using EcomGalaxy.ViewModel.Product;
 
 namespace EcomGalaxy.Services.IServices
 {

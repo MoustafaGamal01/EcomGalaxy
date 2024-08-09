@@ -1,5 +1,8 @@
-﻿using EcomGalaxy.Models;
+﻿using EcomGalaxy.Models.Product;
+using EcomGalaxy.Models.User;
 using EcomGalaxy.Services.IServices;
+using EcomGalaxy.ViewModel.Product;
+using EcomGalaxy.ViewModel.Review;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration.UserSecrets;
 

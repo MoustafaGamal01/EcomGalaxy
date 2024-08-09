@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EcomGalaxy.ViewModel.Role;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EcomGalaxy.Controllers.Admin
 {

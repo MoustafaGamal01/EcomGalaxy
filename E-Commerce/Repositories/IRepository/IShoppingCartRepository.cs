@@ -1,4 +1,6 @@
-﻿namespace EcomGalaxy.Repositories.IRepository
+﻿using EcomGalaxy.Models.ShoppingCart;
+
+namespace EcomGalaxy.Repositories.IRepository
 {
     public interface IShoppingCartRepository
     {

@@ -1,4 +1,6 @@
-﻿namespace EcomGalaxy.Services.IServices
+﻿using EcomGalaxy.Models.Product;
+
+namespace EcomGalaxy.Services.IServices
 {
     public interface IReviewService
     {

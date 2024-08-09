@@ -1,5 +1,6 @@
 ﻿
 using EcomGalaxy.Services.IServices;
+using EcomGalaxy.ViewModel.Role;
 using Microsoft.AspNetCore.Identity;
 
 namespace EcomGalaxy.Services

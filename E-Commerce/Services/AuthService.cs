@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using EcomGalaxy.Models.User;
+using EcomGalaxy.ViewModel.Auth;
+using Microsoft.AspNetCore.Identity;
 
 namespace EcomGalaxy.Services
 {

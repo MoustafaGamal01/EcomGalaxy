@@ -1,4 +1,5 @@
-﻿using static EcomGalaxy.Services.AccountService;
+﻿using EcomGalaxy.ViewModel.Profile;
+using static EcomGalaxy.Services.AccountService;
 
 namespace EcomGalaxy.Services.IServices
 {

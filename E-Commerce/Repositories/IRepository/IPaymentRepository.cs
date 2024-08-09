@@ -1,4 +1,6 @@
-﻿namespace EcomGalaxy.Repositories.IRepository
+﻿using EcomGalaxy.Models.Payment;
+
+namespace EcomGalaxy.Repositories.IRepository
 {
     public interface IPaymentRepository
     {

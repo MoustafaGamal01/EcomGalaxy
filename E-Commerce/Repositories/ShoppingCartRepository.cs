@@ -1,4 +1,7 @@
-﻿namespace EcomGalaxy.Repositories
+﻿using EcomGalaxy.Models.Context;
+using EcomGalaxy.Models.ShoppingCart;
+
+namespace EcomGalaxy.Repositories
 {
     public class ShoppingCartRepository : IShoppingCartRepository
     {

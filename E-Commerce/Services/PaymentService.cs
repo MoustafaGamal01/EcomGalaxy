@@ -1,4 +1,6 @@
-﻿namespace EcomGalaxy.Services
+﻿using EcomGalaxy.Models.Payment;
+
+namespace EcomGalaxy.Services
 {
     public class PaymentService : IPaymentService
     {

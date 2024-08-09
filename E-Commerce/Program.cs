@@ -1,3 +1,6 @@
+using EcomGalaxy.Models.Context;
+using EcomGalaxy.Models.User;
+
 namespace EcomGalaxy
 {
     public class Program

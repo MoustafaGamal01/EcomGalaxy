@@ -1,5 +1,4 @@
-﻿
-using EcomGalaxy.Models;
+﻿using EcomGalaxy.Models.Context;
 
 namespace EcomGalaxy.Repositories
 {

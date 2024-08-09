@@ -1,5 +1,3 @@
-
-
 namespace EcomGalaxy.Controllers
 {
     public class HomeController : Controller

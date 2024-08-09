@@ -1,6 +1,7 @@
 ﻿
 using Azure.Core;
-using EcomGalaxy.ViewModel;
+using EcomGalaxy.Models.User;
+using EcomGalaxy.ViewModel.Profile;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using System.Security.Policy;

@@ -1,4 +1,6 @@
-﻿namespace EcomGalaxy.Services.IServices
+﻿using EcomGalaxy.ViewModel.Order;
+
+namespace EcomGalaxy.Services.IServices
 {
     public interface IOrderService
     {

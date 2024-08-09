@@ -1,4 +1,5 @@
-﻿using EcomGalaxy.Models;
+﻿using EcomGalaxy.Models.User;
+using EcomGalaxy.ViewModel.Order;
 
 namespace EcomGalaxy.Services
 {

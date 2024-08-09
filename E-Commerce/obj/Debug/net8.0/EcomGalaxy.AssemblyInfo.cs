@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EcomGalaxy")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d85d88dadac01f5e11386d44884853204d9c7738")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+10bbf7212169084633c0f9b94423debb084b06bf")]
 [assembly: System.Reflection.AssemblyProductAttribute("EcomGalaxy")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EcomGalaxy")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

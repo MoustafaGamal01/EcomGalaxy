@@ -1,4 +1,7 @@
 ﻿
+using EcomGalaxy.Models.Context;
+using EcomGalaxy.Models.Payment;
+
 namespace EcomGalaxy.Repositories
 {
     public class PaymentRepository : IPaymentRepository

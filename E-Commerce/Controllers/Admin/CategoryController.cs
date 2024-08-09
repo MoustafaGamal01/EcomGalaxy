@@ -1,5 +1,4 @@
-﻿using EcomGalaxy.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace EcomGalaxy.Controllers.Admin
 {

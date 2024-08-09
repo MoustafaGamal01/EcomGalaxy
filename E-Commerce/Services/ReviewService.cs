@@ -1,4 +1,6 @@
-﻿namespace EcomGalaxy.Services
+﻿using EcomGalaxy.Models.Product;
+
+namespace EcomGalaxy.Services
 {
     public class ReviewService : IReviewService
     {

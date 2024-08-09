@@ -1,5 +1,5 @@
-﻿
-using EcomGalaxy.Models;
+﻿using EcomGalaxy.Models.Context;
+using EcomGalaxy.Models.Product;
 using System.Reflection.Metadata;
 
 namespace EcomGalaxy.Repositories

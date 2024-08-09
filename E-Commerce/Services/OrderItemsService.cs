@@ -1,4 +1,6 @@
-﻿namespace EcomGalaxy.Services
+﻿using EcomGalaxy.Models.Context;
+
+namespace EcomGalaxy.Services
 {
     public class OrderItemsService : IOrderItemsService
     {

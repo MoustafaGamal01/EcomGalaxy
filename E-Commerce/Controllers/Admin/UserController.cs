@@ -23,6 +23,7 @@ namespace EcomGalaxy.Controllers
             _roleManager = roleManager;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult AddUserForm()
         {
@@ -30,6 +31,8 @@ namespace EcomGalaxy.Controllers
             return View();
         }
 
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddUser(UserRegisterViewModel userRegisterVM)
@@ -60,6 +63,7 @@ namespace EcomGalaxy.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Seller, Customer")]
         public async Task<IActionResult> Profile()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -76,6 +80,7 @@ namespace EcomGalaxy.Controllers
             return View(profileVM);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> ManageUsers()
         {
@@ -92,6 +97,7 @@ namespace EcomGalaxy.Controllers
             return View(usersVM);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteUser(string userId)
@@ -119,6 +125,7 @@ namespace EcomGalaxy.Controllers
             return RedirectToAction("GetUsersForm");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> GetUsers()

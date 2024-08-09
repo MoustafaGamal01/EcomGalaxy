@@ -1,9 +1,10 @@
-﻿using EcomGalaxy.Models.Payment;
+﻿    using EcomGalaxy.Models.Payment;
 using EcomGalaxy.Models.User;
 using EcomGalaxy.ViewModel.Order;
 
 namespace EcomGalaxy.Controllers.Cutomer
 {
+    [Authorize(Roles = "Customer")]
     public class ShoppingCartController : Controller
     {
         private readonly IShoppingCartService _shoppingCartService;
@@ -17,6 +18,7 @@ namespace EcomGalaxy.Controllers.Cutomer
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> ViewCart()
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
@@ -52,11 +54,13 @@ namespace EcomGalaxy.Controllers.Cutomer
             return RedirectToAction("ViewCart");
         }
 
+
         [HttpGet]
         public IActionResult CheckoutForm()
         {
             return View();
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

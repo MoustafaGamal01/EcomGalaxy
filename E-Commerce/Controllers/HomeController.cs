@@ -1,5 +1,6 @@
 namespace EcomGalaxy.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -12,6 +13,7 @@ namespace EcomGalaxy.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             IEnumerable<Category> categories = await _categoryService.GetAllCategoriesAsync();

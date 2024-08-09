@@ -22,12 +22,14 @@ namespace EcomGalaxy.Controllers.Cutomer
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult AllOrders()
         {
             return View();
         }
 
         [HttpGet]
+        [Authorize(Roles= "Customer")]
         public async Task<IActionResult> CustomerOrders()
         {
             var user = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
@@ -36,6 +38,7 @@ namespace EcomGalaxy.Controllers.Cutomer
         }
 
         [HttpGet]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> SellerOrders()
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
@@ -53,6 +56,7 @@ namespace EcomGalaxy.Controllers.Cutomer
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> CancelOrder(int orderId)
         {
             var orderItems = await _itemsService.GetOrderItemsByOrderIdAsync(orderId);
@@ -76,6 +80,7 @@ namespace EcomGalaxy.Controllers.Cutomer
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> ShipOrder(int orderId)
         {
             var order = await _orderService.GetOrderByIdAsync(orderId);
@@ -87,6 +92,7 @@ namespace EcomGalaxy.Controllers.Cutomer
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RecievedOrder(int orderId)
         {
             var orderItems = await _itemsService.GetOrderItemsByOrderIdAsync(orderId);
@@ -106,6 +112,7 @@ namespace EcomGalaxy.Controllers.Cutomer
         }
 
         [HttpGet]
+        [Authorize(Roles= "Admin")]
         public async Task<IActionResult> AdminOrders()
         {
             var lstViewModel = await _orderService.OrderAdminDetails();

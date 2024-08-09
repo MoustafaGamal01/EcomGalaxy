@@ -12,14 +12,18 @@ namespace EcomGalaxy.Controllers
             _authService = authService;
         }
 
+
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult RegisterForm()
         {
             return View();
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(CustomerRegisterViewModel customerRegisterVM)
         {
             if (ModelState.IsValid)
@@ -46,7 +50,9 @@ namespace EcomGalaxy.Controllers
             return View("RegisterForm", customerRegisterVM);
         }
 
+
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult LoginForm()
         {
             return View();
@@ -54,6 +60,7 @@ namespace EcomGalaxy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel loginVM)
         {
             if (ModelState.IsValid)
@@ -82,6 +89,7 @@ namespace EcomGalaxy.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             ResultEnum result = await _authService.Logout();

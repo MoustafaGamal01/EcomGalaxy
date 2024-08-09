@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcomGalaxy.Controllers.Cutomer
 {
+    [Authorize(Roles= "Customer")]
     public class ReviewController : Controller
     {
         private readonly IReviewService _reviewService;

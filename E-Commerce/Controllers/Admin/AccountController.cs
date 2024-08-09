@@ -224,6 +224,7 @@ namespace EcomGalaxy.Controllers.Admin
 		}
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> ConfirmPasswordReset(string token, string password, string userId)
         {
 			if (token == null || password == null)

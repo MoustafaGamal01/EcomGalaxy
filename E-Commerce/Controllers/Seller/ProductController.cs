@@ -26,6 +26,7 @@ namespace EcomGalaxy.Controllers.Seller
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var prdVms = await _productService.GetAllProductsAsync();
@@ -33,6 +34,7 @@ namespace EcomGalaxy.Controllers.Seller
         }
 
         [HttpGet]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> AddProduct()
         {
             ViewData["CategoriesList"] = await _categoryService.GetAllCategoriesAsync();
@@ -41,6 +43,7 @@ namespace EcomGalaxy.Controllers.Seller
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Seller")]
         public async Task<IActionResult> SaveProduct(AddProductViewModel productVM)
         {
             string sellerId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
@@ -56,6 +59,7 @@ namespace EcomGalaxy.Controllers.Seller
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> ProductDetails(int Id)
         {
             var userId = _userManager.GetUserId(User);
@@ -66,6 +70,7 @@ namespace EcomGalaxy.Controllers.Seller
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Seller")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             string sellerId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
@@ -79,6 +84,7 @@ namespace EcomGalaxy.Controllers.Seller
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Seller")]
         public async Task<IActionResult> UpdateProduct(int id)
         {
             Product product = await _productService.GetProductByIdAsync(id);
@@ -88,6 +94,7 @@ namespace EcomGalaxy.Controllers.Seller
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Seller")]
         public async Task<IActionResult> SaveUpdateProduct(int id, Product prd, List<IFormFile> newImages)
         {
             var imageFiles = new List<string>();
@@ -119,6 +126,7 @@ namespace EcomGalaxy.Controllers.Seller
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> SearchProduct(string searchText)
         {
             var prds = await _productService.SearchProductsAsync(searchText);
@@ -127,6 +135,7 @@ namespace EcomGalaxy.Controllers.Seller
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetProductByCategory(string categoryTitle)
         {
             var prdVms = await _productService.GetProductsByCategoryNameAsync(categoryTitle);
@@ -135,6 +144,7 @@ namespace EcomGalaxy.Controllers.Seller
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Seller")]
         public async Task<IActionResult> ManageProducts()
         {
             var prds = await _productService.GetAllProductsAsync();
@@ -143,6 +153,7 @@ namespace EcomGalaxy.Controllers.Seller
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Seller")]
         public async Task<IActionResult> ManageProductDetails(int id)
         {
             var prd = await _productService.GetProductByIdAsync(id);
@@ -159,6 +170,7 @@ namespace EcomGalaxy.Controllers.Seller
         }
 
         [HttpGet]
+        [Authorize(Roles="Seller")]
         public async Task<IActionResult> ProductsForSeller()
         {
             string sellerId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;

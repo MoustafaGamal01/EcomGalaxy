@@ -192,11 +192,12 @@
             body: new FormData(form)
         }).then(response => {
             if (response.ok) {
-                showNotification('Order Shipped Successfully', 4000);
+                showNotification('Order Recieved Successfully', 4000);
             }
         }).catch(error => {
             console.error('Error:', error);
         });
     }
+
 </script>
 </html>

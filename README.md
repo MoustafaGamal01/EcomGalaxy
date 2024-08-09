@@ -61,9 +61,6 @@ To run EcomGalaxy MVC Project:
 5. Run database migrations to initialize the data structure.
 6. Build and run the application.
 
-#Contact
-For any inquiries or issues, please contact the repository owner @MoustafaGamal01.
-
 ## Configuration
 Ensure that your `appsettings.json` is correctly set up for your environment. Here is an example:
 
@@ -80,3 +77,7 @@ Ensure that your `appsettings.json` is correctly set up for your environment. He
     "From": "YourEmailHere@gmail.com"
     }
 }
+```
+
+## Contact
+For any inquiries or issues, please contact the repository owner @MoustafaGamal01.

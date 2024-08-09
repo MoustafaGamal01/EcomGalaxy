@@ -11,6 +11,7 @@ using System.Text.Encodings.Web;
 
 namespace EcomGalaxy.Controllers.Admin
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -184,6 +185,7 @@ namespace EcomGalaxy.Controllers.Admin
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult ResetPasswordForm()
         {
             return View();
@@ -191,6 +193,7 @@ namespace EcomGalaxy.Controllers.Admin
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel resetPasswordVM)
         {
             if (ModelState.IsValid)

@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|c:\\users\\aia\\desktop\\ecomgalaxy\\e-commerce\\controllers\\admin\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\controllers\\admin\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +14,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Controllers\\Admin\\AccountController.cs",
+              "RelativeDocumentMoniker": "E-Commerce\\Controllers\\Admin\\AccountController.cs",
+              "ToolTip": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\Controllers\\Admin\\AccountController.cs*",
+              "RelativeToolTip": "E-Commerce\\Controllers\\Admin\\AccountController.cs*",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA0AAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-09T12:53:39.31Z",
+              "EditorCaption": ""
             }
           ]
         }

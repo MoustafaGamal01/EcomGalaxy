@@ -45,7 +45,7 @@ namespace EcomGalaxy.Controllers
                 else if (answer[0] == "EmailExists")
                 {
                     ModelState.AddModelError("", "Email Is Already Taken");
-                    return View("RegisterForm", userRegisterVM);
+                    return View("AddUserForm", userRegisterVM);
                 }
                 else
                 {

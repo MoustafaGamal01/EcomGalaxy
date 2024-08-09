@@ -115,7 +115,7 @@ namespace EcomGalaxy.Controllers.Seller
             }
 
             await _productService.UpdateProductAsync(id, prd);
-            return RedirectToAction("ManageProductDetails", new { id = prd.Id });
+            return RedirectToAction("ProductsForSeller", "Product");
         }
 
         [HttpGet]

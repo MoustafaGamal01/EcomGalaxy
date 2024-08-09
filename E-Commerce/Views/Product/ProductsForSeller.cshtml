@@ -164,15 +164,15 @@
         @foreach (var product in Model)
         {
             <div class="card" data-name="@product.ProductName" data-description="@product.ProductDescription">
-                <a href="/Product/ManageProductDetails/@product.ProductId" class="card-link">
+                @* <a href="/Product/ManageProductDetails/@product.ProductId" class="card-link"> *@
+                <form asp-action="ManageProductDetails" asp-controller="Product" method="post" class="button-link">
                     <div class="image-container">
                         <img src="/images/@product.ProductImages[0]" alt="Product Image" class="product-image">
                     </div>
                     <h1>@product.ProductName</h1>
                     <p class="price">@product.ProductPrice EGP</p>
                     <p>@product.ProductDescription</p>
-                </a>
-                <form asp-action="ManageProductDetails" asp-controller="Product" method="post" class="button-link">
+                @* </a> *@
                     <input name="id" value="@product.ProductId" type="hidden">
                     <button type="submit" class="add-to-cart-button">Details</button>
                 </form>

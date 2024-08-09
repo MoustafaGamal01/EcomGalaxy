@@ -239,12 +239,12 @@
             products.forEach(product => {
                 const productName = product.getAttribute('data-name').toLowerCase();
                 const productDescription = product.getAttribute('data-description').toLowerCase();
-                const productRating = parseInt(product.getAttribute('data-rating'));
+                const productRating = parseFloat(product.getAttribute('data-rating'));
                 const productPrice = parseFloat(product.getAttribute('data-price'));
 
                 if (
                     (productName.includes(searchValue) || productDescription.includes(searchValue) || searchValue === '') &&
-                    (ratingValue === '' || productRating == ratingValue) &&
+                    (ratingValue === '' || productRating >= parseFloat(ratingValue)) &&
                     (productPrice >= priceFromValue && productPrice <= priceToValue)
                 ) {
                     product.style.display = 'block';
@@ -253,6 +253,7 @@
                 }
             });
         }
+
 
         function sortProducts() {
             const sortValue = document.getElementById('sort-dropdown').value;
@@ -276,5 +277,6 @@
             });
         }
     </script>
+
 </body>
 </html>

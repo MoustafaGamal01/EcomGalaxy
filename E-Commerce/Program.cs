@@ -1,5 +1,10 @@
-using EcomGalaxy.Models.Context;
-using EcomGalaxy.Models.User;
+using EcomGalaxy.ApplicationLayer.Services;
+using EcomGalaxy.ApplicationLayer.Services.IServices;
+using EcomGalaxy.DataAccess.Repositories;
+using EcomGalaxy.DataAccess.Repositories.IRepository;
+using EcomGalaxy.Domain.Models;
+using EcomGalaxy.Domain.Models.Context;
+using EcomGalaxy.Domain.Models.User;
 
 namespace EcomGalaxy
 {

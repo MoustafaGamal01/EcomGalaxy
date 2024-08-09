@@ -1,4 +1,6 @@
-﻿namespace EcomGalaxy.ViewModel.Order
+﻿using EcomGalaxy.Domain.Models.Order;
+
+namespace EcomGalaxy.ViewModel.Order
 {
     public class AdminOrderItemViewModel
     {

@@ -1,4 +1,4 @@
-﻿using EcomGalaxy.Models.Payment;
+﻿using EcomGalaxy.Domain.Models.Payment;
 
 namespace EcomGalaxy.ViewModel.Order
 {

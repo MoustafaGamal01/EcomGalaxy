@@ -233,7 +233,14 @@
                         }
                     }
                 </ul>
-             } 
+            }
+            else
+            {
+                <ul class="nav-links">
+                        <li class="Home-page"><a href="/Home/Index/">Home</a></li>
+                        <li class="contact-info"><a href="#contact-info">Contact</a></li>
+                </ul>
+            }
 
             <div class="cart">
                 @if (User.Identity.IsAuthenticated == true)

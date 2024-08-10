@@ -136,8 +136,9 @@ namespace EcomGalaxy.Controllers.Seller
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> GetProductByCategory(string categoryTitle)
+        //[Authorize]
+        [AllowAnonymous]
+		public async Task<IActionResult> GetProductByCategory(string categoryTitle)
         {
             var prdVms = await _productService.GetProductsByCategoryNameAsync(categoryTitle);
 

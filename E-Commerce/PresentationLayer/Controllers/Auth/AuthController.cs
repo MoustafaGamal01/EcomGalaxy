@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcomGalaxy.Controllers
 {
+    [AllowAnonymous]
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
@@ -16,7 +17,6 @@ namespace EcomGalaxy.Controllers
 
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult RegisterForm()
         {
             return View();
@@ -25,7 +25,6 @@ namespace EcomGalaxy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AllowAnonymous]
         public async Task<IActionResult> Register(CustomerRegisterViewModel customerRegisterVM)
         {
             if (ModelState.IsValid)
@@ -54,7 +53,6 @@ namespace EcomGalaxy.Controllers
 
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult LoginForm()
         {
             return View();
@@ -62,7 +60,6 @@ namespace EcomGalaxy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel loginVM)
         {
             if (ModelState.IsValid)

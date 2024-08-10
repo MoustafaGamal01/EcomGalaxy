@@ -19,7 +19,6 @@ namespace EcomGalaxy.Controllers.Cutomer
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> ViewCart()
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
@@ -30,13 +29,18 @@ namespace EcomGalaxy.Controllers.Cutomer
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> AddToCart(int productId)
         {
-            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            await _shoppingCartService.AddToCartAsync(userId, productId);
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+                await _shoppingCartService.AddToCartAsync(userId, productId);
 
-            TempData["Notification"] = "Item added to cart!";
-            return RedirectToAction("ViewCart");
+                TempData["Notification"] = "Item added to cart!";
+                return RedirectToAction("ViewCart");
+            }
+            return RedirectToAction("LoginForm", "Auth");
         }
 
         [HttpPost]

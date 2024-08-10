@@ -123,7 +123,7 @@ namespace EcomGalaxy.Controllers
             }
 
             var deleteResult = await _userManager.DeleteAsync(user);
-            return RedirectToAction("GetUsersForm");
+            return RedirectToAction("ManageUsers");
         }
 
         [Authorize(Roles = "Admin")]

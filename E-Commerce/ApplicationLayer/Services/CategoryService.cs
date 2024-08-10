@@ -41,11 +41,11 @@ namespace EcomGalaxy.ApplicationLayer.Services
             return await _categoryRepository.GetCategoryByNameAsync(categoryName);
         }
 
-        public async Task<bool?> UpdateCategoryAsync(string categoryName, Category categoryToUpdate)
+        public async Task<bool?> UpdateCategoryAsync(string categoryName, Category categoryToUpdate, bool changeName)
         {
             var cat = await _categoryRepository.GetCategoryByNameAsync(categoryName);
 
-            if (cat != null)
+            if (cat != null && changeName == true)
             {
                 return false;
             }

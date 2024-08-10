@@ -67,6 +67,7 @@ namespace EcomGalaxy.Controllers.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveUpdateCategory(Category category, IFormFile newImage)
         {
+            bool changeName = false;
             if (newImage != null)
             {
                 var fileName = Path.GetFileName(newImage.FileName);
@@ -82,9 +83,11 @@ namespace EcomGalaxy.Controllers.Admin
             {
                 var oldCategory = await _categoryService.GetCategoryByIdAsync(category.Id);
                 category.CategoryImage = oldCategory.CategoryImage;
+                if(oldCategory.Name != category.Name)
+                    changeName = true;
             }
 
-            var ok = await _categoryService.UpdateCategoryAsync(category.Name, category);
+            var ok = await _categoryService.UpdateCategoryAsync(category.Name, category, changeName);
             if (ok == true) return RedirectToAction("UpdateCategory", new { id = category.Id });
             
             
@@ -92,8 +95,7 @@ namespace EcomGalaxy.Controllers.Admin
             return View("UpdateCategory", new { id = category.Id});
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+       [HttpGet]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             bool?ok = await _categoryService.DeleteCategoryAsync(id);

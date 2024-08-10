@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HvIPF1o/bS/2D78dBl5HLMzpd6Tt4Gsmx0On2yb1VIE=",
+  "Hash": "M0IYnHsN2TU5H4lH8og6Te4aUCaVROBij759nPfSLD4=",
   "Source": "EcomGalaxy",
   "BasePath": "_content/EcomGalaxy",
   "Mode": "Default",
@@ -471,6 +471,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Iphone2.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\IPhone2.png",
+      "SourceId": "EcomGalaxy",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\",
+      "BasePath": "_content/EcomGalaxy",
+      "RelativePath": "images/IPhone2.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\IPhone2.png"
     },
     {
       "Identity": "C:\\Users\\AIA\\Desktop\\EcomGalaxy\\E-Commerce\\wwwroot\\images\\NB1.jpg",

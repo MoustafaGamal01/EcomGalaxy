@@ -8,7 +8,7 @@ namespace EcomGalaxy.ApplicationLayer.Services.IServices
         Task<Category> GetCategoryByNameAsync(string categoryName);
         Task<IEnumerable<Category>> GetAllCategoriesAsync();
         Task<bool?> AddCategoryAsync(Category newCategory);
-        Task<bool?> UpdateCategoryAsync(string categoryName, Category categoryToUpdate);
+        Task<bool?> UpdateCategoryAsync(string categoryName, Category categoryToUpdate, bool changeName);
         Task<bool?> DeleteCategoryAsync(int categoryId);
     }
 }

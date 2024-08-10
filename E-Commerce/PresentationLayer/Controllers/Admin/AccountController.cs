@@ -69,7 +69,7 @@ namespace EcomGalaxy.Controllers.Admin
                 List<string> result = await _accountService.ChangeUsername(changeUsernameVM, UserId);
                 if(result.Count == 0)
                 {
-                    return RedirectToAction("Profile", "Auth");
+                    return RedirectToAction("Profile", "User");
 				}
                 else if (result[0] == "UsernameExists")
                 {
@@ -102,7 +102,7 @@ namespace EcomGalaxy.Controllers.Admin
 				List<string> result = await _accountService.ChangeFullName(changeFullNameViewModel, UserId);
 				if (result.Count == 0)
 				{
-					return RedirectToAction("Profile", "Auth");
+					return RedirectToAction("Profile", "User");
 				}
 				else
 				{

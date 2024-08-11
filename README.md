@@ -49,7 +49,7 @@ EComGalaxy follows N-tier architecture, which includes:
 
 ### Order Management
 * Create, update, and cancel orders.
-* Trace and Manage order status (Proccessing, Shipped, Delivered..etc)
+* Track and Manage order status (Proccessing, Shipped, Delivered..etc)
 
 ## Running the Project
 To run EcomGalaxy MVC Project:

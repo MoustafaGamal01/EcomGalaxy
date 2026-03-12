@@ -5,266 +5,362 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+    <title>My Cart</title>
     <style>
-        body {
-            font-family: Gotham, sans-serif;
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background: #f1f2f7;
         }
 
-        .empty-cart{
-            font-family:Gotham, sans-serif;
-            font-size: 20px;
-            font-weight: bold;
-            margin-right:575px;
+        body {
+            background: #1a1a1a;
+            font-family: inherit;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #f0f0f0;
         }
-        .container {
-            width: 80%;
-            margin: 80px auto;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            border-radius: 10px;
+
+        .page {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Header */
+        .page-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #555;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .page-heading {
+            font-size: 28px;
+            font-weight: 500;
+            color: #f0f0f0;
+            margin-bottom: 24px;
+        }
+
+        /* Empty state */
+        .empty-state {
+            background: #242424;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 80px 40px;
+            text-align: center;
+            color: #555;
+            font-size: 16px;
+        }
+
+        /* Cart card */
+        .card {
+            background: #242424;
+            border-radius: 12px;
+            border: 1px solid #333;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
             overflow: hidden;
         }
 
-        .header {
-            font-weight: bold;
-            background-color: darkorange;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 24px;
-        }
-
-        .cart-items {
-            padding: 20px;
-        }
-
+        /* Cart item */
         .cart-item {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
+            gap: 20px;
+            padding: 20px 24px;
+            border-bottom: 1px solid #2e2e2e;
+            transition: background 0.2s;
         }
 
             .cart-item:last-child {
                 border-bottom: none;
             }
 
-        .item-image {
-            flex: 1;
-        }
-
-            .item-image img {
-                width: 150px;
-                height: 150px;
-                border-radius: 10px;
-                margin-left: 40px;
+            .cart-item:hover {
+                background: #2a2a2a;
             }
 
+        .item-image img {
+            width: 90px;
+            height: 90px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: #2e2e2e;
+            display: block;
+        }
+
         .item-details {
-            flex: 3;
-            padding: 0 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
         .item-name {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #f0f0f0;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
         }
 
         .item-descr {
-            color: gray;
-            font-weight: 400;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .item-price {
-            font-weight: bold;
+            font-size: 15px;
+            font-weight: 500;
             color: darkorange;
-            font-size: 16px;
         }
 
-        .item-quantity {
-            flex: 1;
+        /* Quantity form */
+        .item-quantity form {
             display: flex;
             align-items: center;
+            gap: 8px;
         }
 
-            .item-quantity input {
-                width: 40px;
-                text-align: center;
-                margin: 0 10px;
-                padding: 5px;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-            }
-
-        .remove-item {
-            flex: 1;
-            text-align: right;
+        .item-quantity input[type="number"] {
+            width: 52px;
+            text-align: center;
+            padding: 8px 6px;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #f0f0f0;
+            font-family: inherit;
+            font-size: 14px;
         }
 
-            .remove-item form {
-                display: inline;
+            .item-quantity input[type="number"]:focus {
+                outline: none;
+                border-color: darkorange;
             }
 
-            .remove-item button {
-                background-color: #ff4d4d;
-                border: none;
-                padding: 10px 20px;
-                color: white;
-                cursor: pointer;
-                border-radius: 5px;
-                transition: background-color 0.3s ease;
-            }
-
-                .remove-item button:hover {
-                    background-color: #e60000;
-                }
-
-        .update-item {
-            flex: 1;
-            text-align: right;
-            margin-left: 10px;
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border: 1px solid #444;
+            background: none;
+            white-space: nowrap;
         }
 
-            .update-item button {
-                background-color: #4CAF50;
-                border: none;
-                padding: 10px 20px;
-                color: white;
-                cursor: pointer;
-                border-radius: 5px;
-                transition: background-color 0.3s ease;
+        .btn-update {
+            color: #4caf50;
+            border-color: #2a3d2a;
+        }
+
+            .btn-update:hover {
+                border-color: #4caf50;
+                background: #1a2e1a;
             }
 
-                .update-item button:hover {
-                    background-color: #45a049;
-                }
+        .btn-remove {
+            color: #b84040;
+            border-color: #3d2a2a;
+        }
 
+            .btn-remove:hover {
+                border-color: #b84040;
+                background: #2a1a1a;
+            }
+
+        .btn-checkout {
+            background: darkorange;
+            color: white;
+            border-color: darkorange;
+            padding: 14px 32px;
+            font-size: 13px;
+        }
+
+            .btn-checkout:hover {
+                background: #e07000;
+                border-color: #e07000;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 14px rgba(200,98,0,0.3);
+            }
+
+        /* Summary */
         .cart-summary {
-            padding: 20px;
-            border-top: 1px solid #eee;
-            text-align: right;
+            background: #1e1e1e;
+            border-top: 1px solid #333;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
-            .cart-summary .total-price {
-                font-size: 20px;
-                margin-bottom: 20px;
-            }
+        .summary-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #555;
+            margin-bottom: 4px;
+        }
 
-            .cart-summary button {
-                background-color: #f7a440;
-                border: none;
-                padding: 15px 30px;
-                color: white;
-                cursor: pointer;
-                border-radius: 5px;
-                font-size: 18px;
-                transition: background-color 0.3s ease;
-            }
+        .summary-total {
+            font-size: 24px;
+            font-weight: 500;
+            color: darkorange;
+        }
 
-                .cart-summary button:hover {
-                    background-color: #e68a00;
-                }
-
+        /* Notification */
         .notification {
             display: none;
             position: fixed;
-            top: 10px;
-            right: 10px;
-            background-color: #4caf50; 
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            font-size: 16px;
+            top: 20px;
+            right: 20px;
+            background: #242424;
+            border: 1px solid #4caf50;
+            color: #4caf50;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 14px;
             z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
             transition: opacity 0.5s ease;
         }
 
             .notification.fade-out {
                 opacity: 0;
             }
+
+        @@media (max-width: 600px) {
+            .cart-item {
+                flex-wrap: wrap;
+            }
+
+            .item-image img {
+                width: 70px;
+                height: 70px;
+            }
+
+            .cart-summary {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 <body>
-    <div id="notification" class="notification">Item added to cart</div>
 
-    <div class="container">
-        <div class="header">My Shopping Cart</div>
+    <div id="notification" class="notification"></div>
+
+    <div class="page">
+        <div class="page-title">EcomGalaxy</div>
+        <div class="page-heading">My Shopping Cart</div>
+
         @if (Model.ShoppingCartItems.Count == 0)
         {
-            <h2 style="text-align: center;">Your cart is empty.</h2>
+            <div class="empty-state">Your cart is empty.</div>
         }
-        <div class="cart-items">
-            @foreach (var item in Model.ShoppingCartItems)
-            {
-                <div class="cart-item">
-                    <div class="item-image">
-                        <img src="/images/@item.Product.ProductImagePath[0]" alt="Product Image">
-                    </div>
-                    <div class="item-details">
-                        <div class="item-name">@item.Product.Name</div>
-                        <div class="item-descr">@item.Product.Description</div>
-                        <br />
-                        <div class="item-price">@item.Product.Price EGP</div>
-                    </div>
-                    <div class="item-quantity">
-                        <form asp-action="UpdateQuantity" asp-controller="ShoppingCart" method="post">
-                            <input type="hidden" name="cartId" value="@Model.Id" />
-                            <input type="hidden" name="productId" value="@item.Product.Id" />
-                            <input type="number" name="quantity" value="@item.Quantity" min="1" max="@item.Product.StockQuantity" />
-                            <button type="submit" class="update-item-button">Update Qtty</button>
-                        </form>
-                    </div>
-                    <div class="remove-item">
-                        <form asp-action="RemoveFromCart" asp-controller="ShoppingCart" method="post">
-                            <input type="hidden" name="productId" value="@item.Product.Id" />
-                            <input type="hidden" name="cartId" value="@Model.Id" />
-                            <button type="submit">Remove</button>
-                        </form>
-                    </div>
-                </div>
-            }
-        </div>
-        @if (Model.ShoppingCartItems.Count != 0)
+        else
         {
-            <div class="cart-summary">
-                <div class="total-price">Total Price: @Model.ShoppingCartItems.Sum(i => i.Product.Price * i.Quantity) EGP</div>
-            <form asp-action="Checkoutform" asp-controller="ShoppingCart" method="get">
-                <button type="submit">Proceed to Checkout</button>
-            </form>
+            <div class="card">
+                <div class="cart-items">
+                    @foreach (var item in Model.ShoppingCartItems)
+                    {
+                        <div class="cart-item">
+                            <!-- Image -->
+                            <div class="item-image">
+                                <img src="/images/@(item.Product.ProductImagePath?.FirstOrDefault() ?? "placeholder.jpg")"
+                                     alt="@item.Product.Name">
+                            </div>
+
+                            <!-- Details -->
+                            <div class="item-details">
+                                <div class="item-name">@item.Product.Name</div>
+                                <div class="item-descr">@item.Product.Description</div>
+                                <div class="item-price">@item.Product.Price EGP</div>
+                            </div>
+
+                            <!-- Quantity -->
+                            <div class="item-quantity">
+                                <form asp-action="UpdateQuantity" asp-controller="ShoppingCart" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="cartId" value="@Model.Id" />
+                                    <input type="hidden" name="productId" value="@item.Product.Id" />
+                                    <input type="number" name="quantity"
+                                           value="@item.Quantity"
+                                           min="1"
+                                           max="@item.Product.StockQuantity" />
+                                    <button type="submit" class="btn btn-update">Update</button>
+                                </form>
+                            </div>
+
+                            <!-- Remove -->
+                            <div class="remove-item">
+                                <form asp-action="RemoveFromCart" asp-controller="ShoppingCart" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="productId" value="@item.Product.Id" />
+                                    <input type="hidden" name="cartId" value="@Model.Id" />
+                                    <button type="submit" class="btn btn-remove">Remove</button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Summary -->
+                <div class="cart-summary">
+                    <div>
+                        <div class="summary-label">Total</div>
+                        <div class="summary-total">
+                            @Model.ShoppingCartItems.Sum(i => i.Product.Price * i.Quantity) EGP
+                        </div>
+                    </div>
+                    <form asp-action="Checkoutform" asp-controller="ShoppingCart" method="get">
+                        <button type="submit" class="btn btn-checkout">Proceed to Checkout →</button>
+                    </form>
+                </div>
             </div>
         }
     </div>
 
     <script>
-
         function showNotification(message) {
-            var notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.style.display = 'block';
-
+            var n = document.getElementById('notification');
+            n.textContent = message;
+            n.style.display = 'block';
             setTimeout(function () {
-                notification.classList.add('fade-out');
+                n.classList.add('fade-out');
                 setTimeout(function () {
-                    notification.style.display = 'none';
-                    notification.classList.remove('fade-out');
-                }, 500); 
-            }, 5000); 
+                    n.style.display = 'none';
+                    n.classList.remove('fade-out');
+                }, 500);
+            }, 5000);
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-        @if (TempData["Notification"] != null)
-        {
-            <text>
-                    showNotification('@TempData["Notification"]');
-            </text>
-        }
+            @if (TempData["Notification"] != null)
+            {
+                    <text>showNotification('@TempData["Notification"]');</text>
+            }
         });
     </script>
 </body>

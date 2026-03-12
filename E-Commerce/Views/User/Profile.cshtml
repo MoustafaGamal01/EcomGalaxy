@@ -1,194 +1,344 @@
 ﻿@model ProfileViewModel
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <title>Profile Page</title>
+    <title>My Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            color: #797979;
-            background: #f1f2f7;
-            font-family: Gotham, sans-serif;
-            padding: 0px !important;
-            margin: 0px !important;
+            background: #1a1a1a;
+            font-family: inherit;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #f0f0f0;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 860px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Header */
+        .page-title {
             font-size: 13px;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-            -moz-font-smoothing: antialiased;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #555;
+            font-weight: 500;
+            margin-bottom: 4px;
         }
 
-        .profile-nav, .profile-info {
-            margin-top: 30px;
+        .page-heading {
+            font-size: 28px;
+            font-weight: 500;
+            color: #f0f0f0;
+            margin-bottom: 8px;
         }
 
-            .profile-nav .user-heading {
-                /* background: darkorange; */
-                color: #1e1e1e;
-                border-radius: 4px 4px 0 0;
-                -webkit-border-radius: 4px 4px 0 0;
-                padding: 30px;
-                text-align: center;
-            }
-
-                .profile-nav .user-heading.round a {
-                    border-radius: 50%;
-                    -webkit-border-radius: 50%;
-                    border: 10px solid rgba(255,255,255,0.3);
-                    display: inline-block;
-                }
-
-                .profile-nav .user-heading a img {
-                    width: 112px;
-                    height: 112px;
-                    border-radius: 50%;
-                    -webkit-border-radius: 50%;
-                }
-
-                .profile-nav .user-heading h1 {
-                    font-size: 22px;
-                    font-weight: 300;
-                    margin-bottom: 5px;
-                }
-
-                .profile-nav .user-heading p {
-                    font-size: 12px;
-                }
-
-            .profile-nav ul {
-                margin-top: 1px;
-            }
-
-                .profile-nav ul > li {
-                    border-bottom: 1px solid #ebeae6;
-                    margin-top: 0;
-                    line-height: 30px;
-                }
-
-                    .profile-nav ul > li:last-child {
-                        border-bottom: none;
-                    }
-
-                    .profile-nav ul > li > a {
-                        border-radius: 0;
-                        -webkit-border-radius: 0;
-                        color: #89817f;
-                        border-left: 5px solid #fff;
-                    }
-
-                        .profile-nav ul > li > a:hover, .profile-nav ul > li > a:focus, .profile-nav ul li.active a {
-                            background: #f8f7f5 !important;
-                            border-left: 5px solid #darkorange;
-                            color: #89817f !important;
-                        }
-
-                    .profile-nav ul > li:last-child > a:last-child {
-                        border-radius: 0 0 4px 4px;
-                        -webkit-border-radius: 0 0 4px 4px;
-                    }
-
-                    .profile-nav ul > li > a > i {
-                        font-size: 16px;
-                        padding-right: 10px;
-                        color: #bcb3aa;
-                    }
-
-        .profile-info {
-            padding: 20px;
-            background: #fff;
-            margin-top:-12px;
-            margin-left:550px;
-            margin-right: 550px;
-            border-radius: 4px;
-            -webkit-border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        /* Layout */
+        .layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 20px;
+            align-items: start;
         }
 
-            .profile-info .info {
-                margin-bottom: 10px;
+        /* Avatar card */
+        .avatar-card {
+            background: #242424;
+            border: 1px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 20px 24px;
+            gap: 12px;
+            text-align: center;
+        }
+
+        .avatar-ring {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            border: 3px solid darkorange;
+            padding: 3px;
+            background: #1a1a1a;
+        }
+
+            .avatar-ring img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;
+                display: block;
             }
 
-                .profile-info .info label {
-                    font-weight: bold;
-                    display: block;
-                    margin-bottom: 5px;
-                }
+        .avatar-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: #f0f0f0;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
 
-                .profile-info .info span {
-                    display: inline-block;
-                    width: 80%;
-                }
+        .avatar-email {
+            font-size: 12px;
+            color: #555;
+            letter-spacing: 0.02em;
+            word-break: break-all;
+        }
 
-                .profile-info .info a {
-                    block-size:15px;
-                    cursor: pointer;
-                    color: darkorange;
-                    padding-left: 75px;
-                    text-decoration:none;
-                }
+        .avatar-divider {
+            width: 100%;
+            height: 1px;
+            background: #2e2e2e;
+            margin: 4px 0;
+        }
 
+        .avatar-badge {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: darkorange;
+            background: #2a1a00;
+            border: 1px solid #4a3000;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        /* Info card */
+        .info-card {
+            background: #242424;
+            border: 1px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .info-card-header {
+            padding: 18px 24px;
+            border-bottom: 1px solid #2e2e2e;
+        }
+
+            .info-card-header span {
+                font-size: 10px;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: #555;
+                font-weight: 500;
+            }
+
+        /* Info row */
+        .info-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-bottom: 1px solid #2e2e2e;
+            gap: 12px;
+            transition: background 0.2s;
+        }
+
+            .info-row:last-child {
+                border-bottom: none;
+            }
+
+            .info-row:hover {
+                background: #2a2a2a;
+            }
+
+        .info-left {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            flex: 1;
+        }
+
+        .info-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: #ccc;
+            font-weight: 400;
+        }
+
+            .info-value.masked {
+                letter-spacing: 0.2em;
+                color: #444;
+            }
+
+        /* Edit link */
+        .edit-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background: none;
+            color: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+            .edit-btn:hover {
+                border-color: darkorange;
+                color: darkorange;
+                background: #2a1a00;
+            }
+
+            .edit-btn.disabled {
+                pointer-events: none;
+                opacity: 0.2;
+            }
+
+        @@media (max-width: 640px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container bootstrap snippets bootdey">
-        <div class="row">
-            <div class="profile-nav col-md-3">
-                <div class="panel">
-                    <div class="user-heading round">
-                        <a href="#">
-                            <img src="/images//EmptyProfilePic.jpeg" alt="">
-                        </a>
-                        <h1><b>@Model.Name</b></h1>
-                        <p>@Model.Email</p>
-                    </div>
-                    <ul>
-                    </ul>
+    <div class="page">
+        <div class="page-title">EcomGalaxy</div>
+        <div class="page-heading">My Profile</div>
+
+        <div class="layout">
+
+            <!-- Avatar sidebar -->
+            <div class="avatar-card">
+                <div class="avatar-ring">
+                    <img src="/images/EmptyProfilePic.jpeg" alt="@Model.Name">
                 </div>
+                <div class="avatar-name">@Model.Name</div>
+                <div class="avatar-email">@Model.Email</div>
+                <div class="avatar-divider"></div>
+                <span class="avatar-badge">@Model.Role</span>
             </div>
-            <div class="profile-info col-md-9">
-                <div class="info">
-                    <label>Full Name</label>
-                    <span>@Model.Name</span>
-                    <a class="fa fa-pencil" href="/Account/ChangeFullNameForm">HH</a>
+
+            <!-- Info panel -->
+            <div class="info-card">
+                <div class="info-card-header">
+                    <span>Account Information</span>
                 </div>
-                <div class="info">
-                    <label>Username</label>
-                    <span>@Model.UserName</span>
-                    <a class="fa fa-pencil" href="/Account/ChangeUsernameForm"></a>
+
+                <!-- Full Name -->
+                <div class="info-row">
+                    <div class="info-left">
+                        <div class="info-label">Full Name</div>
+                        <div class="info-value">@Model.Name</div>
+                    </div>
+                    <a class="edit-btn" asp-action="ChangeFullNameForm" asp-controller="Account" title="Edit">
+                        <i class="fas fa-pen"></i>
+                    </a>
                 </div>
-                <div class="info">
-                    <label>Email</label>
-                    <span>@Model.Email</span>
-                    <a class="fa fa-pencil" href="/Account/ChangeEmailForm"></a>
+
+                <!-- Username -->
+                <div class="info-row">
+                    <div class="info-left">
+                        <div class="info-label">Username</div>
+                        <div class="info-value">@Model.UserName</div>
+                    </div>
+                    <a class="edit-btn" asp-action="ChangeUsernameForm" asp-controller="Account" title="Edit">
+                        <i class="fas fa-pen"></i>
+                    </a>
                 </div>
-                <div class="info">
-                    <label>Password</label>
-                    <span>*********</span>
-                    <a class="fa fa-pencil" href="/Account/ChangePasswordForm"></a>
+
+                <!-- Email -->
+                <div class="info-row">
+                    <div class="info-left">
+                        <div class="info-label">Email</div>
+                        <div class="info-value">@Model.Email</div>
+                    </div>
+                    <a class="edit-btn" asp-action="ChangeEmailForm" asp-controller="Account" title="Edit">
+                        <i class="fas fa-pen"></i>
+                    </a>
                 </div>
-                <div class="info">
-                    <label>Country</label>
-                    <span>@Model.Country</span>
-                    <a class="fa fa-pencil" href="/Account/#"></a>
+
+                <!-- Password -->
+                <div class="info-row">
+                    <div class="info-left">
+                        <div class="info-label">Password</div>
+                        <div class="info-value masked">••••••••••</div>
+                    </div>
+                    <a class="edit-btn" asp-action="ChangePasswordForm" asp-controller="Account" title="Edit">
+                        <i class="fas fa-pen"></i>
+                    </a>
                 </div>
-                <div class="info">
-                    <label>City</label>
-                    <span>@Model.City</span>
-                    <a class="fa fa-pencil" href="/Account/#"></a>
+
+                <div class="info-card-header" style="border-top: 1px solid #2e2e2e;">
+                    <span>Address</span>
                 </div>
-                <div class="info">
-                    <label>Street</label>
-                    <span>@Model.Street</span>
-                    <a class="fa fa-pencil" href="/Account/#"></a>
+
+                <!-- Country -->
+                <div class="info-row">
+                    <div class="info-left">
+                        <div class="info-label">Country</div>
+                        <div class="info-value">@(string.IsNullOrEmpty(Model.Country) ? "—" : Model.Country)</div>
+                    </div>
+                    <a class="edit-btn disabled" title="Coming soon">
+                        <i class="fas fa-pen"></i>
+                    </a>
                 </div>
-                <div class="info">
-                    <label>Postal Code</label>
-                    <span>@Model.PostalCode</span>
-                    <a class="fa fa-pencil" href="/Account/#"></a>
+
+                <!-- City -->
+                <div class="info-row">
+                    <div class="info-left">
+                        <div class="info-label">City</div>
+                        <div class="info-value">@(string.IsNullOrEmpty(Model.City) ? "—" : Model.City)</div>
+                    </div>
+                    <a class="edit-btn disabled" title="Coming soon">
+                        <i class="fas fa-pen"></i>
+                    </a>
                 </div>
+
+                <!-- Street -->
+                <div class="info-row">
+                    <div class="info-left">
+                        <div class="info-label">Street</div>
+                        <div class="info-value">@(string.IsNullOrEmpty(Model.Street) ? "—" : Model.Street)</div>
+                    </div>
+                    <a class="edit-btn disabled" title="Coming soon">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                </div>
+
+                <!-- Postal Code -->
+                <div class="info-row">
+                    <div class="info-left">
+                        <div class="info-label">Postal Code</div>
+                        <div class="info-value">@(string.IsNullOrEmpty(Model.PostalCode) ? "—" : Model.PostalCode)</div>
+                    </div>
+                    <a class="edit-btn disabled" title="Coming soon">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>

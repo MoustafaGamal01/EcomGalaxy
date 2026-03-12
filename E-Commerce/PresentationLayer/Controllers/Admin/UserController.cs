@@ -67,6 +67,8 @@ namespace EcomGalaxy.Controllers
         public async Task<IActionResult> Profile()
         {
             var user = await _userManager.GetUserAsync(User);
+            var role = User.Claims
+    .FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
             ProfileViewModel profileVM = new ProfileViewModel();
 
             profileVM.Name = user.Name;
@@ -76,6 +78,8 @@ namespace EcomGalaxy.Controllers
             profileVM.City = user.City;
             profileVM.Street = user.Street;
             profileVM.PostalCode = user.PostalCode;
+            profileVM.Role = role;
+
 
             return View(profileVM);
         }

@@ -1,265 +1,672 @@
 ﻿@model ProductDetailsFormViewModel
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Page</title>
-    <style>
-        .product-page * {
-            box-sizing: border-box;
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<style>
+    :root {
+        --bg: #0f0f0f;
+        --surface: #1a1a1a;
+        --surface2: #222;
+        --border: #2a2a2a;
+        --accent: #f97316;
+        --text: #f0f0f0;
+        --muted: #777;
+        --success: #34d399;
+        --font-head: 'Bebas Neue', sans-serif;
+        --font-body: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, sans-serif;
+        --radius: 14px;
+        --trans: .22s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 24px 28px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--muted);
+    }
+
+        .breadcrumb a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color var(--trans);
         }
 
-        .product-page body {
-            background: #f1f2f7;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
+            .breadcrumb a:hover {
+                color: var(--accent);
+            }
+
+        .breadcrumb i {
+            font-size: 9px;
         }
 
-        .product-page .container {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 50px;
-        }
+    /* ── MAIN LAYOUT ── */
+    .detail-wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 28px 28px 80px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 28px;
+        align-items: start;
+    }
 
-        .product-page .card {
-            width: 750px;
-            background: white;
-            margin: 20px;
-            box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
-            transition: all 0.3s;
-            position: relative;
-        }
+    /* ── IMAGE GALLERY ── */
+    .gallery {
+        grid-row: 1 / 2;
+        position: sticky;
+        top: 88px;
+    }
 
-            .product-page .card:hover {
-                box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-            }
+    .gallery-main {
+        position: relative;
+        width: 100%;
+        padding-top: 100%;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+    }
 
-        .product-page .photo {
-            padding: 70px;
-            width: 45%;
-            text-align: center;
-            float: left;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-            .product-page .photo img {
-                max-height: 260px;
-                width: auto;
-                display: block;
-            }
-
-        .product-page .description {
-            padding: 52px;
-            float: left;
-            width: 52%;
-        }
-
-            .product-page .description h1 {
-                color: #515151;
-                font-weight: 500;
-                padding-top: 15px;
-                margin: 0;
-                font-size: 30px;
-            }
-
-            .product-page .description h2 {
-                color: #515151;
-                margin: 0;
-                text-transform: uppercase;
-                font-weight: 500;
-            }
-
-            .product-page .description h4 {
-                margin: 0;
-                color: #727272;
-                text-transform: uppercase;
-                font-weight: 500;
-                font-size: 14px;
-            }
-
-            .product-page .description p {
-                font-size: 14px;
-                line-height: 20px;
-                color: #727272;
-                padding: 20px 0;
-                margin: 0;
-            }
-
-            .product-page .description button {
-                outline: 0;
-                border: 1px solid #d9d9d9;
-                padding: 18px 0px;
-                margin-bottom: 30px;
-                color: #515151;
-                text-transform: uppercase;
-                width: 125px;
-                font-family: inherit;
-                margin-right: 5px;
-                transition: all 0.3s ease;
-                font-weight: 500;
-                cursor: pointer;
-                background: none;
-                border-radius: 10px;
-            }
-
-                .product-page .description button:hover {
-                    border: 1px solid darkorange;
-                    color: darkorange;
-                }
-
-        .product-page .arrow {
+        .gallery-main img {
             position: absolute;
-            top: 50%;
-            width: 25px;
-            height: 25px;
-            background-color: rgba(0,0,0,0.5);
-            color: white;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            z-index: 10;
-            transform: translateY(-50%);
-        }
-
-        .product-page .arrow-left {
-            left: 10px;
-        }
-
-        .product-page .arrow-right {
-            right: 10px;
-        }
-
-        .product-page .comments-card {
-            width: 400px;
-            background: white;
-            margin: 20px;
-            box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
-            transition: all 0.3s;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
             padding: 20px;
-            position: relative;
+            transition: opacity .3s ease, transform .4s var(--trans);
         }
 
-            .product-page .comments-card:hover {
-                box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            .gallery-main img.fade-out {
+                opacity: 0;
+                transform: scale(.97);
             }
 
-        .product-page .comments-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
+    /* Arrow buttons */
+    .gallery-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 36px;
+        height: 36px;
+        background: rgba(0,0,0,.6);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,.1);
+        border-radius: 50%;
+        color: #fff;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 2;
+        transition: background var(--trans), transform var(--trans);
+        outline: none;
+    }
+
+        .gallery-arrow:hover {
+            background: var(--accent);
+            transform: translateY(-50%) scale(1.1);
         }
 
-        .product-page .comments-card h3 {
-            color: #515151;
-            font-weight: 500;
-            margin: 0;
-            font-size: 22px;
+        .gallery-arrow.left {
+            left: 12px;
         }
 
-        .product-page .comments-card button {
-            outline: 0;
-            border: 1px solid #d9d9d9;
-            padding: 10px;
-            color: #515151;
-            text-transform: uppercase;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            cursor: pointer;
-            background: none;
-            border-radius: 10px;
+        .gallery-arrow.right {
+            right: 12px;
         }
 
-            .product-page .comments-card button:hover {
-                border: 1px solid darkorange;
-                color: darkorange;
+    /* Dot indicators */
+    .gallery-dots {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        margin-top: 14px;
+    }
+
+    .gallery-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--border);
+        cursor: pointer;
+        transition: background var(--trans), transform var(--trans);
+        border: none;
+        padding: 0;
+        outline: none;
+    }
+
+        .gallery-dot.active {
+            background: var(--accent);
+            transform: scale(1.4);
+        }
+
+    /* Thumbnails */
+    .gallery-thumbs {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+    }
+
+    .gallery-thumb {
+        width: 64px;
+        height: 64px;
+        border-radius: 8px;
+        border: 1.5px solid var(--border);
+        overflow: hidden;
+        cursor: pointer;
+        transition: border-color var(--trans);
+        flex-shrink: 0;
+    }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-thumb.active {
+            border-color: var(--accent);
+        }
+
+    /* ── PRODUCT INFO ── */
+    .prod-info {
+        grid-row: 1 / 2;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Rating row */
+    .info-rating {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .stars {
+        display: flex;
+        gap: 2px;
+    }
+
+        .stars i {
+            font-size: 13px;
+            color: var(--border);
+        }
+
+            .stars i.lit {
+                color: #fbbf24;
             }
 
-        .product-page .comment {
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #efefef;
+    .info-rating-val {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+    }
+
+    .info-rating-count {
+        font-size: 12px;
+        color: var(--muted);
+    }
+
+    .info-name {
+        font-family: var(--font-head);
+        font-size: clamp(28px, 4vw, 48px);
+        letter-spacing: 2px;
+        color: var(--text);
+        margin: 0;
+        line-height: 1.1;
+    }
+
+    .info-desc {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.75;
+        margin: 0;
+    }
+
+    /* Price block */
+    .info-price-block {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+    }
+
+    .info-price {
+        font-family: var(--font-head);
+        font-size: 42px;
+        letter-spacing: 1px;
+        color: var(--text);
+    }
+
+    .info-currency {
+        font-size: 16px;
+        color: var(--muted);
+        font-weight: 400;
+    }
+
+    /* Divider */
+    .info-divider {
+        height: 1px;
+        background: var(--border);
+    }
+
+    /* Stock badge */
+    .info-stock {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--success);
+        background: rgba(52,211,153,.1);
+        border: 1px solid rgba(52,211,153,.25);
+        padding: 5px 12px;
+        border-radius: 99px;
+    }
+
+        .info-stock i {
+            font-size: 10px;
         }
 
-            .product-page .comment h4 {
-                margin: 0;
-                color: #727272;
-                font-weight: 500;
-                font-size: 16px;
-            }
+    /* CTA buttons */
+    .info-actions {
+        display: flex;
+        gap: 10px;
+    }
 
-            .product-page .comment p {
-                margin: 5px 0 0 0;
-                color: #515151;
-                font-size: 14px;
-            }
-    </style>
-</head>
-<body>
-    <div class="product-page">
-        <div class="container">
-            <div class="card">
-                <div class="photo">
-                    <button class="arrow arrow-left" onclick="changeImage(-1)">&#9664;</button>
-                    <img id="productImage" src="/images/@Model.Images[0]" alt="Product Image">
-                    <button class="arrow arrow-right" onclick="changeImage(1)">&#9654;</button>
-                </div>
-                <div class="description">
-                    <h2>@Model.Name</h2>
-                    <h4>Rate @Model.Rate</h4>
-                    <h1>@Model.Price EGP</h1>
-                    <p>@Model.Description</p>
-                    <form asp-controller="ShoppingCart" asp-action="AddToCart" method="post">
-                        <input type="hidden" name="productId" value="@Model.ProductId" />
-                        <button type="submit">Add to Cart</button>
-                    </form>
-                </div>
-            </div>
-            <div class="comments-card">
-                <div class="comments-header">
-                    <h3><b>Reviews</b></h3>
-                    @if (User.Identity.IsAuthenticated == true)
-                    {
-                        <form asp-action="AddReviewForm" asp-controller="Review" method="get">
-                            <input type="hidden" name="productId" value="@Model.ProductId" />
-                            <input type="hidden" name="userId" value="@Model.UserId"></input>
-                            <button type="submit">Add Review</button>
-                        </form>
-                    }
-                </div>
-                @foreach (var item in Model.Reviews)
+    .btn-cart-primary {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        height: 50px;
+        background: var(--accent);
+        color: #fff;
+        font-family: var(--font-body);
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+        letter-spacing: .3px;
+    }
+
+        .btn-cart-primary:hover {
+            background: #e8660a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(249,115,22,.35);
+        }
+
+        .btn-cart-primary:active {
+            transform: translateY(0);
+        }
+
+    /* Trust badges */
+    .trust-badges {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .trust-badge {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 12px;
+        color: var(--muted);
+    }
+
+        .trust-badge i {
+            color: var(--accent);
+            font-size: 13px;
+        }
+
+    /* ── REVIEWS ── */
+    .reviews-section {
+        grid-column: 1 / -1;
+        border-top: 1px solid var(--border);
+        padding-top: 40px;
+    }
+
+    .reviews-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .reviews-title {
+        font-family: var(--font-head);
+        font-size: 32px;
+        letter-spacing: 2px;
+        color: var(--text);
+        margin: 0;
+    }
+
+    .btn-add-review {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 10px 20px;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: border-color var(--trans), background var(--trans), color var(--trans);
+    }
+
+        .btn-add-review:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(249,115,22,.05);
+        }
+
+    .reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 16px;
+    }
+
+    .review-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: border-color var(--trans);
+    }
+
+        .review-card:hover {
+            border-color: rgba(249,115,22,.25);
+        }
+
+    .review-top {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .review-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .review-username {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+    }
+
+    .review-message {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.65;
+        margin: 0;
+    }
+
+    .no-reviews {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 48px 20px;
+        color: var(--muted);
+        font-size: 14px;
+    }
+
+        .no-reviews i {
+            font-size: 36px;
+            color: var(--border);
+            display: block;
+            margin-bottom: 12px;
+        }
+
+    /* ── RESPONSIVE ── */
+    @@media (max-width: 768px) {
+        .detail-wrap {
+            grid-template-columns: 1fr;
+            padding: 20px 16px 60px;
+            gap: 20px;
+        }
+
+        .gallery {
+            position: static;
+        }
+
+        .info-actions {
+            flex-direction: column;
+        }
+
+        .reviews-section {
+            grid-column: 1;
+        }
+
+        .reviews-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .breadcrumb {
+            padding: 16px 16px 0;
+        }
+
+        .trust-badges {
+            gap: 12px;
+        }
+    }
+</style>
+
+<!-- ── BREADCRUMB ── -->
+<div class="breadcrumb">
+    <a href="/Home/Index">Home</a>
+    <i class="fa-solid fa-chevron-right"></i>
+    <a href="/Product/Index">Shop</a>
+    <i class="fa-solid fa-chevron-right"></i>
+    <span>@Model.Name</span>
+</div>
+
+<!-- ── DETAIL WRAP ── -->
+<div class="detail-wrap">
+
+    <!-- ── GALLERY ── -->
+    <div class="gallery">
+        <div class="gallery-main">
+            <button class="gallery-arrow left" onclick="changeImage(-1)" aria-label="Previous image">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <img id="mainImage" src="/images/@Model.Images[0]" alt="@Model.Name">
+            <button class="gallery-arrow right" onclick="changeImage(1)" aria-label="Next image">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
+        @if (Model.Images.Count > 1)
+        {
+            <div class="gallery-dots" id="galleryDots">
+                @for (int i = 0; i < Model.Images.Count; i++)
                 {
-                    <div class="comment">
-                        <h4>@item.UserName</h4>
-                        <p>@item.Message</p>
+                    <button class="gallery-dot @(i == 0 ? "active" : "")"
+                            onclick="goToImage(@i)" aria-label="Image @(i + 1)"></button>
+                }
+            </div>
+
+            <div class="gallery-thumbs">
+                @for (int i = 0; i < Model.Images.Count; i++)
+                {
+                    <div class="gallery-thumb @(i == 0 ? "active" : "")"
+                         onclick="goToImage(@i)" id="thumb-@i">
+                        <img src="/images/@Model.Images[i]" alt="Thumbnail @(i + 1)">
                     </div>
                 }
             </div>
+        }
+    </div>
+
+    <!-- ── PRODUCT INFO ── -->
+    <div class="prod-info">
+
+        <!-- Rating -->
+        <div class="info-rating">
+            <div class="stars" id="starsEl"></div>
+            <span class="info-rating-val">@Model.Rate</span>
+            <span class="info-rating-count">(@Model.Reviews.ToList().Count reviews)</span>
+        </div>
+
+        <h1 class="info-name">@Model.Name</h1>
+        <p class="info-desc">@Model.Description</p>
+
+        <div class="info-divider"></div>
+
+        <div class="info-price-block">
+            <span class="info-price">@Model.Price</span>
+            <span class="info-currency">EGP</span>
+        </div>
+
+        <span class="info-stock">
+            <i class="fa-solid fa-circle-check"></i> In Stock
+        </span>
+
+        <div class="info-divider"></div>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="info-actions">
+                <form asp-controller="ShoppingCart" asp-action="AddToCart" method="post" style="flex:1;display:flex;">
+                    <input type="hidden" name="productId" value="@Model.ProductId" />
+                    <button type="submit" class="btn-cart-primary">
+                        <i class="fa-solid fa-bag-shopping"></i> Add to Cart
+                    </button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <a href="/Auth/LoginForm" class="btn-cart-primary" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:9px; height:50px; border-radius:var(--radius);">
+                <i class="fa-solid fa-right-to-bracket"></i> Log in to Add to Cart
+            </a>
+        }
+
+        <!-- Trust badges -->
+        <div class="trust-badges">
+            <div class="trust-badge">
+                <i class="fa-solid fa-shield-halved"></i> Secure Checkout
+            </div>
+            <div class="trust-badge">
+                <i class="fa-solid fa-rotate-left"></i> Easy Returns
+            </div>
+            <div class="trust-badge">
+                <i class="fa-solid fa-truck-fast"></i> Fast Delivery
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ── REVIEWS ── -->
+    <div class="reviews-section">
+        <div class="reviews-header">
+            <h2 class="reviews-title">Customer Reviews</h2>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form asp-action="AddReviewForm" asp-controller="Review" method="get" style="display:inline">
+                    <input type="hidden" name="productId" value="@Model.ProductId" />
+                    <input type="hidden" name="userId" value="@Model.UserId" />
+                    <button type="submit" class="btn-add-review">
+                        <i class="fa-solid fa-pen"></i> Write a Review
+                    </button>
+                </form>
+            }
+        </div>
+
+        <div class="reviews-grid">
+            @if (Model.Reviews.ToList().Count == 0)
+            {
+                <div class="no-reviews">
+                    <i class="fa-regular fa-comment-dots"></i>
+                    No reviews yet. Be the first to share your thoughts!
+                </div>
+            }
+            else
+            {
+                @foreach (var review in Model.Reviews)
+                {
+                    <div class="review-card">
+                        <div class="review-top">
+                            <div class="review-avatar">@review.UserName[0].ToString().ToUpper()</div>
+                            <span class="review-username">@review.UserName</span>
+                        </div>
+                        <p class="review-message">@review.Message</p>
+                    </div>
+                }
+            }
         </div>
     </div>
 
-    <script>
-        const images = @Html.Raw(Json.Serialize(Model.Images));
-        let currentIndex = 0;
+</div>
 
-        function changeImage(direction) {
-            currentIndex = (currentIndex + direction + images.length) % images.length;
-            document.getElementById('productImage').src = '/images/' + images[currentIndex];
-        }
+<script>
+    const images = @Html.Raw(Json.Serialize(Model.Images));
+    let current = 0;
 
-        function addReview() {
-            alert("Add review functionality to be implemented.");
+    function goToImage(index) {
+        const img = document.getElementById('mainImage');
+        img.classList.add('fade-out');
+
+        setTimeout(() => {
+            current = (index + images.length) % images.length;
+            img.src = '/images/' + images[current];
+            img.classList.remove('fade-out');
+        }, 180);
+
+        // Dots
+        document.querySelectorAll('.gallery-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === current);
+        });
+
+        // Thumbs
+        document.querySelectorAll('.gallery-thumb').forEach((t, i) => {
+            t.classList.toggle('active', i === current);
+        });
+    }
+
+    function changeImage(dir) {
+        goToImage(current + dir);
+    }
+
+    // Build star rating
+    (function buildStars() {
+        const rating = parseFloat('@Model.Rate') || 0;
+        const el = document.getElementById('starsEl');
+        for (let i = 1; i <= 5; i++) {
+            const star = document.createElement('i');
+            star.className = 'fa-solid fa-star' + (i <= Math.round(rating) ? ' lit' : '');
+            el.appendChild(star);
         }
-    </script>
-</body>
-</html>
+    })();
+</script>

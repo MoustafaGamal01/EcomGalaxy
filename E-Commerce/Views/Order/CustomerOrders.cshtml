@@ -6,166 +6,306 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders</title>
     <style>
-        .orders-container {
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #1a1a1a;
+            font-family: inherit;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #f0f0f0;
+        }
+
+        .page {
             width: 100%;
-            max-width: 700px;
-            padding-top: 10px;
-            padding-bottom: 30px;
+            max-width: 760px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
         }
 
+        /* Header */
+        .page-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #555;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .page-heading {
+            font-size: 28px;
+            font-weight: 500;
+            color: #f0f0f0;
+            margin-bottom: 16px;
+        }
+
+        /* Empty state */
+        .empty-state {
+            background: #242424;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 80px 40px;
+            text-align: center;
+            color: #555;
+            font-size: 16px;
+        }
+
+        /* Order card */
         .order-card {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 1px solid #ddd;
+            background: #242424;
+            border: 1px solid #333;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
             .order-card:hover {
-                transform: translateY(-5px);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 28px rgba(0,0,0,0.5);
             }
 
+        /* Card top */
         .order-header {
             display: flex;
-            flex-direction: column; 
-            gap: 5px;
-            margin-bottom: 10px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            border-bottom: 1px solid #2e2e2e;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .order-id {
+            font-size: 15px;
+            font-weight: 500;
+            color: #f0f0f0;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .order-dates {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
         }
 
         .order-date {
-            color: #777;
-            margin-left:400px;
-            margin-top:-15px;   
-            font-size: 0.9em;
-        }
-
-
-            .order-header h2 {
-                margin: 0;
-                color: #333;
-            }
-
-        .order-body p {
-            margin-bottom: 10px;
+            font-size: 12px;
             color: #555;
+            letter-spacing: 0.02em;
         }
 
-            .order-body p strong {
-                color: #000;
-                font-weight: bold;
+        /* Status badge */
+        .status-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid;
+        }
+
+        .status-pending {
+            color: #f0a500;
+            border-color: #4a3800;
+            background: #2a2000;
+        }
+
+        .status-shipped {
+            color: #4caf50;
+            border-color: #2a3d2a;
+            background: #1a2e1a;
+        }
+
+        .status-delivered {
+            color: #2196f3;
+            border-color: #1a2e3d;
+            background: #0d1e2e;
+        }
+
+        .status-cancelled {
+            color: #b84040;
+            border-color: #3d2a2a;
+            background: #2a1a1a;
+        }
+
+        .status-default {
+            color: #888;
+            border-color: #333;
+            background: #2a2a2a;
+        }
+
+        /* Card body */
+        .order-body {
+            padding: 18px 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            border-bottom: 1px solid #2e2e2e;
+        }
+
+        .meta-item .label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #555;
+            margin-bottom: 4px;
+        }
+
+        .meta-item .value {
+            font-size: 14px;
+            font-weight: 500;
+            color: #ccc;
+        }
+
+            .meta-item .value.orange {
+                color: darkorange;
             }
 
+        /* Card footer */
         .order-footer {
+            padding: 16px 24px;
             display: flex;
             justify-content: flex-end;
             gap: 10px;
         }
 
-        .details-button {
-            background-color: #ff6f00;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             padding: 10px 20px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 500;
             cursor: pointer;
-            font-size: 1em;
-            text-decoration: none;
-            display: inline-block;
-            transition: background-color 0.2s;
+            transition: all 0.25s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border: 1px solid #444;
+            background: none;
         }
 
-            .details-button:hover {
-                background-color: #e65c00;
-            }
-
-        .cancel-button {
-            background-color: red;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 1em;
-            text-decoration: none;
-            display: inline-block;
-            transition: background-color 0.2s;
+        .btn-details {
+            color: darkorange;
+            border-color: #4a3000;
         }
 
-            .cancel-button:hover {
-                background-color: darkred;
+            .btn-details:hover {
+                border-color: darkorange;
+                background: #2a1a00;
             }
 
-        .orders-header {
-            text-align: center;
-            margin-top: 70px;
+        .btn-cancel {
+            color: #b84040;
+            border-color: #3d2a2a;
         }
 
-            .orders-header h1 {
-                font-size: 2.5em;
-                color: #333;
-                margin: 0;
+            .btn-cancel:hover {
+                border-color: #b84040;
+                background: #2a1a1a;
             }
+
+        @@media (max-width: 560px) {
+            .order-body {
+                grid-template-columns: 1fr;
+            }
+
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .order-dates {
+                align-items: flex-start;
+            }
+        }
     </style>
-    <script>
-        function confirmCancellation() {
-            return confirm('Are you sure you want to cancel this order?');
-        }
-    </script>
 </head>
 <body>
-    <div class="orders-header">
-        <h1>My Orders</h1>
-    </div>
-    <div class="orders-container">
-        @if(Model.Count == 0){
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-			<h2 style="text-align: center;">You have no orders yet.</h2>
-		}
+    <div class="page">
+        <div class="page-title">EcomGalaxy</div>
+        <div class="page-heading">My Orders</div>
+
+        @if (Model.Count == 0)
+        {
+            <div class="empty-state">You have no orders yet.</div>
+        }
+
         @foreach (var order in Model)
         {
             <div class="order-card">
+
+                <!-- Header -->
                 <div class="order-header">
-                    <h2>Order #@order.OrderId</h2>
-                    <p class="order-date">Ordered on: @order.OrderDate</p>
-                    @if(order.OrderStatus == OrderStatus.Shipped){
-                        <p class="order-date">Shipped on: @order.ShippedDate</p>
-                    }
+                    <div style="display:flex; align-items:center; gap:14px;">
+                        <span class="order-id">Order #@order.OrderId</span>
+                        @{
+                            var badgeClass = order.OrderStatus switch
+                            {
+                                OrderStatus.Shipped => "status-shipped",
+                                OrderStatus.Delivered => "status-delivered",
+                                OrderStatus.Cancelled => "status-cancelled",
+                                OrderStatus.Pending => "status-pending",
+                                _ => "status-default"
+                            };
+                        }
+                        <span class="status-badge @badgeClass">@order.OrderStatus</span>
+                    </div>
+                    <div class="order-dates">
+                        <span class="order-date">Ordered: @order.OrderDate</span>
+                        @if (order.OrderStatus == OrderStatus.Shipped)
+                        {
+                            <span class="order-date">Shipped: @order.ShippedDate</span>
+                        }
+                    </div>
                 </div>
+
+                <!-- Body -->
                 <div class="order-body">
-                    <p><strong>Order Status: @order.OrderStatus</strong></p>
-                    @if(@order.PaymentStatus == PaymentStatus.CashOnDelivery){
-                        <p><strong>Payment Status: Cash on Delivery</strong></p>
-                    } else
-                    {
-                        <p><strong>Payment Status: Paid</strong></p>
-                    }
-                    @if (@order.ProductsCount == 1){
-						<p><strong>Order Description: Order has @order.ProductsCount Item</strong></p>
-					}
-					else {
-                    <p><strong>Order Description: Order has @order.ProductsCount Items</strong></p>
-                    }
-                    <p><strong>Total: </strong> @order.TotalAmount EGP</p>
+                    <div class="meta-item">
+                        <div class="label">Payment</div>
+                        <div class="value">
+                            @(order.PaymentStatus == PaymentStatus.CashOnDelivery ? "Cash on Delivery" : "Paid")
+                        </div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="label">Items</div>
+                        <div class="value">@order.ProductsCount @(order.ProductsCount == 1 ? "item" : "items")</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="label">Total</div>
+                        <div class="value orange">@order.TotalAmount EGP</div>
+                    </div>
                 </div>
+
+                <!-- Footer -->
                 <div class="order-footer">
-                    <form asp-action="OrderDetails" asp-controller="Order" method="get" style="margin: 0;">
-                        <button class="details-button" type="submit">Order Details</button>
+                    <form asp-action="OrderDetails" asp-controller="Order" method="get" style="margin:0;">
                         <input type="hidden" name="orderId" value="@order.OrderId" />
+                        <button type="submit" class="btn btn-details">Order Details</button>
                     </form>
-                    <form asp-action="CancelOrder" asp-controller="Order" method="post" onsubmit="return confirmCancellation();" style="margin: 0;">
-                        <button class="cancel-button" type="submit">Cancel Order</button>
+                    <form asp-action="CancelOrder" asp-controller="Order" method="post"
+                          onsubmit="return confirm('Are you sure you want to cancel this order?');"
+                          style="margin:0;">
+                        @Html.AntiForgeryToken()
                         <input type="hidden" name="orderId" value="@order.OrderId" />
+                        <button type="submit" class="btn btn-cancel">Cancel Order</button>
                     </form>
                 </div>
+
             </div>
         }
     </div>

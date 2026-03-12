@@ -1,11 +1,12 @@
 ﻿using EcomGalaxy.Domain.Models.Product;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace EcomGalaxy.Domain.Models.Context
 {
     public class MyContext : IdentityDbContext<ApplicationUser>
     {
         public MyContext(DbContextOptions<MyContext> options) : base(options) { }
 
-        public DbSet<EcomGalaxy.Domain.Models.Product.Product> Products { get; set; }
+        public DbSet<Product.Product> Products { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<EcomGalaxy.Domain.Models.ShoppingCart.ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<Category> Categories { get; set; }

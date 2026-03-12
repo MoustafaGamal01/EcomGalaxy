@@ -3,10 +3,6 @@ using EcomGalaxy.Domain.Models.User;
 using EcomGalaxy.ViewModel.Profile;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.DotNet.Scaffolding.Shared.Messaging;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
-using NuGet.Protocol;
-using NuGet.Protocol.Plugins;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 

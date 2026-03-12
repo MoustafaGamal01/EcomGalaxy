@@ -24,7 +24,7 @@ namespace EcomGalaxy.Controllers
             _roleManager = roleManager;
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult AddUserForm()
         {
@@ -32,8 +32,7 @@ namespace EcomGalaxy.Controllers
             return View();
         }
 
-
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddUser(UserRegisterViewModel userRegisterVM)

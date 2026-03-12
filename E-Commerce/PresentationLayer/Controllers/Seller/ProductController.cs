@@ -140,6 +140,8 @@ namespace EcomGalaxy.Controllers.Seller
         [AllowAnonymous]
 		public async Task<IActionResult> GetProductByCategory(string categoryTitle)
         {
+            ViewBag.CategoryName = categoryTitle; 
+
             var prdVms = await _productService.GetProductsByCategoryNameAsync(categoryTitle);
 
             return View(prdVms);

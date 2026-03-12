@@ -1,11 +1,12 @@
 ﻿using EcomGalaxy.ApplicationLayer.Services.IServices;
 using EcomGalaxy.Domain.Models;
+using EcomGalaxy.DomainLayer.Models;
 using EcomGalaxy.ViewModel.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcomGalaxy.Controllers
 {
-    [AllowAnonymous]
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
@@ -15,25 +16,24 @@ namespace EcomGalaxy.Controllers
             _authService = authService;
         }
 
-
         [HttpGet]
         public IActionResult RegisterForm()
         {
             return View();
         }
 
-
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(CustomerRegisterViewModel customerRegisterVM)
         {
             if (ModelState.IsValid)
             {
-                // Create Acc
                 List<string> answer = await _authService.Register(customerRegisterVM);
+
                 if (answer.Count == 0)
                 {
-                    return RedirectToAction("LoginForm", "Account");
+                    return RedirectToAction("LoginForm", "Auth");
                 }
                 else if (answer[0] == "EmailExists")
                 {
@@ -48,57 +48,60 @@ namespace EcomGalaxy.Controllers
                     }
                 }
             }
+
             return View("RegisterForm", customerRegisterVM);
         }
-
 
         [HttpGet]
         public IActionResult LoginForm()
         {
             return View();
         }
-
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel loginVM)
         {
             if (ModelState.IsValid)
             {
-                // Calling it 
-                ResultEnum result = await _authService.Login(loginVM);
+                // Login now returns both the result and the user's role
+                var (result, role) = await _authService.Login(loginVM);
+
                 if (result == ResultEnum.Done)
                 {
-                    string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
-                    if (role == "Admin")
+                    if (role == Roles.Admin)
                     {
                         return RedirectToAction("Index", "Home");
                     }
-                    else if (role == "Seller")
+                    else if (role == Roles.Seller)
                     {
                         return RedirectToAction("ProductsForSeller", "Product");
                     }
-                    else // Cutomer
+                    else // Customer
                     {
                         return RedirectToAction("Index", "Home");
                     }
                 }
             }
+
             ModelState.AddModelError("", "Invalid Email or Password.");
             return View("LoginForm", loginVM);
         }
 
-        [HttpGet]
         [Authorize]
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             ResultEnum result = await _authService.Logout();
+
             if (result == ResultEnum.Done)
             {
-                LoginViewModel loginView = new LoginViewModel();
-                return RedirectToAction("LoginForm", loginView);
+                return RedirectToAction("LoginForm", "Auth");
             }
+
             ModelState.AddModelError("", "Can't logout.");
             return RedirectToAction("Index", "Home");
         }
+
     }
 }

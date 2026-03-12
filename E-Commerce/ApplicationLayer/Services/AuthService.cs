@@ -28,17 +28,19 @@ namespace EcomGalaxy.ApplicationLayer.Services
                 return answer;
             }
 
-            ApplicationUser user = new ApplicationUser();
-            user.Name = customerRegisterVM.Name;
-            user.UserName = customerRegisterVM.UserName;
-            user.Email = customerRegisterVM.Email;
-            user.PasswordHash = customerRegisterVM.Password;
-            user.City = customerRegisterVM.City;
-            user.Country = customerRegisterVM.Country;
-            user.PostalCode = customerRegisterVM.PostalCode;
-            user.Street = customerRegisterVM.Street;
-            var result = await _userManager.CreateAsync(user, customerRegisterVM.Password);
+            ApplicationUser user = new ApplicationUser
+            {
+                Name = customerRegisterVM.Name,
+                UserName = customerRegisterVM.UserName,
+                Email = customerRegisterVM.Email,
+                PasswordHash = customerRegisterVM.Password,
+                City = customerRegisterVM.City,
+                Country = customerRegisterVM.Country,
+                PostalCode = customerRegisterVM.PostalCode,
+                Street = customerRegisterVM.Street
+            };
 
+            var result = await _userManager.CreateAsync(user, customerRegisterVM.Password);
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "Customer");
@@ -50,30 +52,30 @@ namespace EcomGalaxy.ApplicationLayer.Services
                     answer.Add(res.Description);
                 }
             }
-            return answer;
 
+            return answer;
         }
 
-        public async Task<ResultEnum> Login(LoginViewModel loginVM)
+        public async Task<(ResultEnum result, string role)> Login(LoginViewModel loginVM)
         {
-            // check email
+            // Check email
             ApplicationUser userModel = await _userManager.FindByEmailAsync(loginVM.Email);
-
             if (userModel != null)
             {
-                // check password
+                // Check password
                 var validPassword = await _userManager.CheckPasswordAsync(userModel, loginVM.Password);
-
                 if (validPassword)
                 {
-                    // signIn
                     await _signInManager.SignInAsync(userModel, loginVM.RememberMe);
 
-                    return ResultEnum.Done;
-                }
+                    var roles = await _userManager.GetRolesAsync(userModel);
+                    string role = roles.FirstOrDefault() ?? "Customer";
 
+                    return (ResultEnum.Done, role);
+                }
             }
-            return ResultEnum.InvalidEmailOrPassword;
+
+            return (ResultEnum.InvalidEmailOrPassword, string.Empty);
         }
 
         public async Task<ResultEnum> Logout()

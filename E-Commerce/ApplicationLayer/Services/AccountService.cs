@@ -1,5 +1,4 @@
 ﻿
-using Azure.Core;
 using EcomGalaxy.ApplicationLayer.Services.IServices;
 using EcomGalaxy.Domain.Models.User;
 using EcomGalaxy.ViewModel.Profile;

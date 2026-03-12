@@ -1,201 +1,532 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body {
-            font-family: Gotham, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f1f2f7;
-        }
+﻿@model IEnumerable<EcomGalaxy.ViewModel.Product.ProductViewModel>
+@{
+    ViewBag.Title = "My Store";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
 
-        .search-container {
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            background-color: #f5f5f5; /* Light background for search bar area */
-            margin-top: 50px; /* Add space below the fixed navbar */
-        }
+<style>
+    :root {
+        --accent: #f97316;
+        --text: #f0f0f0;
+        --muted: #777;
+        --surface: #1a1a1a;
+        --surface2: #222;
+        --border: #2a2a2a;
+        --radius: 12px;
+        --trans: .22s cubic-bezier(.4,0,.2,1);
+        --font-head: 'Bebas Neue', sans-serif;
+        --font-body: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, sans-serif;
+    }
 
-        .search-bar {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            max-width: 800px; /* Adjusted max-width for the search bar */
-            border-radius: 5px;
-            overflow: hidden;
-        }
+    /* ── PAGE HEADER ── */
+    .page-header {
+        padding: 48px 28px 24px;
+        max-width: 1300px;
+        margin: 0 auto;
+    }
 
-        .search-input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px 0 0 5px;
-            font-size: 16px;
-        }
-
-        .search-button,
-        .btn-check {
-            background-color: darkorange;
-            border: none;
-            padding: 11px;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .search-button {
-            border-radius: 0 5px 5px 0;
-        }
-
-        .btn-check {
-            border-radius: 5px;
-            margin-left: 10px; /* Space between buttons */
-            text-decoration: none; /* Remove underline from the button */
-        }
-
-        .search-button i {
-            font-size: 18px;
-        }
-
-
-        .container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            padding: 20px;
-        }
-
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
-            width: 300px;
-            height: 410px;
-            margin: 5px;
-            text-align: center;
-            font-family: Gotham;
-            position: relative;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
+        .page-header .eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
             display: block;
-            transition: box-shadow 0.3s ease;
+            margin-bottom: 8px;
         }
 
-            .card:hover {
-                box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
+    .header-row {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .page-header h1 {
+        font-family: var(--font-head);
+        font-size: clamp(36px, 5vw, 64px);
+        letter-spacing: 2px;
+        color: var(--text);
+        margin: 0 0 6px;
+        line-height: 1;
+    }
+
+    .page-header p {
+        font-size: 14px;
+        color: var(--muted);
+        margin: 0;
+    }
+
+    /* ── ADD PRODUCT BUTTON ── */
+    .btn-add-product {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 22px;
+        background: var(--accent);
+        color: #fff;
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: var(--radius);
+        text-decoration: none;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+    }
+
+        .btn-add-product:hover {
+            background: #e8660a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(249,115,22,.3);
+        }
+
+        .btn-add-product:active {
+            transform: translateY(0);
+        }
+
+    /* ── OVERRIDE: seller cards use a form POST instead of <a> ── */
+    .seller-grid .prod-img-wrap,
+    .seller-grid .prod-name {
+        cursor: pointer;
+    }
+
+    @@media (max-width: 768px) {
+        .page-header {
+            padding: 32px 16px 16px;
+        }
+
+        .header-row {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .btn-add-product {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+<!-- ── PAGE HEADER ── -->
+<div class="page-header">
+    <span class="eyebrow">Seller Dashboard</span>
+    <div class="header-row">
+        <div>
+            <h1>My Store</h1>
+            <p>Manage your listed products, update details, or add new items.</p>
+        </div>
+        <a href="/Product/AddProduct" class="btn-add-product">
+            <i class="fa-solid fa-plus"></i> Add Product
+        </a>
+    </div>
+</div>
+
+<!-- ── SELLER PRODUCT GRID ── -->
+<!-- We render the grid manually here so cards submit a POST form to ManageProductDetails -->
+<style>
+    /* Reuse the same grid/card tokens from _ProductGrid */
+    .seller-toolbar {
+        position: sticky;
+        top: 64px;
+        z-index: 100;
+        background: rgba(10,10,10,.9);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 28px;
+    }
+
+    .seller-toolbar-inner {
+        max-width: 1300px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .search-wrap {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        max-width: 420px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        transition: border-color var(--trans);
+    }
+
+        .search-wrap:focus-within {
+            border-color: var(--accent);
+        }
+
+        .search-wrap i {
+            padding: 0 12px;
+            color: var(--muted);
+            font-size: 13px;
+            flex-shrink: 0;
+            pointer-events: none;
+        }
+
+        .search-wrap input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 13px;
+            padding: 10px 12px 10px 0;
+        }
+
+            .search-wrap input::placeholder {
+                color: var(--muted);
             }
 
-        .image-container {
-            position: relative;
-            width: 100%;
-            height: 250px; /* Fixed height */
-            overflow: hidden;
+    .seller-count {
+        margin-left: auto;
+        font-size: 12px;
+        color: var(--muted);
+    }
+
+        .seller-count b {
+            color: var(--text);
         }
 
-        .product-image {
+    .seller-shop-wrap {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 28px 28px 80px;
+    }
+
+    .seller-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
+    }
+
+    /* Card */
+    .seller-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: border-color var(--trans), transform var(--trans), box-shadow var(--trans);
+        animation: cardIn .45s ease both;
+    }
+
+        .seller-card:hover {
+            border-color: rgba(249,115,22,.35);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,.45);
+        }
+
+    @@keyframes cardIn {
+        from {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .seller-card:nth-child(1) {
+        animation-delay: .03s
+    }
+
+    .seller-card:nth-child(2) {
+        animation-delay: .06s
+    }
+
+    .seller-card:nth-child(3) {
+        animation-delay: .09s
+    }
+
+    .seller-card:nth-child(4) {
+        animation-delay: .12s
+    }
+
+    .seller-card:nth-child(5) {
+        animation-delay: .15s
+    }
+
+    .seller-card:nth-child(6) {
+        animation-delay: .18s
+    }
+
+    .seller-img-wrap {
+        position: relative;
+        width: 100%;
+        padding-top: 75%;
+        overflow: hidden;
+        background: var(--surface2);
+    }
+
+        .seller-img-wrap img {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 0.5s ease;
-            opacity: 1;
+            transition: transform .5s cubic-bezier(.4,0,.2,1);
         }
 
-        .price {
-            color: grey;
-            font-size: 22px;
-            margin: 10px 0;
+    .seller-card:hover .seller-img-wrap img {
+        transform: scale(1.06);
+    }
+
+    .seller-body {
+        padding: 16px 16px 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .seller-name {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+        line-height: 1.35;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .seller-desc {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    .seller-price {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+        margin-top: auto;
+        padding-top: 10px;
+    }
+
+        .seller-price span {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--muted);
+            margin-left: 3px;
         }
 
-        .card h1 {
-            font-size: 24px;
-            color: black;
-            margin: 10px 0;
+    .seller-footer {
+        padding: 12px 16px 16px;
+    }
+
+    .btn-manage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        height: 38px;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 9px;
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background var(--trans), border-color var(--trans), color var(--trans), transform var(--trans);
+    }
+
+        .btn-manage:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            transform: translateY(-1px);
         }
 
-        .card p {
-            margin: 0 0 10px 0;
+        .btn-manage:active {
+            transform: translateY(0);
         }
 
-        .card button {
-            border: none;
-            outline: 0;
-            padding: 12px;
-            color: white;
-            background-color: darkorange;
-            text-align: center;
-            cursor: pointer;
-            width: 100%;
-            font-size: 18px;
-            margin: 10px 0; /* Add margin if needed */
+    /* Empty state */
+    .seller-empty {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 80px 20px;
+        gap: 16px;
+        grid-column: 1 / -1;
+    }
+
+        .seller-empty i {
+            font-size: 48px;
+            color: var(--border);
         }
 
-            .card button:hover {
-                opacity: 0.7;
+        .seller-empty h3 {
+            font-family: var(--font-head);
+            font-size: 28px;
+            letter-spacing: 1px;
+            color: var(--muted);
+        }
+
+        .seller-empty p {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .seller-empty a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 24px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: var(--radius);
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background var(--trans);
+        }
+
+            .seller-empty a:hover {
+                background: #e8660a;
             }
 
-        .card-link, .button-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
+    @@media (max-width: 768px) {
+        .seller-toolbar {
+            padding: 10px 16px;
         }
-    </style>
-</head>
-<body>
-    <div class="search-container">
-        <div class="search-bar">
-            <input type="text" id="search-input" class="search-input" placeholder="Search for products...">
-            <button class="search-button">
-                <i class="fas fa-search"></i>
-            </button>
-            <a href="/Product/AddProduct" class="btn-check">
-                Add Product
-            </a>
+
+        .seller-shop-wrap {
+            padding: 20px 16px 60px;
+        }
+
+        .seller-grid {
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        .seller-body {
+            padding: 12px 12px 0;
+        }
+
+        .seller-footer {
+            padding: 10px 12px 12px;
+        }
+
+        .search-wrap {
+            max-width: 100%;
+        }
+
+        .seller-count {
+            display: none;
+        }
+    }
+
+    @@media (max-width: 400px) {
+        .seller-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+</style>
+
+<!-- Toolbar -->
+<div class="seller-toolbar">
+    <div class="seller-toolbar-inner">
+        <div class="search-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="seller-search" placeholder="Search your products…">
         </div>
+        <span class="seller-count">
+            <b id="sellerVisibleCount">0</b> products listed
+        </span>
     </div>
-    <div class="container" id="product-container">
+</div>
+
+<!-- Grid -->
+<div class="seller-shop-wrap">
+    <div class="seller-grid" id="seller-grid">
+
         @foreach (var product in Model)
         {
-            <div class="card" data-name="@product.ProductName" data-description="@product.ProductDescription">
-                @* <a href="/Product/ManageProductDetails/@product.ProductId" class="card-link"> *@
-                <form asp-action="ManageProductDetails" asp-controller="Product" method="post" class="button-link">
-                    <div class="image-container">
-                        <img src="/images/@product.ProductImages[0]" alt="Product Image" class="product-image">
-                    </div>
-                    <h1>@product.ProductName</h1>
-                    <p class="price">@product.ProductPrice EGP</p>
-                    <p>@product.ProductDescription</p>
-                @* </a> *@
-                    <input name="id" value="@product.ProductId" type="hidden">
-                    <button type="submit" class="add-to-cart-button">Details</button>
-                </form>
+            <div class="seller-card"
+                 data-name="@product.ProductName.ToLower()"
+                 data-description="@product.ProductDescription.ToLower()">
+
+                <div class="seller-img-wrap">
+                    <img src="/images/@product.ProductImages[0]" alt="@product.ProductName" loading="lazy">
+                </div>
+
+                <div class="seller-body">
+                    <div class="seller-name">@product.ProductName</div>
+                    <p class="seller-desc">@product.ProductDescription</p>
+                    <div class="seller-price">@product.ProductPrice <span>EGP</span></div>
+                </div>
+
+                <div class="seller-footer">
+                    <form asp-action="ManageProductDetails" asp-controller="Product" method="post">
+                        <input type="hidden" name="id" value="@product.ProductId" />
+                        <button type="submit" class="btn-manage">
+                            <i class="fa-solid fa-pen-to-square"></i> Manage
+                        </button>
+                    </form>
+                </div>
+
             </div>
         }
+
+        <!-- Empty state when no products exist OR search returns nothing -->
+        <div class="seller-empty" id="sellerEmpty">
+            <i class="fa-solid fa-store"></i>
+            <h3>No Products Yet</h3>
+            <p>Your store is empty. Start by adding your first product.</p>
+            <a href="/Product/AddProduct"><i class="fa-solid fa-plus"></i> Add Product</a>
+        </div>
+
     </div>
+</div>
 
-    <script>
-        document.getElementById('search-input').addEventListener('input', function () {
-            const searchValue = this.value.toLowerCase();
-            const products = document.querySelectorAll('.card');
+<script>
+    (function () {
+        const searchInput  = document.getElementById('seller-search');
+        const grid         = document.getElementById('seller-grid');
+        const countEl      = document.getElementById('sellerVisibleCount');
+        const emptyState   = document.getElementById('sellerEmpty');
 
-            products.forEach(product => {
-                const productName = product.getAttribute('data-name').toLowerCase();
-                const productDescription = product.getAttribute('data-description').toLowerCase();
+        function run() {
+            const q = searchInput.value.toLowerCase().trim();
+            const cards = Array.from(grid.querySelectorAll('.seller-card'));
+            let visible = 0;
 
-                if (productName.includes(searchValue) || productDescription.includes(searchValue) || searchValue === '') {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
+            cards.forEach(card => {
+                const match = !q ||
+                    card.dataset.name.includes(q) ||
+                    card.dataset.description.includes(q);
+
+                card.style.display = match ? '' : 'none';
+                if (match) visible++;
             });
-        });
-    </script>
-</body>
-</html>
+
+            countEl.textContent = visible;
+            emptyState.style.display = visible === 0 ? 'flex' : 'none';
+        }
+
+        searchInput.addEventListener('input', run);
+        run(); // init count on load
+    })();
+</script>

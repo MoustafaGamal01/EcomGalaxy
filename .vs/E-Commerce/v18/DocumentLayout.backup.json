@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "G:\\Programming\\- Projects\\EcomGalaxy\\EcomGalaxy\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|g:\\programming\\- projects\\ecomgalaxy\\ecomgalaxy\\e-commerce\\views\\product\\productsforseller.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\views\\product\\productsforseller.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|g:\\programming\\- projects\\ecomgalaxy\\ecomgalaxy\\e-commerce\\views\\user\\adduserform.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\views\\user\\adduserform.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|g:\\programming\\- projects\\ecomgalaxy\\ecomgalaxy\\e-commerce\\views\\product\\productdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\views\\product\\productdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|g:\\programming\\- projects\\ecomgalaxy\\ecomgalaxy\\e-commerce\\views\\auth\\registerform.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\views\\auth\\registerform.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|g:\\programming\\- projects\\ecomgalaxy\\ecomgalaxy\\e-commerce\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|g:\\programming\\- projects\\ecomgalaxy\\ecomgalaxy\\e-commerce\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{FAE8F20F-FE41-4DFA-9455-89729CA1D209}|E-Commerce\\EcomGalaxy.csproj|solutionrelative:e-commerce\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,28 +34,54 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ProductDetails.cshtml",
-              "DocumentMoniker": "G:\\Programming\\- Projects\\EcomGalaxy\\EcomGalaxy\\E-Commerce\\Views\\Product\\ProductDetails.cshtml",
-              "RelativeDocumentMoniker": "E-Commerce\\Views\\Product\\ProductDetails.cshtml",
-              "ToolTip": "G:\\Programming\\- Projects\\EcomGalaxy\\EcomGalaxy\\E-Commerce\\Views\\Product\\ProductDetails.cshtml",
-              "RelativeToolTip": "E-Commerce\\Views\\Product\\ProductDetails.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "AddUserForm.cshtml",
+              "DocumentMoniker": "G:\\Programming\\- Projects\\EcomGalaxy\\EcomGalaxy\\E-Commerce\\Views\\User\\AddUserForm.cshtml",
+              "RelativeDocumentMoniker": "E-Commerce\\Views\\User\\AddUserForm.cshtml",
+              "ToolTip": "G:\\Programming\\- Projects\\EcomGalaxy\\EcomGalaxy\\E-Commerce\\Views\\User\\AddUserForm.cshtml*",
+              "RelativeToolTip": "E-Commerce\\Views\\User\\AddUserForm.cshtml*",
+              "ViewState": "AgIAAP4BAAAAAAAAAAAAwBQCAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-12T19:26:13.073Z",
+              "WhenOpened": "2026-03-12T23:20:36.407Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ProductsForSeller.cshtml",
-              "DocumentMoniker": "G:\\Programming\\- Projects\\EcomGalaxy\\EcomGalaxy\\E-Commerce\\Views\\Product\\ProductsForSeller.cshtml",
-              "RelativeDocumentMoniker": "E-Commerce\\Views\\Product\\ProductsForSeller.cshtml",
-              "ToolTip": "G:\\Programming\\- Projects\\EcomGalaxy\\EcomGalaxy\\E-Commerce\\Views\\Product\\ProductsForSeller.cshtml*",
-              "RelativeToolTip": "E-Commerce\\Views\\Product\\ProductsForSeller.cshtml*",
-              "ViewState": "AgIAAIUCAAAAAAAAAAAAwJkCAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "RegisterForm.cshtml",
+              "DocumentMoniker": "G:\\Programming\\- Projects\\EcomGalaxy\\EcomGalaxy\\E-Commerce\\Views\\Auth\\RegisterForm.cshtml",
+              "RelativeDocumentMoniker": "E-Commerce\\Views\\Auth\\RegisterForm.cshtml",
+              "ToolTip": "G:\\Programming\\- Projects\\EcomGalaxy\\EcomGalaxy\\E-Commerce\\Views\\Auth\\RegisterForm.cshtml*",
+              "RelativeToolTip": "E-Commerce\\Views\\Auth\\RegisterForm.cshtml*",
+              "ViewState": "AgIAANkBAAAAAAAAAAAAwO8BAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-12T19:25:43.74Z",
+              "WhenOpened": "2026-03-12T23:19:01.937Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "G:\\Programming\\- Projects\\EcomGalaxy\\EcomGalaxy\\E-Commerce\\Program.cs",
+              "RelativeDocumentMoniker": "E-Commerce\\Program.cs",
+              "ToolTip": "G:\\Programming\\- Projects\\EcomGalaxy\\EcomGalaxy\\E-Commerce\\Program.cs",
+              "RelativeToolTip": "E-Commerce\\Program.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwBMAAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-12T23:08:07.256Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "G:\\Programming\\- Projects\\EcomGalaxy\\EcomGalaxy\\E-Commerce\\appsettings.json",
+              "RelativeDocumentMoniker": "E-Commerce\\appsettings.json",
+              "ToolTip": "G:\\Programming\\- Projects\\EcomGalaxy\\EcomGalaxy\\E-Commerce\\appsettings.json",
+              "RelativeToolTip": "E-Commerce\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAACcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-12T23:06:47.797Z",
               "EditorCaption": ""
             }
           ]

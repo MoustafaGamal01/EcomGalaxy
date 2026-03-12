@@ -17,7 +17,7 @@ namespace EcomGalaxy
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<MyContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("MyCS")));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("RemoteCS")));
 
             builder.Services.AddRazorPages();
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(

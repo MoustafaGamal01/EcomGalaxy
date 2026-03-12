@@ -68,6 +68,9 @@
         border-radius: 20px;
         padding: 44px 44px 40px;
         box-shadow: 0 24px 80px rgba(0,0,0,.5);
+        /* Critical: prevent card from growing beyond max-width */
+        box-sizing: border-box;
+        overflow: hidden;
     }
 
     /* Header */
@@ -147,7 +150,9 @@
             font-size: 11px;
         }
 
-    /* ── FIELD GRID ── */
+    /* ── FIELD GRID ──
+           min-width: 0 on children is critical — without it, grid children
+           don't shrink below their content width, causing overflow. */
     .fields-row {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -160,7 +165,8 @@
 
     /* ── FIELD ── */
     .field {
-        margin-bottom: 16px;
+        margin-bottom: 4px;
+        min-width: 0; /* ← THE fix: allows grid child to shrink */
     }
 
     .field-label {
@@ -181,6 +187,9 @@
         border: 1px solid var(--border);
         border-radius: var(--radius);
         transition: border-color var(--trans), box-shadow var(--trans);
+        /* Prevent wrap from overflowing its grid cell */
+        min-width: 0;
+        overflow: hidden;
     }
 
         .field-wrap:focus-within {
@@ -189,7 +198,7 @@
         }
 
         .field-wrap i {
-            padding: 0 13px;
+            padding: 0 11px;
             color: var(--muted);
             font-size: 12px;
             flex-shrink: 0;
@@ -198,13 +207,16 @@
 
         .field-wrap input {
             flex: 1;
+            /* min-width: 0 so the input can shrink inside flexbox */
+            min-width: 0;
+            width: 0; /* flex will grow it to fill available space */
             background: none;
             border: none;
             outline: none;
             color: var(--text);
             font-family: var(--font-body);
             font-size: 14px;
-            padding: 12px 13px 12px 0;
+            padding: 12px 10px 12px 0;
         }
 
             .field-wrap input::placeholder {
@@ -213,7 +225,7 @@
 
     /* Password toggle */
     .pwd-toggle {
-        padding: 0 13px;
+        padding: 0 11px;
         color: var(--muted);
         font-size: 12px;
         cursor: pointer;
@@ -307,7 +319,7 @@
         .auth-card {
             padding: 28px 20px 24px;
         }
-
+        /* Stack to single column on small screens */
         .fields-row {
             grid-template-columns: 1fr;
         }
@@ -326,7 +338,7 @@
     <div class="auth-card">
 
         <div class="auth-header">
-            <a href="/Home/Index" class="auth-logo">Ecom<em>Galaxy</em></a>
+            <a asp-action="Index" asp-controller="Home" class="auth-logo">Ecom<em>Galaxy</em></a>
             <h1>Create Account</h1>
             <p>Join EcomGalaxy and start shopping today.</p>
         </div>
@@ -339,6 +351,7 @@
         }
 
         <form asp-action="Register" asp-controller="Auth" method="post">
+            @Html.AntiForgeryToken()
 
             <!-- Account Info -->
             <div class="form-section">
@@ -346,6 +359,7 @@
             </div>
 
             <div class="fields-row">
+
                 <div class="field">
                     <label class="field-label" asp-for="Name">Full Name</label>
                     <div class="field-wrap">
@@ -364,6 +378,7 @@
                     <span asp-validation-for="UserName" class="field-error"></span>
                 </div>
 
+                <!-- Email spans full width — no overflow risk on its own row -->
                 <div class="field field-full">
                     <label class="field-label" asp-for="Email">Email Address</label>
                     <div class="field-wrap">
@@ -396,6 +411,7 @@
                     </div>
                     <span asp-validation-for="ConfirmPassword" class="field-error"></span>
                 </div>
+
             </div>
 
             <!-- Shipping Address -->
@@ -404,6 +420,7 @@
             </div>
 
             <div class="fields-row">
+
                 <div class="field">
                     <label class="field-label" asp-for="Country">Country</label>
                     <div class="field-wrap">
@@ -439,6 +456,7 @@
                     </div>
                     <span asp-validation-for="PostalCode" class="field-error"></span>
                 </div>
+
             </div>
 
             <button type="submit" class="btn-submit">
@@ -451,7 +469,7 @@
         <div class="auth-divider">or</div>
 
         <div class="auth-switch">
-            Already have an account? <a href="/Auth/LoginForm">Sign in</a>
+            Already have an account? <a asp-action="LoginForm" asp-controller="Auth">Sign in</a>
         </div>
 
     </div>
@@ -462,11 +480,11 @@
         const input = document.getElementById(inputId);
         const icon  = document.getElementById(iconId);
         const isHidden = input.type === 'password';
-        input.type  = isHidden ? 'text' : 'password';
+        input.type     = isHidden ? 'text' : 'password';
         icon.className = isHidden ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
     }
 
-    document.getElementById('pwdToggle1').addEventListener('click', () => togglePwd('pwdInput', 'pwdIcon1'));
+    document.getElementById('pwdToggle1').addEventListener('click', () => togglePwd('pwdInput',        'pwdIcon1'));
     document.getElementById('pwdToggle2').addEventListener('click', () => togglePwd('confirmPwdInput', 'pwdIcon2'));
 </script>
 

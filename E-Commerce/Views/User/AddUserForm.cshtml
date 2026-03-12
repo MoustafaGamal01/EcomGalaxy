@@ -1,199 +1,530 @@
 ﻿@model UserRegisterViewModel
 @{
     ViewBag.Title = "Add User";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
     SelectList roles = new SelectList(ViewBag.MyRoles);
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form With Html & Css</title>
-    <link rel="stylesheet" href="./style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
+<style>
+    :root {
+        --bg: #0f0f0f;
+        --surface: #1a1a1a;
+        --surface2: #222;
+        --border: #2a2a2a;
+        --accent: #f97316;
+        --text: #f0f0f0;
+        --muted: #777;
+        --danger: #f87171;
+        --success: #4ade80;
+        --font-head: 'Bebas Neue', sans-serif;
+        --font-body: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, sans-serif;
+        --radius: 12px;
+        --trans: .22s cubic-bezier(.4,0,.2,1);
+    }
 
-        body {
-            background: #f1f2f7;
-        }
+    /* ── PAGE SHELL ── */
+    .admin-page {
+        min-height: calc(100vh - 64px);
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 48px 20px 80px;
+        position: relative;
+        overflow: hidden;
+    }
 
-        form {
-            width: 30%;
-            margin: 60px auto;
-            background: #efefef;
-            padding: 60px 120px 80px 120px;
-            text-align: center;
-            -webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
-            box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
-        }
-
-
-        label {
-            display: block;
-            position: relative;
-            margin: 40px 0px;
-        }
-
-        .label-txt {
+        .admin-page::before {
+            content: '';
             position: absolute;
-            top: -1.6em;
-            padding: 10px;
-            font-family: sans-serif;
-            font-size: .8em;
-            letter-spacing: 1px;
-            color: rgb(120,120,120);
-            transition: ease .3s;
-        }
-
-
-        .input {
-            width: 100%;
-            padding: 10px;
-            background: transparent;
-            border: none;
-            outline: none;
-        }
-
-        .line-box {
-            position: relative;
-            width: 100%;
-            height: 1px;
-            background: #BCBCBC;
-        }
-
-        .line {
-            position: absolute;
-            width: 0%;
-            height: 2px;
-            top: 0px;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(249,115,22,.18), transparent 70%);
+            top: -160px;
             left: 50%;
             transform: translateX(-50%);
-            background: darkorange;
-            transition: ease .6s;
+            pointer-events: none;
+            filter: blur(60px);
         }
 
-        .input:focus + .line-box .line {
-            width: 100%;
+    /* ── CARD ── */
+    .admin-card {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 620px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 44px 44px 40px;
+        box-shadow: 0 24px 80px rgba(0,0,0,.5);
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    /* ── HEADER ── */
+    .admin-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 32px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .admin-header-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: rgba(249,115,22,.12);
+        border: 1px solid rgba(249,115,22,.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+        .admin-header-icon i {
+            font-size: 20px;
+            color: var(--accent);
         }
 
-        .label-active {
-            top: -3em;
+    .admin-header-text h1 {
+        font-family: var(--font-head);
+        font-size: 32px;
+        letter-spacing: 2px;
+        color: var(--text);
+        margin: 0 0 2px;
+        line-height: 1;
+    }
+
+    .admin-header-text p {
+        font-size: 13px;
+        color: var(--muted);
+        margin: 0;
+    }
+
+    /* ── BADGE: Admin Only ── */
+    .admin-badge {
+        margin-left: auto;
+        padding: 5px 12px;
+        background: rgba(249,115,22,.1);
+        border: 1px solid rgba(249,115,22,.25);
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--accent);
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* ── VALIDATION SUMMARY ── */
+    .admin-error {
+        background: rgba(248,113,113,.08);
+        border: 1px solid rgba(248,113,113,.25);
+        border-radius: var(--radius);
+        padding: 12px 16px;
+        margin-bottom: 24px;
+        font-size: 13px;
+        color: var(--danger);
+    }
+
+    /* ── SECTION LABEL ── */
+    .form-section {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--muted);
+        padding: 4px 0 14px;
+        margin-top: 8px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .form-section i {
+            color: var(--accent);
+            font-size: 11px;
         }
 
-        button {
-            display: inline-block;
-            padding: 12px 24px;
-            background: rgb(220,220,220);
-            font-weight: bold;
-            color: rgb(120,120,120);
+    /* ── FIELD GRID ── */
+    .fields-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    .field-full {
+        grid-column: 1 / -1;
+    }
+
+    /* ── FIELD ── */
+    .field {
+        margin-bottom: 4px;
+        min-width: 0; /* prevents grid overflow */
+    }
+
+    .field-label {
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 7px;
+    }
+
+    .field-wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        transition: border-color var(--trans), box-shadow var(--trans);
+        min-width: 0;
+        overflow: hidden;
+    }
+
+        .field-wrap:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(249,115,22,.12);
+        }
+
+        .field-wrap i {
+            padding: 0 11px;
+            color: var(--muted);
+            font-size: 12px;
+            flex-shrink: 0;
+            pointer-events: none;
+        }
+
+        .field-wrap input,
+        .field-wrap select {
+            flex: 1;
+            min-width: 0;
+            width: 0;
+            background: none;
             border: none;
             outline: none;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: ease .3s;
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 14px;
+            padding: 12px 10px 12px 0;
         }
 
-            button:hover {
-                background: linear-gradient(135deg, #FF8C00, #9b59b6);
-                color: #ffffff;
+            .field-wrap input::placeholder {
+                color: var(--muted);
             }
 
-        .text-danger {
-            color: red;
-            font-size: 13px;
-            font-weight: 500;
+        /* Select styling */
+        .field-wrap select {
+            cursor: pointer;
+            padding-right: 32px;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23777' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
         }
-    </style>
-</head>
-<body>
-    <div>
-        <form asp-action="AddUser" asp-controller="User" method="post">
-            <h4 class="text-warning text-center pt-5">ADD USER</h4>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div>
-                <input asp-for="Name" class="input" placeholder="ENTER FULL NAME" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-                <div class="line-box">
-                    <div class="line"></div>
-                </div>
-            </div>
-            <br>
-            <div>
-                <input asp-for="UserName" class="input" placeholder="ENTER USERNAME" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-                <div class="line-box">
-                    <div class="line"></div>
-                </div>
-            </div>
-            <br>
-            <div>
-                <input asp-for="Email" class="input" placeholder="ENTER EMAIL" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-                <div class="line-box">
-                    <div class="line"></div>
-                </div>
-            </div>
-            <br>
 
-            <div>
-                <input asp-for="Password" class="input" placeholder="ENTER PASSWORD" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-                <div class="line-box">
-                    <div class="line"></div>
+            .field-wrap select option {
+                background: var(--surface2);
+                color: var(--text);
+            }
+
+    /* Password toggle */
+    .pwd-toggle {
+        padding: 0 11px;
+        color: var(--muted);
+        font-size: 12px;
+        cursor: pointer;
+        flex-shrink: 0;
+        background: none;
+        border: none;
+        outline: none;
+        transition: color var(--trans);
+    }
+
+        .pwd-toggle:hover {
+            color: var(--text);
+        }
+
+    .field-error {
+        font-size: 12px;
+        color: var(--danger);
+        margin-top: 5px;
+        display: block;
+    }
+
+    /* ── SUBMIT ── */
+    .form-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 32px;
+    }
+
+    .btn-submit {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px;
+        background: var(--accent);
+        color: #fff;
+        font-family: var(--font-body);
+        font-size: 14px;
+        font-weight: 600;
+        border: none;
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+        letter-spacing: .3px;
+    }
+
+        .btn-submit:hover {
+            background: #e8660a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(249,115,22,.35);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+    .btn-cancel {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px 24px;
+        background: none;
+        color: var(--muted);
+        font-family: var(--font-body);
+        font-size: 14px;
+        font-weight: 600;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        text-decoration: none;
+        transition: border-color var(--trans), color var(--trans);
+        white-space: nowrap;
+    }
+
+        .btn-cancel:hover {
+            border-color: var(--muted);
+            color: var(--text);
+        }
+
+    /* ── RESPONSIVE ── */
+    @@media (max-width: 580px) {
+        .admin-card {
+            padding: 28px 20px 24px;
+        }
+
+        .fields-row {
+            grid-template-columns: 1fr;
+        }
+
+        .field-full {
+            grid-column: auto;
+        }
+
+        .admin-header {
+            flex-wrap: wrap;
+        }
+
+        .admin-badge {
+            display: none;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .btn-cancel {
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="admin-page">
+    <div class="admin-card">
+
+        <!-- Header -->
+        <div class="admin-header">
+            <div class="admin-header-icon">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <div class="admin-header-text">
+                <h1>Add User</h1>
+                <p>Create a new user account and assign a role.</p>
+            </div>
+            <span class="admin-badge"><i class="fa-solid fa-lock" style="margin-right:5px;font-size:9px;"></i>Admin Only</span>
+        </div>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="admin-error">
+                <div asp-validation-summary="ModelOnly"></div>
+            </div>
+        }
+
+        <form asp-action="AddUser" asp-controller="User" method="post">
+            @Html.AntiForgeryToken()
+
+            <!-- Account Info -->
+            <div class="form-section">
+                <i class="fa-solid fa-circle-user"></i> Account Info
+            </div>
+
+            <div class="fields-row">
+
+                <div class="field">
+                    <label class="field-label" asp-for="Name">Full Name</label>
+                    <div class="field-wrap">
+                        <i class="fa-solid fa-user"></i>
+                        <input asp-for="Name" type="text" placeholder="John Doe" autocomplete="name" />
+                    </div>
+                    <span asp-validation-for="Name" class="field-error"></span>
                 </div>
-            </div>
-            <br>
-            <div>
-                <input asp-for="ConfirmPassword" class="input" placeholder="CONFIRM PASSWORD" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                <div class="line-box">
-                    <div class="line"></div>
+
+                <div class="field">
+                    <label class="field-label" asp-for="UserName">Username</label>
+                    <div class="field-wrap">
+                        <i class="fa-solid fa-at"></i>
+                        <input asp-for="UserName" type="text" placeholder="johndoe" autocomplete="username" />
+                    </div>
+                    <span asp-validation-for="UserName" class="field-error"></span>
                 </div>
-            </div>
-            <br>
-            <div>
-                <input asp-for="Country" class="input" placeholder="ENTER COUNTRY" />
-                <span asp-validation-for="Country" class="text-danger"></span>
-                <div class="line-box">
-                    <div class="line"></div>
+
+                <div class="field field-full">
+                    <label class="field-label" asp-for="Email">Email Address</label>
+                    <div class="field-wrap">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input asp-for="Email" type="email" placeholder="user@example.com" autocomplete="email" />
+                    </div>
+                    <span asp-validation-for="Email" class="field-error"></span>
                 </div>
-            </div>
-            <br>
-            <div>
-                <input asp-for="City" class="input" placeholder="ENTER CITY" />
-                <span asp-validation-for="City" class="text-danger"></span>
-                <div class="line-box">
-                    <div class="line"></div>
+
+                <div class="field">
+                    <label class="field-label" asp-for="Password">Password</label>
+                    <div class="field-wrap">
+                        <i class="fa-solid fa-lock"></i>
+                        <input asp-for="Password" type="password" id="pwdInput" placeholder="••••••••" autocomplete="new-password" />
+                        <button type="button" class="pwd-toggle" id="pwdToggle1" aria-label="Toggle password">
+                            <i class="fa-solid fa-eye" id="pwdIcon1"></i>
+                        </button>
+                    </div>
+                    <span asp-validation-for="Password" class="field-error"></span>
                 </div>
-            </div>
-            <br>
-            <div>
-                <input asp-for="Street" class="input" placeholder="ENTER STREET" />
-                <span asp-validation-for="Street" class="text-danger"></span>
-                <div class="line-box">
-                    <div class="line"></div>
+
+                <div class="field">
+                    <label class="field-label" asp-for="ConfirmPassword">Confirm Password</label>
+                    <div class="field-wrap">
+                        <i class="fa-solid fa-lock"></i>
+                        <input asp-for="ConfirmPassword" type="password" id="confirmPwdInput" placeholder="••••••••" autocomplete="new-password" />
+                        <button type="button" class="pwd-toggle" id="pwdToggle2" aria-label="Toggle password">
+                            <i class="fa-solid fa-eye" id="pwdIcon2"></i>
+                        </button>
+                    </div>
+                    <span asp-validation-for="ConfirmPassword" class="field-error"></span>
                 </div>
+
             </div>
-            <br>
-            <div>
-                <input asp-for="PostalCode" class="input" placeholder="ENTER POSTALCODE" />
-                <span asp-validation-for="PostalCode" class="text-danger"></span>
-                <div class="line-box">
-                    <div class="line"></div>
+
+            <!-- Shipping Address -->
+            <div class="form-section" style="margin-top:24px">
+                <i class="fa-solid fa-location-dot"></i> Shipping Address
+            </div>
+
+            <div class="fields-row">
+
+                <div class="field">
+                    <label class="field-label" asp-for="Country">Country</label>
+                    <div class="field-wrap">
+                        <i class="fa-solid fa-earth-africa"></i>
+                        <input asp-for="Country" type="text" placeholder="Egypt" autocomplete="country-name" />
+                    </div>
+                    <span asp-validation-for="Country" class="field-error"></span>
                 </div>
+
+                <div class="field">
+                    <label class="field-label" asp-for="City">City</label>
+                    <div class="field-wrap">
+                        <i class="fa-solid fa-city"></i>
+                        <input asp-for="City" type="text" placeholder="Cairo" autocomplete="address-level2" />
+                    </div>
+                    <span asp-validation-for="City" class="field-error"></span>
+                </div>
+
+                <div class="field">
+                    <label class="field-label" asp-for="Street">Street</label>
+                    <div class="field-wrap">
+                        <i class="fa-solid fa-road"></i>
+                        <input asp-for="Street" type="text" placeholder="123 Main St" autocomplete="street-address" />
+                    </div>
+                    <span asp-validation-for="Street" class="field-error"></span>
+                </div>
+
+                <div class="field">
+                    <label class="field-label" asp-for="PostalCode">Postal Code</label>
+                    <div class="field-wrap">
+                        <i class="fa-solid fa-map-pin"></i>
+                        <input asp-for="PostalCode" type="text" placeholder="11511" autocomplete="postal-code" />
+                    </div>
+                    <span asp-validation-for="PostalCode" class="field-error"></span>
+                </div>
+
             </div>
-            <br>
-            <div class="form-group">
-                <label asp-for="UserRole"><strong>Roles</strong></label>
-                <select asp-items="roles" asp-for="UserRole" class="form-control"></select>
+
+            <!-- Role -->
+            <div class="form-section" style="margin-top:24px">
+                <i class="fa-solid fa-shield-halved"></i> Role Assignment
             </div>
-            <br>
-            <button type="submit">Add User</button>
+
+            <div class="field">
+                <label class="field-label" asp-for="UserRole">Assign Role</label>
+                <div class="field-wrap">
+                    <i class="fa-solid fa-user-tag"></i>
+                    <select asp-items="roles" asp-for="UserRole"></select>
+                </div>
+                <span asp-validation-for="UserRole" class="field-error"></span>
+            </div>
+
+            <div class="form-actions">
+                <a asp-action="Index" asp-controller="User" class="btn-cancel">
+                    <i class="fa-solid fa-arrow-left"></i> Cancel
+                </a>
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Create User
+                </button>
+            </div>
+
         </form>
+
     </div>
-</body>
-</html>
+</div>
+
+<script>
+    function togglePwd(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon  = document.getElementById(iconId);
+        const isHidden = input.type === 'password';
+        input.type     = isHidden ? 'text' : 'password';
+        icon.className = isHidden ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
+    }
+
+    document.getElementById('pwdToggle1').addEventListener('click', () => togglePwd('pwdInput',        'pwdIcon1'));
+    document.getElementById('pwdToggle2').addEventListener('click', () => togglePwd('confirmPwdInput', 'pwdIcon2'));
+</script>
+
 @section Scripts {
     @{
         await Html.PartialAsync("_ValidationScriptsPartial");

@@ -1,82 +1,49 @@
 ﻿using EcomGalaxy.ApplicationLayer.Services.IServices;
-using EcomGalaxy.Domain.Models.Order;
-using EcomGalaxy.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
+using System.Security.Claims;
 
-namespace EcomGalaxy.Controllers.Cutomer
+namespace EcomGalaxy.Controllers.Customer
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
-        private readonly IOrderItemsService _itemsService;
-        private readonly IProductService _productService;
-        private readonly IPaymentService _paymentService;
 
-        public OrderController(IOrderService orderService, IOrderItemsService orderItemsService,
-            IProductService productService, IPaymentService paymentService)
+        public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
-            _itemsService = orderItemsService;
-            _productService = productService;
-            _paymentService = paymentService;
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public IActionResult AllOrders()
-        {
-            return View();
-        }
+        public IActionResult AllOrders() => View();
 
         [HttpGet]
-        [Authorize(Roles= "Customer")]
-        public async Task<IActionResult> CustomerOrders()
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AdminOrders()
         {
-            var user = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            var lstordersMainViewModel = await _orderService.CustomerOrders(user);
-            return View(lstordersMainViewModel);
+            var viewModel = await _orderService.OrderAdminDetails();
+            return View(viewModel);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ReceivedOrder(int orderId)
+        {
+            await _orderService.ReceivedOrderAsync(orderId);
+            return RedirectToAction(nameof(AdminOrders));
+        }
+
 
         [HttpGet]
         [Authorize(Roles = "Seller")]
         public async Task<IActionResult> SellerOrders()
         {
-            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            var lstViewModel = await _orderService.OrderSellerDetails(userId);
-            return View(lstViewModel);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> OrderDetails(int orderId)
-        {
-            var lstViewModel = await _orderService.OrderDetails(orderId);
-            ViewBag.OrderId = orderId;
-            return View(lstViewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Customer")]
-        public async Task<IActionResult> CancelOrder(int orderId)
-        {
-            var orderItems = await _itemsService.GetOrderItemsByOrderIdAsync(orderId);
-            var order = await _orderService.GetOrderByIdAsync(orderId);
-            var paymentId = order.PaymentId;
-            // clear items=>add qtty to prds && del payment && del order
-            foreach (var item in orderItems)
-            {
-                var product = await _productService.GetProductByIdAsync(item.ProductId);
-                product.StockQuantity += item.Quantity;
-                await _productService.UpdateProductAsync(product.Id, product);
-                await _itemsService.DeleteOrderItemAsync(item.Id);
-            }
-
-            await _orderService.DeleteOrderAsync(orderId);
-
-            await _paymentService.DeletePaymentAsync(paymentId);
-
-            return RedirectToAction("CustomerOrders", "Order");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var viewModel = await _orderService.OrderSellerDetails(userId);
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -84,40 +51,49 @@ namespace EcomGalaxy.Controllers.Cutomer
         [Authorize(Roles = "Seller")]
         public async Task<IActionResult> ShipOrder(int orderId)
         {
-            var order = await _orderService.GetOrderByIdAsync(orderId);
-            order.Status = OrderStatus.Shipped;
-            order.ShippedDate = DateTime.Now;
-            await _orderService.UpdateOrderAsync(orderId, order);
-            return RedirectToAction("SellerOrders", "Order");
+            await _orderService.ShipOrderAsync(orderId);
+            return RedirectToAction(nameof(SellerOrders));
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> CustomerOrders()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var viewModel = await _orderService.CustomerOrders(userId);
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Customer,Seller,Admin")]
+        public async Task<IActionResult> OrderDetails(int orderId)
+        {
+            if (User.IsInRole("Customer"))
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var order = await _orderService.GetOrderByIdAsync(orderId);
+                if (order == null || order.CustomerId != userId)
+                    return Forbid();
+            }
+
+            var viewModel = await _orderService.OrderDetails(orderId);
+            ViewBag.OrderId = orderId;
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> RecievedOrder(int orderId)
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> CancelOrder(int orderId)
         {
-            var orderItems = await _itemsService.GetOrderItemsByOrderIdAsync(orderId);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var order = await _orderService.GetOrderByIdAsync(orderId);
-            var paymentId = order.PaymentId;
+            if (order == null || order.CustomerId != userId)
+                return Forbid();
 
-            foreach (var item in orderItems)
-            {
-                await _itemsService.DeleteOrderItemAsync(item.Id);
-            }
-
-            await _orderService.DeleteOrderAsync(orderId);
-
-            await _paymentService.DeletePaymentAsync(paymentId);
-
-            return RedirectToAction("SellerOrders", "Order");
-        }
-
-        [HttpGet]
-        [Authorize(Roles= "Admin")]
-        public async Task<IActionResult> AdminOrders()
-        {
-            var lstViewModel = await _orderService.OrderAdminDetails();
-            return View(lstViewModel);
+            await _orderService.CancelOrderAsync(orderId);
+            return RedirectToAction(nameof(CustomerOrders));
         }
     }
 }

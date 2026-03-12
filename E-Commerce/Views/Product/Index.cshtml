@@ -1,52 +1,566 @@
-﻿@model IEnumerable<EcomGalaxy.ViewModel.Product.ProductViewModel>
+﻿@model EcomGalaxy.ViewModel.PagedResult<EcomGalaxy.ViewModel.Product.ProductViewModel>
+
 @{
-    ViewBag.Title = "Shop";
-    Layout = "~/Views/Shared/_MyLayout.cshtml";
+    // Pull current filter values back out of the query string so controls stay populated on reload
+    var currentSearch    = Context.Request.Query["search"].ToString();
+    var currentSort      = Context.Request.Query["sort"].ToString();
+    var currentMinPrice  = Context.Request.Query["minPrice"].ToString();
+    var currentMaxPrice  = Context.Request.Query["maxPrice"].ToString();
+    var currentMinRating = Context.Request.Query["minRating"].ToString();
 }
 
-<style>
-    .page-header {
-        padding: 48px 28px 24px;
-        max-width: 1300px;
-        margin: 0 auto;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products — EcomGalaxy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .page-header .eyebrow {
+        :root {
+            --bg:          #1a1a1a;
+            --card:        #242424;
+            --border:      #2e2e2e;
+            --border-mid:  #333;
+            --text:        #f0f0f0;
+            --muted:       #888;
+            --dim:         #555;
+            --accent:      darkorange;
+            --accent-hover:#ff9500;
+            --radius:      10px;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* ── Layout ── */
+        .shell {
+            display: flex;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            gap: 28px;
+        }
+
+        /* ── Sidebar ── */
+        .sidebar {
+            width: 220px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--dim);
+            margin-bottom: 20px;
+        }
+
+        .filter-section { margin-bottom: 28px; }
+
+        .filter-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .filter-input {
+            width: 100%;
+            padding: 9px 12px;
+            background: var(--card);
+            border: 1px solid var(--border-mid);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .filter-input:focus { border-color: var(--accent); }
+        .filter-input::placeholder { color: var(--dim); }
+
+        .price-row {
+            display: flex;
+            gap: 8px;
+        }
+        .price-row .filter-input { width: 50%; }
+
+        .rating-options {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        .rating-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--muted);
+            transition: color 0.15s;
+        }
+        .rating-option:hover { color: var(--text); }
+
+        .rating-option input[type=radio] { accent-color: var(--accent); cursor: pointer; }
+
+        .stars { color: var(--accent); font-size: 12px; letter-spacing: 1px; }
+
+        .apply-btn {
+            width: 100%;
+            padding: 11px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .apply-btn:hover { background: var(--accent-hover); }
+        .apply-btn:active { transform: scale(0.98); }
+
+        .clear-link {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--dim);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .clear-link:hover { color: var(--muted); }
+
+        /* ── Main area ── */
+        .main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+
+        /* ── Topbar ── */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .result-count {
+            font-size: 13px;
+            color: var(--muted);
+        }
+        .result-count span { color: var(--text); font-weight: 500; }
+
+        .sort-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sort-label {
+            font-size: 12px;
+            color: var(--dim);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            white-space: nowrap;
+        }
+        .sort-select {
+            padding: 8px 12px;
+            background: var(--card);
+            border: 1px solid var(--border-mid);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 13px;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .sort-select:focus { border-color: var(--accent); }
+
+        /* ── Product grid ── */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-color: #444;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 155px;
+            background: #2a2a2a;
+            overflow: hidden;
+        }
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+        .card:hover .card-image img { transform: scale(1.06); }
+
+        .card-body {
+            padding: 13px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+        }
+        .card-name {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .card-desc { font-size: 12px; color: var(--dim); line-height: 1.4; }
+        .card-price {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-top: auto;
+            padding-top: 8px;
+        }
+
+        .card-btn {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            border-top: 1px solid var(--border);
             font-size: 11px;
             font-weight: 600;
-            letter-spacing: 3px;
             text-transform: uppercase;
-            color: #f97316;
-            display: block;
-            margin-bottom: 8px;
+            letter-spacing: 0.07em;
+            color: var(--dim);
+            transition: all 0.2s;
+        }
+        .card:hover .card-btn { color: var(--accent); }
+
+        /* ── Empty state ── */
+        .empty {
+            grid-column: 1 / -1;
+            padding: 80px 0;
+            text-align: center;
+            color: var(--dim);
+        }
+        .empty i { font-size: 40px; margin-bottom: 16px; display: block; }
+
+        /* ── Pagination ── */
+        .pagination-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
         }
 
-        .page-header h1 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(36px, 5vw, 64px);
-            letter-spacing: 2px;
-            color: #f0f0f0;
-            margin: 0 0 6px;
-            line-height: 1;
+        .pagination-info { font-size: 12px; color: var(--dim); }
+
+        .pagination-controls { display: flex; align-items: center; gap: 5px; }
+
+        .page-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 34px;
+            height: 34px;
+            padding: 0 8px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            border: 1px solid var(--border-mid);
+            background: none;
+            color: var(--muted);
+            transition: all 0.15s;
+        }
+        .page-btn:hover:not(.disabled):not(.active) {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .page-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            pointer-events: none;
+        }
+        .page-btn.disabled { opacity: 0.3; pointer-events: none; }
+        .page-ellipsis { font-size: 13px; color: var(--dim); padding: 0 3px; }
+
+        @@media (max-width: 768px) {
+            .shell { flex-direction: column; }
+            .sidebar { width: 100%; }
+        }
+        @@media (max-width: 480px) {
+            .grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="shell">
+
+    <!-- ── Filter Sidebar ── -->
+    <aside class="sidebar">
+        <div class="sidebar-title">Filters</div>
+
+        <!--
+            All filters are GET params on the same Index action.
+            Submitting the form rebuilds the URL with the new filter state,
+            which also resets page back to 1 automatically.
+        -->
+        <form method="get" asp-action="Index" asp-controller="Product">
+
+            <!-- Search -->
+            <div class="filter-section">
+                <label class="filter-label">Search</label>
+                <input type="text"
+                       name="search"
+                       value="@currentSearch"
+                       placeholder="Name, description..."
+                       class="filter-input" />
+            </div>
+
+            <!-- Price range -->
+            <div class="filter-section">
+                <label class="filter-label">Price (EGP)</label>
+                <div class="price-row">
+                    <input type="number"
+                           name="minPrice"
+                           value="@currentMinPrice"
+                           placeholder="Min"
+                           min="0"
+                           class="filter-input" />
+                    <input type="number"
+                           name="maxPrice"
+                           value="@currentMaxPrice"
+                           placeholder="Max"
+                           min="0"
+                           class="filter-input" />
+                </div>
+            </div>
+
+            <!-- Rating -->
+            <div class="filter-section">
+                <label class="filter-label">Min. Rating</label>
+                <div class="rating-options">
+                    @for (int r = 4; r >= 1; r--)
+                    {
+                        var stars = new string('★', r) + new string('☆', 5 - r);
+                        <label class="rating-option">
+                            <input type="radio"
+                                   name="minRating"
+                                   value="@r"
+                                   @(currentMinRating == r.ToString() ? "checked" : "") />
+                            <span class="stars">@stars</span>
+                            <span>& up</span>
+                        </label>
+                    }
+                    <label class="rating-option">
+                        <input type="radio"
+                               name="minRating"
+                               value=""
+                               @(string.IsNullOrEmpty(currentMinRating) ? "checked" : "") />
+                        <span>Any rating</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="apply-btn">Apply Filters</button>
+        </form>
+
+        <a href="@Url.Action("Index", "Product")" class="clear-link">Clear all filters</a>
+    </aside>
+
+    <!-- ── Main Content ── -->
+    <main class="main">
+
+        <!-- Topbar: result count + sort -->
+        <div class="topbar">
+            <div class="result-count">
+                <span>@Model.TotalCount</span> products found
+            </div>
+
+            <!--
+                Sort is a standalone GET form so changing the dropdown submits immediately.
+                It carries the existing filter params as hidden inputs so the filter isn't lost.
+            -->
+            <form method="get" asp-action="Index" asp-controller="Product" id="sort-form">
+                <input type="hidden" name="search"    value="@currentSearch" />
+                <input type="hidden" name="minPrice"  value="@currentMinPrice" />
+                <input type="hidden" name="maxPrice"  value="@currentMaxPrice" />
+                <input type="hidden" name="minRating" value="@currentMinRating" />
+
+                <div class="sort-group">
+                    <span class="sort-label">Sort by</span>
+                    <select name="sort"
+                            class="sort-select"
+                            onchange="document.getElementById('sort-form').submit()">
+                        <option value=""             @@(currentSort == ""             ? "selected" : "")>Default</option>
+                        <option value="price_asc"    @@(currentSort == "price_asc"    ? "selected" : "")>Price: Low → High</option>
+                        <option value="price_desc"   @@(currentSort == "price_desc"   ? "selected" : "")>Price: High → Low</option>
+                        <option value="rating_desc"  @@(currentSort == "rating_desc"  ? "selected" : "")>Top Rated</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <!-- Product grid -->
+        <div class="grid">
+            @if (!Model.Items.Any())
+            {
+                <div class="empty">
+                    <i class="fas fa-box-open"></i>
+                    No products match your filters.
+                </div>
+            }
+
+            @foreach (var product in Model.Items)
+            {
+                <a class="card"
+                   asp-action="ProductDetails"
+                   asp-controller="Product"
+                   asp-route-id="@product.ProductId">
+                    <div class="card-image">
+                        <img src="/images/@(product.ProductImages?.FirstOrDefault() ?? "placeholder.jpg")"
+                             alt="@product.ProductName"
+                             loading="lazy" />
+                    </div>
+                    <div class="card-body">
+                        <div class="card-name">@product.ProductName</div>
+                        <div class="card-desc">@product.ProductDescription</div>
+                        <div class="card-price">@product.ProductPrice EGP</div>
+                    </div>
+                    <span class="card-btn">View Details →</span>
+                </a>
+            }
+        </div>
+
+        <!-- Pagination -->
+        @if (Model.TotalPages > 1)
+        {
+            <!--
+                Every page link carries the current filter+sort params so navigating
+                to page 3 keeps your "price_asc + minRating=3" filter active.
+            -->
+            <div class="pagination-bar">
+                <div class="pagination-info">
+                    Showing @((Model.CurrentPage - 1) * Model.PageSize + 1)–@(Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalCount))
+                    of @Model.TotalCount
+                </div>
+
+                <div class="pagination-controls">
+
+                    @* Prev *@
+                    @if (Model.HasPreviousPage)
+                    {
+                        <a class="page-btn"
+                           asp-action="Index" asp-controller="Product"
+                           asp-route-page="@(Model.CurrentPage - 1)"
+                           asp-route-search="@currentSearch"
+                           asp-route-sort="@currentSort"
+                           asp-route-minPrice="@currentMinPrice"
+                           asp-route-maxPrice="@currentMaxPrice"
+                           asp-route-minRating="@currentMinRating">‹</a>
+                    }
+                    else
+                    {
+                        <span class="page-btn disabled">‹</span>
+                    }
+
+                    @* First page *@
+                    @if (Model.PageWindow().First() > 1)
+                    {
+                        <a class="page-btn"
+                           asp-action="Index" asp-controller="Product"
+                           asp-route-page="1"
+                           asp-route-search="@currentSearch"
+                           asp-route-sort="@currentSort"
+                           asp-route-minPrice="@currentMinPrice"
+                           asp-route-maxPrice="@currentMaxPrice"
+                           asp-route-minRating="@currentMinRating">1</a>
+                        @if (Model.PageWindow().First() > 2) { <span class="page-ellipsis">…</span> }
+                    }
+
+                    @* Window *@
+                    @foreach (var p in Model.PageWindow())
+                    {
+                        <a class="page-btn @(p == Model.CurrentPage ? "active" : "")"
+                           asp-action="Index" asp-controller="Product"
+                           asp-route-page="@p"
+                           asp-route-search="@currentSearch"
+                           asp-route-sort="@currentSort"
+                           asp-route-minPrice="@currentMinPrice"
+                           asp-route-maxPrice="@currentMaxPrice"
+                           asp-route-minRating="@currentMinRating">@p</a>
+                    }
+
+                    @* Last page *@
+                    @if (Model.PageWindow().Last() < Model.TotalPages)
+                    {
+                        @if (Model.PageWindow().Last() < Model.TotalPages - 1) { <span class="page-ellipsis">…</span> }
+                        <a class="page-btn"
+                           asp-action="Index" asp-controller="Product"
+                           asp-route-page="@Model.TotalPages"
+                           asp-route-search="@currentSearch"
+                           asp-route-sort="@currentSort"
+                           asp-route-minPrice="@currentMinPrice"
+                           asp-route-maxPrice="@currentMaxPrice"
+                           asp-route-minRating="@currentMinRating">@Model.TotalPages</a>
+                    }
+
+                    @* Next *@
+                    @if (Model.HasNextPage)
+                    {
+                        <a class="page-btn"
+                           asp-action="Index" asp-controller="Product"
+                           asp-route-page="@(Model.CurrentPage + 1)"
+                           asp-route-search="@currentSearch"
+                           asp-route-sort="@currentSort"
+                           asp-route-minPrice="@currentMinPrice"
+                           asp-route-maxPrice="@currentMaxPrice"
+                           asp-route-minRating="@currentMinRating">›</a>
+                    }
+                    else
+                    {
+                        <span class="page-btn disabled">›</span>
+                    }
+
+                </div>
+            </div>
         }
 
-        .page-header p {
-            font-size: 14px;
-            color: #777;
-            margin: 0;
-        }
-
-    @@media (max-width: 768px) {
-        .page-header {
-            padding: 32px 16px 16px;
-        }
-    }
-</style>
-
-<div class="page-header">
-    <span class="eyebrow">Browse the collection</span>
-    <h1>All Products</h1>
-    <p>Discover our full range — search, filter, and shop at your own pace.</p>
+    </main>
 </div>
 
-@await Html.PartialAsync("_ProductGrid", Model)
+</body>
+</html>

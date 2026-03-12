@@ -1,6 +1,7 @@
 ﻿using EcomGalaxy.DataAccess.Repositories.IRepository;
 using EcomGalaxy.Domain.Models.Context;
 using EcomGalaxy.Domain.Models.Order;
+using Microsoft.EntityFrameworkCore;
 
 namespace EcomGalaxy.DataAccess.Repositories
 {
@@ -13,50 +14,70 @@ namespace EcomGalaxy.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<bool?> AddOrderAsync(Order order)
+
+        public async Task AddOrderAsync(Order order)
         {
-            _context.Orders.Add(order);
-            return await _context.SaveChangesAsync() > 0;
+            if (order == null) throw new ArgumentNullException(nameof(order));
+
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<bool?> DeleteOrderAsync(int orderId)
+        public async Task UpdateOrderAsync(int orderId, Order order)
         {
-            var existingOrder = await GetOrderByIdAsync(orderId);
-            if (existingOrder == null)
-            {
-                throw new InvalidOperationException($"Order with ID {orderId} not found.");
-            }
-            _context.Orders.Remove(existingOrder);
-            return await _context.SaveChangesAsync() > 0;
+            if (order == null) throw new ArgumentNullException(nameof(order));
+
+            var existing = await _context.Orders.FindAsync(orderId)
+                ?? throw new KeyNotFoundException($"Order {orderId} not found.");
+
+            _context.Entry(existing).CurrentValues.SetValues(order);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteOrderAsync(int orderId)
+        {
+            var existing = await _context.Orders.FindAsync(orderId)
+                ?? throw new KeyNotFoundException($"Order {orderId} not found.");
+
+            _context.Orders.Remove(existing);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Order?> GetOrderByIdAsync(int orderId)
+        {
+            return await _context.Orders
+                .AsNoTracking()
+                .FirstOrDefaultAsync(o => o.Id == orderId);
         }
 
         public async Task<IEnumerable<Order>> GetAllOrdersAsync()
         {
-            return await _context.Orders.ToListAsync();
-        }
-
-        public async Task<Order> GetOrderByIdAsync(int orderId)
-        {
-            return await _context.Orders.FirstOrDefaultAsync(o => o.Id == orderId);
+            return await _context.Orders
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Order>> GetOrdersByUserIdAsync(string userId)
         {
+            if (string.IsNullOrEmpty(userId)) throw new ArgumentNullException(nameof(userId));
+
+            // No .Include(o => o.Customer) — service layer handles user data separately
             return await _context.Orders
-                .Include(o => o.Customer)
+                .AsNoTracking()
                 .Where(o => o.CustomerId == userId)
+                .OrderByDescending(o => o.OrderedDate)
                 .ToListAsync();
         }
 
-        public async Task<bool?> UpdateOrderAsync(int orderId, Order order)
+        public async Task<IEnumerable<Order>> GetOrdersByIdsAsync(IEnumerable<int> orderIds)
         {
-            var existingOrder = await GetOrderByIdAsync(orderId);
-            if (existingOrder == null)
-            {
-                throw new InvalidOperationException($"Order with ID {orderId} not found.");
-            }
-            _context.Entry(existingOrder).CurrentValues.SetValues(order);
-            return await _context.SaveChangesAsync() > 0;
+            if (orderIds == null || !orderIds.Any())
+                return Enumerable.Empty<Order>();
+
+            return await _context.Orders
+                .AsNoTracking()
+                .Where(o => orderIds.Contains(o.Id))
+                .ToListAsync();
         }
     }
 }

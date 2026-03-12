@@ -1,36 +1,34 @@
 ﻿using EcomGalaxy.Domain.Models.Product;
+using EcomGalaxy.ViewModel.Product;
 
 namespace EcomGalaxy.DataAccess.Repositories.IRepository
 {
     public interface IProductRepository
     {
-        Task<bool?> AddProductAsync(Product product);
+        // Write
+        Task AddProductAsync(Product product);
+        Task UpdateProductAsync(int productId, Product product);
+        Task UpdateRangeAsync(IEnumerable<Product> products);
+        Task DeleteProductAsync(int productId);
 
-        Task<bool?> UpdateProductAsync(int productId, Product product);
+        // Read — single
+        Task<Product?> GetProductByIdAsync(int productId);
+        Task<Product?> GetProductByNameAsync(string productName);
 
-        Task<bool?> DeleteProductAsync(int productId);
-
+        // Read — collections
         Task<IEnumerable<Product>> GetAllProductsAsync();
-
-        Task<Product> GetProductByIdAsync(int productId);
-
-        Task<IEnumerable<Product>> SearchForAProduct(string productName);
-
-        Task<IEnumerable<Product>> GetProductsBySellerIdAsync(string SellerId);
-
-        Task<Product> GetProductByNameAsync(string productName);
-
+        Task<IEnumerable<Product>> GetProductsByIdsAsync(IEnumerable<int> productIds);
+        Task<IEnumerable<Product>> GetProductsBySellerIdAsync(string sellerId);
         Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(int categoryId);
-
         Task<IEnumerable<Product>> GetProductsByCategoryNameAsync(string categoryName);
+        Task<IEnumerable<Product>> SearchForAProduct(string searchText);
+
+      
+        Task<(IEnumerable<Product> Items, int TotalCount)> GetPagedProductsAsync(ProductQueryParams q);
 
         Task<IEnumerable<Product>> SortProductsDescending();
-
         Task<IEnumerable<Product>> SortProductsAscending();
-
-        Task<IEnumerable<Product>> FilterProductsByAverageRating(int AverageRatine);
-
+        Task<IEnumerable<Product>> FilterProductsByAverageRating(int averageRating);
         Task<IEnumerable<Product>> FilterProductsByPrice(int from, int to);
-
     }
 }

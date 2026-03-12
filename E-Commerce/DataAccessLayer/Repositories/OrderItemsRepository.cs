@@ -1,6 +1,7 @@
 ﻿using EcomGalaxy.DataAccess.Repositories.IRepository;
 using EcomGalaxy.Domain.Models.Context;
 using EcomGalaxy.Domain.Models.Order;
+using Microsoft.EntityFrameworkCore;
 
 namespace EcomGalaxy.DataAccess.Repositories
 {
@@ -13,54 +14,82 @@ namespace EcomGalaxy.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<bool?> AddOrderItemAsync(OrderItem orderItem)
-        {
-            await _context.OrderItems.AddAsync(orderItem);
+        // ── Write ────────────────────────────────────────────────────────────────
 
-            return await _context.SaveChangesAsync() > 0;
+        public async Task AddOrderItemAsync(OrderItem orderItem)
+        {
+            if (orderItem == null) throw new ArgumentNullException(nameof(orderItem));
+
+            await _context.OrderItems.AddAsync(orderItem);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<bool?> DeleteOrderItemAsync(int orderItemId)
+        public async Task UpdateOrderItemAsync(int orderItemId, OrderItem orderItem)
         {
-            var orderItem = await GetOrderItemByIdAsync(orderItemId);
-            if (orderItem == null)
-            {
-                throw new InvalidOperationException($"Order with ID {orderItemId} not found.");
-            }
-            _context.OrderItems.Remove(orderItem);
-            return await _context.SaveChangesAsync() > 0;
+            if (orderItem == null) throw new ArgumentNullException(nameof(orderItem));
+
+            // FindAsync hits the change tracker first, then DB — correct for mutations
+            var existing = await _context.OrderItems.FindAsync(orderItemId)
+                ?? throw new KeyNotFoundException($"OrderItem {orderItemId} not found.");
+
+            _context.Entry(existing).CurrentValues.SetValues(orderItem);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteOrderItemAsync(int orderItemId)
+        {
+            var existing = await _context.OrderItems.FindAsync(orderItemId)
+                ?? throw new KeyNotFoundException($"OrderItem {orderItemId} not found.");
+
+            _context.OrderItems.Remove(existing);
+            await _context.SaveChangesAsync();
+        }
+
+        // ── Read ─────────────────────────────────────────────────────────────────
+
+        public async Task<OrderItem?> GetOrderItemByIdAsync(int orderItemId)
+        {
+            return await _context.OrderItems
+                .AsNoTracking()
+                .FirstOrDefaultAsync(o => o.Id == orderItemId);
         }
 
         public async Task<IEnumerable<OrderItem>> GetAllOrderItemsAsync()
         {
-            return await _context.OrderItems.ToListAsync();
-        }
-
-        public async Task<OrderItem> GetOrderItemByIdAsync(int orderItemId)
-        {
-            return await _context.OrderItems.FirstOrDefaultAsync(o => o.Id == orderItemId);
+            return await _context.OrderItems
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<List<OrderItem>> GetOrderItemsByOrderIdAsync(int orderId)
         {
-            return await _context.OrderItems.Include(o => o.Order).Where(o => o.OrderId == orderId).ToListAsync();
+            // No .Include(o => o.Order) — FK filter doesn't need the nav property loaded
+            return await _context.OrderItems
+                .AsNoTracking()
+                .Where(o => o.OrderId == orderId)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<OrderItem>> GetOrderItemsByUserIdAsync(string sellerId)
         {
-            return await _context.OrderItems.Include(o => o.Seller).Where(o => o.SellerId == sellerId).ToListAsync();
+            if (string.IsNullOrEmpty(sellerId)) throw new ArgumentNullException(nameof(sellerId));
+
+            // No .Include(o => o.Seller) — not needed for FK filter
+            return await _context.OrderItems
+                .AsNoTracking()
+                .Where(o => o.SellerId == sellerId)
+                .ToListAsync();
         }
 
-        public async Task<bool?> UpdateOrderItemAsync(int orderItemId, OrderItem orderItem)
+        public async Task<IEnumerable<OrderItem>> GetOrderItemsByOrderIdsAsync(IEnumerable<int> orderIds)
         {
-            var existingOrderItem = await GetOrderItemByIdAsync(orderItemId);
+            if (orderIds == null || !orderIds.Any())
+                return Enumerable.Empty<OrderItem>();
 
-            if (existingOrderItem == null)
-            {
-                throw new InvalidOperationException($"Order with ID {orderItemId} not found.");
-            }
-            _context.Entry(existingOrderItem).CurrentValues.SetValues(orderItem);
-            return await _context.SaveChangesAsync() > 0;
+            return await _context.OrderItems
+                .AsNoTracking()
+                .Where(o => orderIds.Contains(o.OrderId))
+                .ToListAsync();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using EcomGalaxy.DataAccess.Repositories.IRepository;
 using EcomGalaxy.Domain.Models.Context;
 using EcomGalaxy.Domain.Models.Payment;
+using Microsoft.EntityFrameworkCore;
 
 namespace EcomGalaxy.DataAccess.Repositories
 {
@@ -13,48 +14,62 @@ namespace EcomGalaxy.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<bool?> AddPaymentAsync(Payment Payment)
+
+        public async Task AddPaymentAsync(Payment payment)
         {
-            _context.Payments.Add(Payment);
-            return await _context.SaveChangesAsync() > 0;
+            if (payment == null) throw new ArgumentNullException(nameof(payment));
+
+            await _context.Payments.AddAsync(payment);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<bool?> DeletePaymentAsync(int PayId)
+        public async Task UpdatePaymentAsync(int paymentId, Payment payment)
         {
-            var existPayment = await GetPaymentByIdAsync(PayId);
-            if (existPayment == null)
-            {
-                throw new InvalidOperationException($"Payment with ID {PayId} not found.");
-            }
-            _context.Payments.Remove(existPayment);
-            return await _context.SaveChangesAsync() > 0;
+            if (payment == null) throw new ArgumentNullException(nameof(payment));
+
+            var existing = await _context.Payments.FindAsync(paymentId)
+                ?? throw new KeyNotFoundException($"Payment {paymentId} not found.");
+
+            _context.Entry(existing).CurrentValues.SetValues(payment);
+            await _context.SaveChangesAsync();
         }
+
+        public async Task DeletePaymentAsync(int paymentId)
+        {
+            var existing = await _context.Payments.FindAsync(paymentId)
+                ?? throw new KeyNotFoundException($"Payment {paymentId} not found.");
+
+            _context.Payments.Remove(existing);
+            await _context.SaveChangesAsync();
+        }
+
+
+        public async Task<Payment?> GetPaymentByIdAsync(int paymentId)
+        {
+            return await _context.Payments
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == paymentId);
+        }
+
+
 
         public async Task<IEnumerable<Payment>> GetAllPaymentsAsync()
         {
-            return await _context.Payments.ToListAsync();
-        }
-
-        public async Task<Payment> GetPaymentByIdAsync(int PayId)
-        {
-            return await _context.Payments.FirstOrDefaultAsync(p => p.Id == PayId);
-        }
-
-        public async Task<Payment> GetPaymentByOrderId(int orderId)
-        {
             return await _context.Payments
-                .FirstOrDefaultAsync(p => p.Id == orderId);
+                .AsNoTracking()
+                .ToListAsync();
         }
 
-        public async Task<bool?> UpdatePaymentAsync(int PayId, Payment Payment)
+    
+        public async Task<IEnumerable<Payment>> GetPaymentsByIdsAsync(IEnumerable<int> paymentIds)
         {
-            var existPayment = await GetPaymentByIdAsync(PayId);
-            if (existPayment == null)
-            {
-                throw new InvalidOperationException($"Payment with ID {PayId} not found.");
-            }
-            _context.Entry(existPayment).CurrentValues.SetValues(Payment);
-            return await _context.SaveChangesAsync() > 0;
+            if (paymentIds == null || !paymentIds.Any())
+                return Enumerable.Empty<Payment>();
+
+            return await _context.Payments
+                .AsNoTracking()
+                .Where(p => paymentIds.Contains(p.Id))
+                .ToListAsync();
         }
     }
 }

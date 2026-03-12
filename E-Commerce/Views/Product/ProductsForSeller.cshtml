@@ -1,7 +1,9 @@
-﻿@model IEnumerable<EcomGalaxy.ViewModel.Product.ProductViewModel>
+﻿@model EcomGalaxy.ViewModel.PagedResult<EcomGalaxy.ViewModel.Product.ProductViewModel>
 @{
     ViewBag.Title = "My Store";
     Layout = "~/Views/Shared/_MyLayout.cshtml";
+
+    var currentSearch = Context.Request.Query["search"].ToString();
 }
 
 <style>
@@ -86,47 +88,7 @@
             transform: translateY(0);
         }
 
-    /* ── OVERRIDE: seller cards use a form POST instead of <a> ── */
-    .seller-grid .prod-img-wrap,
-    .seller-grid .prod-name {
-        cursor: pointer;
-    }
-
-    @@media (max-width: 768px) {
-        .page-header {
-            padding: 32px 16px 16px;
-        }
-
-        .header-row {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .btn-add-product {
-            width: 100%;
-            justify-content: center;
-        }
-    }
-</style>
-
-<!-- ── PAGE HEADER ── -->
-<div class="page-header">
-    <span class="eyebrow">Seller Dashboard</span>
-    <div class="header-row">
-        <div>
-            <h1>My Store</h1>
-            <p>Manage your listed products, update details, or add new items.</p>
-        </div>
-        <a href="/Product/AddProduct" class="btn-add-product">
-            <i class="fa-solid fa-plus"></i> Add Product
-        </a>
-    </div>
-</div>
-
-<!-- ── SELLER PRODUCT GRID ── -->
-<!-- We render the grid manually here so cards submit a POST form to ManageProductDetails -->
-<style>
-    /* Reuse the same grid/card tokens from _ProductGrid */
+    /* ── TOOLBAR ── */
     .seller-toolbar {
         position: sticky;
         top: 64px;
@@ -195,10 +157,11 @@
             color: var(--text);
         }
 
+    /* ── GRID ── */
     .seller-shop-wrap {
         max-width: 1300px;
         margin: 0 auto;
-        padding: 28px 28px 80px;
+        padding: 28px 28px 40px;
     }
 
     .seller-grid {
@@ -207,7 +170,6 @@
         gap: 20px;
     }
 
-    /* Card */
     .seller-card {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -407,13 +369,77 @@
                 background: #e8660a;
             }
 
+    /* ── PAGINATION ── */
+    .pagination-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 24px 0 60px;
+        border-top: 1px solid var(--border);
+        margin-top: 8px;
+    }
+
+    .pagination-info {
+        font-size: 12px;
+        color: var(--muted);
+    }
+
+    .pagination-controls {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .page-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        padding: 0 10px;
+        border-radius: 8px;
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        border: 1px solid var(--border);
+        background: none;
+        color: var(--muted);
+        transition: border-color var(--trans), color var(--trans), background var(--trans);
+    }
+
+        .page-btn:hover:not(.disabled):not(.active) {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .page-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            pointer-events: none;
+        }
+
+        .page-btn.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+    .page-ellipsis {
+        font-size: 13px;
+        color: var(--muted);
+        padding: 0 3px;
+    }
+
     @@media (max-width: 768px) {
         .seller-toolbar {
             padding: 10px 16px;
         }
 
         .seller-shop-wrap {
-            padding: 20px 16px 60px;
+            padding: 20px 16px 40px;
         }
 
         .seller-grid {
@@ -436,6 +462,11 @@
         .seller-count {
             display: none;
         }
+
+        .pagination-bar {
+            flex-direction: column;
+            align-items: flex-start;
+        }
     }
 
     @@media (max-width: 400px) {
@@ -445,29 +476,47 @@
     }
 </style>
 
+<!-- ── PAGE HEADER ── -->
+<div class="page-header">
+    <span class="eyebrow">Seller Dashboard</span>
+    <div class="header-row">
+        <div>
+            <h1>My Store</h1>
+            <p>Manage your listed products, update details, or add new items.</p>
+        </div>
+        <a asp-action="AddProduct" asp-controller="Product" class="btn-add-product">
+            <i class="fa-solid fa-plus"></i> Add Product
+        </a>
+    </div>
+</div>
+
+<!-- ── TOOLBAR ── -->
 <div class="seller-toolbar">
     <div class="seller-toolbar-inner">
         <div class="search-wrap">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="seller-search" placeholder="Search your products…">
+            <input type="text" id="seller-search" placeholder="Search your products…" value="@currentSearch">
         </div>
         <span class="seller-count">
-            <b id="sellerVisibleCount">0</b> products listed
+            <b id="sellerVisibleCount">@Model.TotalCount</b> products listed
         </span>
     </div>
 </div>
 
+<!-- ── GRID ── -->
 <div class="seller-shop-wrap">
     <div class="seller-grid" id="seller-grid">
 
-        @foreach (var product in Model)
+        @foreach (var product in Model.Items)
         {
             <div class="seller-card"
                  data-name="@product.ProductName.ToLower()"
                  data-description="@product.ProductDescription.ToLower()">
 
                 <div class="seller-img-wrap">
-                    <img src="/images/@product.ProductImages[0]" alt="@product.ProductName" loading="lazy">
+                    <img src="/images/@(product.ProductImages?.FirstOrDefault() ?? "placeholder.jpg")"
+                         alt="@product.ProductName"
+                         loading="lazy">
                 </div>
 
                 <div class="seller-body">
@@ -477,35 +526,111 @@
                 </div>
 
                 <div class="seller-footer">
-                    <form asp-action="ManageProductDetails" asp-controller="Product" method="post">
-                        <input type="hidden" name="id" value="@product.ProductId" />
-                        <button type="submit" class="btn-manage">
-                            <i class="fa-solid fa-pen-to-square"></i> Manage
-                        </button>
-                    </form>
+                    <!-- ManageProductDetails is [HttpGet] after our refactor -->
+                    <a asp-action="ManageProductDetails"
+                       asp-controller="Product"
+                       asp-route-id="@product.ProductId"
+                       class="btn-manage">
+                        <i class="fa-solid fa-pen-to-square"></i> Manage
+                    </a>
                 </div>
 
             </div>
         }
 
-        <!-- Empty state when no products exist OR search returns nothing -->
+        <!-- Empty state — shown when no products exist or search filters everything out -->
         <div class="seller-empty" id="sellerEmpty">
             <i class="fa-solid fa-store"></i>
             <h3>No Products Yet</h3>
             <p>Your store is empty. Start by adding your first product.</p>
-            <a href="/Product/AddProduct"><i class="fa-solid fa-plus"></i> Add Product</a>
+            <a asp-action="AddProduct" asp-controller="Product">
+                <i class="fa-solid fa-plus"></i> Add Product
+            </a>
         </div>
 
     </div>
+
+    <!-- ── PAGINATION ── -->
+    @if (Model.TotalPages > 1)
+    {
+        <div class="pagination-bar">
+            <div class="pagination-info">
+                Showing @((Model.CurrentPage - 1) * Model.PageSize + 1)–@(Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalCount))
+                of @Model.TotalCount products
+            </div>
+
+            <div class="pagination-controls">
+
+                @if (Model.HasPreviousPage)
+                {
+                    <a class="page-btn"
+                       asp-action="ProductsForSeller" asp-controller="Product"
+                       asp-route-page="@(Model.CurrentPage - 1)"
+                       asp-route-search="@currentSearch">‹</a>
+                }
+                else
+                {
+                    <span class="page-btn disabled">‹</span>
+                }
+
+                @if (Model.PageWindow().First() > 1)
+                {
+                    <a class="page-btn"
+                       asp-action="ProductsForSeller" asp-controller="Product"
+                       asp-route-page="1"
+                       asp-route-search="@currentSearch">1</a>
+                    @if (Model.PageWindow().First() > 2)
+                    {
+                        <span class="page-ellipsis">…</span>
+                    }
+                }
+
+                @foreach (var p in Model.PageWindow())
+                {
+                    <a class="page-btn @(p == Model.CurrentPage ? "active" : "")"
+                       asp-action="ProductsForSeller" asp-controller="Product"
+                       asp-route-page="@p"
+                       asp-route-search="@currentSearch">@p</a>
+                }
+
+                @if (Model.PageWindow().Last() < Model.TotalPages)
+                {
+                    @if (Model.PageWindow().Last() < Model.TotalPages - 1)
+                    {
+                        <span class="page-ellipsis">…</span>
+                    }
+                    <a class="page-btn"
+                       asp-action="ProductsForSeller" asp-controller="Product"
+                       asp-route-page="@Model.TotalPages"
+                       asp-route-search="@currentSearch">@Model.TotalPages</a>
+                }
+
+                @if (Model.HasNextPage)
+                {
+                    <a class="page-btn"
+                       asp-action="ProductsForSeller" asp-controller="Product"
+                       asp-route-page="@(Model.CurrentPage + 1)"
+                       asp-route-search="@currentSearch">›</a>
+                }
+                else
+                {
+                    <span class="page-btn disabled">›</span>
+                }
+
+            </div>
+        </div>
+    }
+
 </div>
 
 <script>
     (function () {
-        const searchInput  = document.getElementById('seller-search');
-        const grid         = document.getElementById('seller-grid');
-        const countEl      = document.getElementById('sellerVisibleCount');
-        const emptyState   = document.getElementById('sellerEmpty');
+        const searchInput = document.getElementById('seller-search');
+        const grid        = document.getElementById('seller-grid');
+        const countEl     = document.getElementById('sellerVisibleCount');
+        const emptyState  = document.getElementById('sellerEmpty');
 
+        // Filters visible cards on the current page instantly as you type
         function run() {
             const q = searchInput.value.toLowerCase().trim();
             const cards = Array.from(grid.querySelectorAll('.seller-card'));
@@ -515,7 +640,6 @@
                 const match = !q ||
                     card.dataset.name.includes(q) ||
                     card.dataset.description.includes(q);
-
                 card.style.display = match ? '' : 'none';
                 if (match) visible++;
             });
@@ -524,7 +648,18 @@
             emptyState.style.display = visible === 0 ? 'flex' : 'none';
         }
 
+        // Live filter on the current page's cards
         searchInput.addEventListener('input', run);
-        run(); 
+
+        // Enter → server-side search across all pages
+        searchInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                window.location.href =
+                    '/Product/ProductsForSeller?search=' +
+                    encodeURIComponent(searchInput.value.trim());
+            }
+        });
+
+        run();
     })();
 </script>

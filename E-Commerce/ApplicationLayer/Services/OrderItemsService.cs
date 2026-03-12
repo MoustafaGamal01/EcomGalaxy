@@ -1,54 +1,37 @@
 ﻿using EcomGalaxy.ApplicationLayer.Services.IServices;
 using EcomGalaxy.DataAccess.Repositories.IRepository;
-using EcomGalaxy.Domain.Models.Context;
 using EcomGalaxy.Domain.Models.Order;
 
 namespace EcomGalaxy.ApplicationLayer.Services
 {
     public class OrderItemsService : IOrderItemsService
     {
-        //private readonly MyContext _context;
         private readonly IOrderItemsRepository _orderItemsRepository;
 
-        public OrderItemsService(MyContext context, IOrderItemsRepository orderItemsRepository)
+        public OrderItemsService(IOrderItemsRepository orderItemsRepository)
         {
-            //_context = context;
             _orderItemsRepository = orderItemsRepository;
         }
 
         public async Task AddOrderItemAsync(OrderItem orderItem)
-        {
-            await _orderItemsRepository.AddOrderItemAsync(orderItem);
-        }
-
-        public async Task DeleteOrderItemAsync(int orderItemId)
-        {
-            await _orderItemsRepository.DeleteOrderItemAsync(orderItemId);
-        }
-
-        public async Task<IEnumerable<OrderItem>> GetAllOrderItemsAsync()
-        {
-            return await _orderItemsRepository.GetAllOrderItemsAsync();
-        }
-
-        public async Task<OrderItem> GetOrderItemByIdAsync(int orderItemId)
-        {
-            return await _orderItemsRepository.GetOrderItemByIdAsync(orderItemId);
-        }
-
-        public async Task<List<OrderItem>> GetOrderItemsByOrderIdAsync(int orderId)
-        {
-            return await _orderItemsRepository.GetOrderItemsByOrderIdAsync(orderId);
-        }
-
-        public async Task<IEnumerable<OrderItem>> GetOrderItemsByUserIdAsync(string sellerId)
-        {
-            return await _orderItemsRepository.GetOrderItemsByUserIdAsync(sellerId);
-        }
+            => await _orderItemsRepository.AddOrderItemAsync(orderItem);
 
         public async Task UpdateOrderItemAsync(int orderItemId, OrderItem orderItem)
-        {
-            await _orderItemsRepository.UpdateOrderItemAsync(orderItemId, orderItem);
-        }
+            => await _orderItemsRepository.UpdateOrderItemAsync(orderItemId, orderItem);
+
+        public async Task DeleteOrderItemAsync(int orderItemId)
+            => await _orderItemsRepository.DeleteOrderItemAsync(orderItemId);
+
+        public async Task<OrderItem?> GetOrderItemByIdAsync(int orderItemId)
+            => await _orderItemsRepository.GetOrderItemByIdAsync(orderItemId);
+
+        public async Task<IEnumerable<OrderItem>> GetAllOrderItemsAsync()
+            => await _orderItemsRepository.GetAllOrderItemsAsync();
+
+        public async Task<List<OrderItem>> GetOrderItemsByOrderIdAsync(int orderId)
+            => await _orderItemsRepository.GetOrderItemsByOrderIdAsync(orderId);
+
+        public async Task<IEnumerable<OrderItem>> GetOrderItemsByUserIdAsync(string sellerId)
+            => await _orderItemsRepository.GetOrderItemsByUserIdAsync(sellerId);
     }
 }

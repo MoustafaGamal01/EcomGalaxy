@@ -4,16 +4,15 @@ namespace EcomGalaxy.DataAccess.Repositories.IRepository
 {
     public interface IOrderRepository
     {
-        Task<bool?> AddOrderAsync(Order order);
+        Task AddOrderAsync(Order order);
+        Task UpdateOrderAsync(int orderId, Order order);
+        Task DeleteOrderAsync(int orderId);
 
-        Task<bool?> UpdateOrderAsync(int orderId, Order order);
-
-        Task<bool?> DeleteOrderAsync(int orderId);
+        Task<Order?> GetOrderByIdAsync(int orderId);
 
         Task<IEnumerable<Order>> GetAllOrdersAsync();
-
-        Task<Order> GetOrderByIdAsync(int orderId);
-
         Task<IEnumerable<Order>> GetOrdersByUserIdAsync(string userId);
+
+        Task<IEnumerable<Order>> GetOrdersByIdsAsync(IEnumerable<int> orderIds);
     }
 }

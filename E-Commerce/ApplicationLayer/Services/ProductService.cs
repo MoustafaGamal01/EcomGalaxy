@@ -2,10 +2,10 @@
 using EcomGalaxy.DataAccess.Repositories.IRepository;
 using EcomGalaxy.Domain.Models.Product;
 using EcomGalaxy.Domain.Models.User;
+using EcomGalaxy.ViewModel;
 using EcomGalaxy.ViewModel.Product;
 using EcomGalaxy.ViewModel.Review;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace EcomGalaxy.ApplicationLayer.Services
 {
@@ -15,7 +15,9 @@ namespace EcomGalaxy.ApplicationLayer.Services
         private readonly IReviewService _reviewService;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProductService(IProductRepository productRepository, IReviewService reviewService,
+        public ProductService(
+            IProductRepository productRepository,
+            IReviewService reviewService,
             UserManager<ApplicationUser> userManager)
         {
             _productRepository = productRepository;
@@ -23,151 +25,120 @@ namespace EcomGalaxy.ApplicationLayer.Services
             _userManager = userManager;
         }
 
-        private List<ProductViewModel> FromProductToProductVM(List<ProductViewModel> productsVm, IEnumerable<Product> products)
+        public async Task AddProductAsync(AddProductViewModel productVM, string sellerId)
         {
-            var prdVMs = products.Select(p => new ProductViewModel
+            var product = new Product
             {
-                ProductId = p.Id,
-                ProductName = p.Name.Length > 18 ? p.Name.Substring(0, 18) + "..." : p.Name,
-                ProductDescription = p.Description.Length > 20 ? p.Description.Substring(0, 20) + "..." : p.Description,
-                ProductImages = p.ProductImagePath,
-                ProductPrice = p.Price,
-                ProductStock = p.StockQuantity,
-                CategoryId = p.CategoryId
-            }).ToList();
-
-            return prdVMs;
+                Name = productVM.Name,
+                Description = productVM.Description,
+                Price = productVM.Price,
+                StockQuantity = productVM.StockQuantity,
+                ProductImagePath = productVM.ProductImagePath,
+                CategoryId = productVM.CategoryId,
+                ApplicationUserId = sellerId,
+                AverageRating = 0
+            };
+            await _productRepository.AddProductAsync(product);
         }
 
-        public async Task<bool?> AddProductAsync(AddProductViewModel productVM, string sellerId)
+        public async Task UpdateProductAsync(int productId, Product product)
+            => await _productRepository.UpdateProductAsync(productId, product);
+
+        public async Task UpdateRangeAsync(IEnumerable<Product> products)
+            => await _productRepository.UpdateRangeAsync(products);
+
+        public async Task<bool> DeleteProductAsync(int productId, string sellerId)
         {
-            Product newProduct = new Product();
-            newProduct.CategoryId = productVM.CategoryId;
-            newProduct.Description = productVM.Description;
-            newProduct.StockQuantity = productVM.StockQuantity;
-            newProduct.ProductImagePath = productVM.ProductImagePath;
-            newProduct.Name = productVM.Name;
-            newProduct.Price = productVM.Price;
-            newProduct.AverageRating = 0;
-            newProduct.ApplicationUserId = sellerId;
-
-            return await _productRepository.AddProductAsync(newProduct);
+            var product = await _productRepository.GetProductByIdAsync(productId);
+            if (product == null || product.ApplicationUserId != sellerId) return false;
+            await _productRepository.DeleteProductAsync(productId);
+            return true;
         }
 
-        public async Task<bool?> DeleteProductAsync(int productId, string sellerId)
-        {
-            var prd = await _productRepository.GetProductByIdAsync(productId);
-            if (sellerId == prd.ApplicationUserId)
-            {
-                await _productRepository.DeleteProductAsync(productId);
-                return true;
-            }
-            return false;
-        }
+        public async Task<Product?> GetProductByIdAsync(int productId)
+            => await _productRepository.GetProductByIdAsync(productId);
 
-        public async Task<IEnumerable<ProductViewModel>> GetAllProductsAsync()
-        {
-            IEnumerable<Product> prdsForSeller = await _productRepository.GetAllProductsAsync();
-            List<ProductViewModel> prdVms = new List<ProductViewModel>();
+        public async Task<Product?> GetProductByNameAsync(string productName)
+            => await _productRepository.GetProductByNameAsync(productName);
 
-            return FromProductToProductVM(prdVms, prdsForSeller);
-        }
-
-        public async Task<Product> GetProductByIdAsync(int productId)
-        {
-            return await _productRepository.GetProductByIdAsync(productId);
-        }
-
-        public async Task<Product> GetProductByNameAsync(string productName)
-        {
-            return await _productRepository.GetProductByNameAsync(productName);
-        }
+        public async Task<IEnumerable<Product>> GetProductsByIdsAsync(IEnumerable<int> productIds)
+            => await _productRepository.GetProductsByIdsAsync(productIds);
 
         public async Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(int categoryId)
-        {
-            return await _productRepository.GetProductsByCategoryIdAsync(categoryId);
-        }
+            => await _productRepository.GetProductsByCategoryIdAsync(categoryId);
 
-        public async Task<IEnumerable<ProductViewModel>> GetProductsByCategoryNameAsync(string categoryName)
-        {
-            IEnumerable<Product> products = await _productRepository.GetProductsByCategoryNameAsync(categoryName);
-            List<ProductViewModel> prdVms = new List<ProductViewModel>();
-
-            return FromProductToProductVM(prdVms, products);
-        }
+        public async Task<IEnumerable<ProductViewModel>> GetAllProductsAsync()
+            => ToViewModels(await _productRepository.GetAllProductsAsync());
 
         public async Task<IEnumerable<ProductViewModel>> GetProductsBySellerIdAsync(string sellerId)
-        {
-            IEnumerable<Product> products = await _productRepository.GetProductsBySellerIdAsync(sellerId);
-            List<ProductViewModel> prdVms = new List<ProductViewModel>();
+            => ToViewModels(await _productRepository.GetProductsBySellerIdAsync(sellerId));
 
-            return FromProductToProductVM(prdVms, products);
-        }
+        public async Task<IEnumerable<ProductViewModel>> GetProductsByCategoryNameAsync(string categoryName)
+            => ToViewModels(await _productRepository.GetProductsByCategoryNameAsync(categoryName));
 
         public async Task<IEnumerable<ProductViewModel>> SearchProductsAsync(string searchText)
         {
-            IEnumerable<Product> products;
-            List<ProductViewModel> prdVms = new List<ProductViewModel>();
-
-            if (string.IsNullOrEmpty(searchText)) products = await _productRepository.GetAllProductsAsync();
-            else products = await _productRepository.SearchForAProduct(searchText);
-
-
-            return FromProductToProductVM(prdVms, products);
+            var products = string.IsNullOrEmpty(searchText)
+                ? await _productRepository.GetAllProductsAsync()
+                : await _productRepository.SearchForAProduct(searchText);
+            return ToViewModels(products);
         }
 
-        public async Task<bool?> UpdateProductAsync(int productId, Product product)
+        public async Task<PagedResult<ProductViewModel>> GetPagedProductsAsync(ProductQueryParams q)
         {
-            // handle appuserid in updateing => 
-            var existPrd = await _productRepository.GetProductByIdAsync(productId);
-            product.ApplicationUserId = existPrd.ApplicationUserId;
-            return await _productRepository.UpdateProductAsync(productId, product);
-        }
+            // Guard against bad query string values
+            q.Page = Math.Max(1, q.Page);
+            q.PageSize = Math.Clamp(q.PageSize, 1, 50);
 
-        public async Task<IEnumerable<Product>> SearchForAProduct(string searchText)
-        {
-            return await _productRepository.SearchForAProduct(searchText);
+            var (items, totalCount) = await _productRepository.GetPagedProductsAsync(q);
+
+            return new PagedResult<ProductViewModel>
+            {
+                Items = ToViewModels(items),
+                CurrentPage = q.Page,
+                PageSize = q.PageSize,
+                TotalCount = totalCount,
+                TotalPages = (int)Math.Ceiling(totalCount / (double)q.PageSize)
+            };
         }
 
         public async Task<IEnumerable<Product>> SortProductsDescending()
-        {
-            return await _productRepository.SortProductsDescending();
-        }
+            => await _productRepository.SortProductsDescending();
 
         public async Task<IEnumerable<Product>> SortProductsAscending()
-        {
-            return await _productRepository.SortProductsAscending();
-        }
+            => await _productRepository.SortProductsAscending();
 
-        public async Task<IEnumerable<Product>> FilterProductsByAverageRating(int AverageRating)
-        {
-            return await _productRepository.FilterProductsByAverageRating(AverageRating);
-        }
+        public async Task<IEnumerable<Product>> FilterProductsByAverageRating(int averageRating)
+            => await _productRepository.FilterProductsByAverageRating(averageRating);
 
         public async Task<IEnumerable<Product>> FilterProductsByPrice(int from, int to)
-        {
-            return await _productRepository.FilterProductsByPrice(from, to);
-        }
+            => await _productRepository.FilterProductsByPrice(from, to);
 
         public async Task<ProductDetailsFormViewModel> ProductDetails(int productId, string userId)
         {
-            var product = await _productRepository.GetProductByIdAsync(productId);
-            var reviews = await _reviewService.GetReviewsByProductIdAsync(productId);
-            List<ShowReviewViewModel> reviewsVM = new List<ShowReviewViewModel>();
+            var product = await _productRepository.GetProductByIdAsync(productId)
+                ?? throw new KeyNotFoundException($"Product {productId} not found.");
 
-            foreach (var review in reviews)
+            var reviews = (await _reviewService.GetReviewsByProductIdAsync(productId)).ToList();
+
+            var userIds = reviews.Select(r => r.ApplicationUserId).Distinct().ToList();
+            var users = await _userManager.Users
+                              .Where(u => userIds.Contains(u.Id))
+                              .ToListAsync();
+            var userMap = users.ToDictionary(u => u.Id);
+
+            var reviewsVM = reviews.Select(review =>
             {
-                var user = await _userManager.FindByIdAsync(review.ApplicationUserId);
-                ShowReviewViewModel reviewVM = new ShowReviewViewModel
+                userMap.TryGetValue(review.ApplicationUserId, out var user);
+                return new ShowReviewViewModel
                 {
                     Message = review.Message,
                     Rating = review.Rating,
-                    UserName = user.Name
+                    UserName = user?.Name ?? "Unknown"
                 };
-                reviewsVM.Add(reviewVM);
-            }
+            }).ToList();
 
-            ProductDetailsFormViewModel productFormViewModel = new ProductDetailsFormViewModel
+            return new ProductDetailsFormViewModel
             {
                 ProductId = product.Id,
                 UserId = userId,
@@ -178,8 +149,20 @@ namespace EcomGalaxy.ApplicationLayer.Services
                 Reviews = reviewsVM,
                 Rate = product.AverageRating
             };
+        }
 
-            return productFormViewModel;
+        private static IEnumerable<ProductViewModel> ToViewModels(IEnumerable<Product> products)
+        {
+            return products.Select(p => new ProductViewModel
+            {
+                ProductId = p.Id,
+                ProductName = p.Name.Length > 18 ? p.Name[..18] + "..." : p.Name,
+                ProductDescription = p.Description.Length > 20 ? p.Description[..20] + "..." : p.Description,
+                ProductImages = p.ProductImagePath,
+                ProductPrice = p.Price,
+                ProductStock = p.StockQuantity,
+                CategoryId = p.CategoryId
+            });
         }
     }
 }

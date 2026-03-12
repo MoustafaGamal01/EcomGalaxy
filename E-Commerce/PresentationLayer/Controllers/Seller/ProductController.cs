@@ -1,11 +1,9 @@
 ﻿using EcomGalaxy.ApplicationLayer.Services.IServices;
-using EcomGalaxy.Domain.Models.Context;
 using EcomGalaxy.Domain.Models.Product;
 using EcomGalaxy.Domain.Models.User;
 using EcomGalaxy.ViewModel.Product;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace EcomGalaxy.Controllers.Seller
@@ -17,8 +15,13 @@ namespace EcomGalaxy.Controllers.Seller
         private readonly IReviewService _reviewService;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProductController(MyContext context, IProductService productService,
-            ICategoryService categoryService, IReviewService reviewService, UserManager<ApplicationUser> userManager)
+        private const int DefaultPageSize = 10;
+
+        public ProductController(
+            IProductService productService,
+            ICategoryService categoryService,
+            IReviewService reviewService,
+            UserManager<ApplicationUser> userManager)
         {
             _productService = productService;
             _categoryService = categoryService;
@@ -28,10 +31,48 @@ namespace EcomGalaxy.Controllers.Seller
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] ProductQueryParams q)
         {
-            var prdVms = await _productService.GetAllProductsAsync();
-            return View(prdVms);
+            q.PageSize = DefaultPageSize;   // enforce server-side, ignore any ?pageSize= tampering
+            var result = await _productService.GetPagedProductsAsync(q);
+            return View(result);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ProductDetails(int id)
+        {
+            var userId = _userManager.GetUserId(User);
+            var viewModel = await _productService.ProductDetails(id, userId);
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetProductByCategory(string categoryTitle)
+        {
+            ViewBag.CategoryName = categoryTitle;
+            var products = await _productService.GetProductsByCategoryNameAsync(categoryTitle);
+            return View(products);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> SearchProduct(string searchText)
+        {
+            var products = await _productService.SearchProductsAsync(searchText);
+            return Json(products);
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Seller")]
+        public async Task<IActionResult> ProductsForSeller([FromQuery] ProductQueryParams q)
+        {
+            q.PageSize = DefaultPageSize;
+            q.SellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // scope to this seller
+            var result = await _productService.GetPagedProductsAsync(q);
+            return View(result);
         }
 
         [HttpGet]
@@ -39,149 +80,97 @@ namespace EcomGalaxy.Controllers.Seller
         public async Task<IActionResult> AddProduct()
         {
             ViewData["CategoriesList"] = await _categoryService.GetAllCategoriesAsync();
-            return View("AddProduct");
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles="Seller")]
+        [Authorize(Roles = "Seller")]
         public async Task<IActionResult> SaveProduct(AddProductViewModel productVM)
         {
-            string sellerId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            if (!ModelState.IsValid)
+                return View("AddProduct", productVM);
 
-            if (ModelState.IsValid)
-            {
-                await _productService.AddProductAsync(productVM, sellerId);
+            var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await _productService.AddProductAsync(productVM, sellerId);
+            return RedirectToAction(nameof(ProductsForSeller));
+        }
 
-                return RedirectToAction("ProductsForSeller", "Product");
-            }
 
-            return Content("ModelIsNotValid");
+        [HttpGet]
+        [Authorize(Roles = "Admin,Seller")]
+        public async Task<IActionResult> ManageProducts([FromQuery] ProductQueryParams q)
+        {
+            q.PageSize = DefaultPageSize;
+            var result = await _productService.GetPagedProductsAsync(q);
+            return View(result);
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> ProductDetails(int Id)
+        [Authorize(Roles = "Admin,Seller")]
+        public async Task<IActionResult> ManageProductDetails(int id)
         {
-            var userId = _userManager.GetUserId(User);
+            var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var product = await _productService.GetProductByIdAsync(id);
 
-            ProductDetailsFormViewModel productFormViewModel = await _productService.ProductDetails(Id, userId);
+            if (product == null) return NotFound();
 
-            return View(productFormViewModel);
-        }
+            var isAdmin = User.IsInRole("Admin");
+            if (product.ApplicationUserId != sellerId && !isAdmin)
+                return Forbid();
 
-        [HttpPost]
-        [Authorize(Roles = "Admin, Seller")]
-        public async Task<IActionResult> DeleteProduct(int id)
-        {
-            string sellerId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            bool? ok = await _productService.DeleteProductAsync(id, sellerId);
-
-            if (ok == true)
-            {
-                return RedirectToAction("ProductsForSeller");
-            }
-            return View("Error");
+            return View(product);
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, Seller")]
+        [Authorize(Roles = "Admin,Seller")]
         public async Task<IActionResult> UpdateProduct(int id)
         {
-            Product product = await _productService.GetProductByIdAsync(id);
+            var product = await _productService.GetProductByIdAsync(id);
+            if (product == null) return NotFound();
+
             ViewData["CategoriesList"] = await _categoryService.GetAllCategoriesAsync();
             return View(product);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Seller")]
+        [Authorize(Roles = "Admin,Seller")]
         public async Task<IActionResult> SaveUpdateProduct(int id, Product prd, List<IFormFile> newImages)
         {
-            var imageFiles = new List<string>();
-            if (newImages.Count != 0)
+            if (newImages.Any())
             {
-                foreach (var newImage in newImages)
+                var imageFiles = new List<string>();
+                foreach (var image in newImages)
                 {
-                    var fileName = Path.GetFileName(newImage.FileName);
+                    var fileName = Path.GetFileName(image.FileName);
                     var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await newImage.CopyToAsync(stream);
-                    }
-
+                    using var stream = new FileStream(filePath, FileMode.Create);
+                    await image.CopyToAsync(stream);
                     imageFiles.Add(fileName);
                 }
-
                 prd.ProductImagePath = imageFiles;
             }
             else
             {
-                var oldPrd = await _productService.GetProductByIdAsync(id);
-                prd.ProductImagePath = oldPrd.ProductImagePath;
+                var existing = await _productService.GetProductByIdAsync(id);
+                prd.ProductImagePath = existing?.ProductImagePath ?? new List<string>();
             }
 
             await _productService.UpdateProductAsync(id, prd);
-            return RedirectToAction("ProductsForSeller", "Product");
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> SearchProduct(string searchText)
-        {
-            var prds = await _productService.SearchProductsAsync(searchText);
-
-            return Json(prds);
-        }
-
-        [HttpGet]
-        //[Authorize]
-        [AllowAnonymous]
-		public async Task<IActionResult> GetProductByCategory(string categoryTitle)
-        {
-            ViewBag.CategoryName = categoryTitle; 
-
-            var prdVms = await _productService.GetProductsByCategoryNameAsync(categoryTitle);
-
-            return View(prdVms);
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Admin, Seller")]
-        public async Task<IActionResult> ManageProducts()
-        {
-            var prds = await _productService.GetAllProductsAsync();
-
-            return View(prds);
+            return RedirectToAction(nameof(ProductsForSeller));
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Seller")]
-        public async Task<IActionResult> ManageProductDetails(int id)
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Seller")]
+        public async Task<IActionResult> DeleteProduct(int id)
         {
-            var prd = await _productService.GetProductByIdAsync(id);
-            string sellerId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var deleted = await _productService.DeleteProductAsync(id, sellerId);
 
-            var user = await _userManager.GetUserAsync(User);
-            var role = await _userManager.IsInRoleAsync(user, "Admin");
-
-            if (prd.ApplicationUserId == sellerId || role)
-            {
-                return View(prd);
-            }
-            return Unauthorized();
+            if (!deleted) return Forbid();
+            return RedirectToAction(nameof(ProductsForSeller));
         }
-
-        [HttpGet]
-        [Authorize(Roles="Seller")]
-        public async Task<IActionResult> ProductsForSeller()
-        {
-            string sellerId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            var prdVms = await _productService.GetProductsBySellerIdAsync(sellerId);
-
-            return View(prdVms);
-        }
-
     }
 }

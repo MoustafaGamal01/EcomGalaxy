@@ -21,7 +21,7 @@ Databases
 EComGalaxy follows N-tier architecture, which includes:
 
 * **Business Layer**: Implements core business logic.
-* **Data Access Layer**: Utilizes the Repository and Unit of Work patterns for efficient data retrieval.
+* **Data Access Layer**: Utilizes the Repository pattern for efficient data retrieval and interaction with the database.
 * **Repository Pattern**: Organizes data access logic.
 * **Dependency Injection**: Enhances code modularity and testability.
 
@@ -49,7 +49,7 @@ EComGalaxy follows N-tier architecture, which includes:
 
 ### Order Management
 * Create, update, and cancel orders.
-* Trace and Manage order status (Proccessing, Shipped, Delivered..etc)
+* Track and Manage order status (Proccessing, Shipped, Delivered..etc)
 
 ## Running the Project
 To run EcomGalaxy MVC Project:

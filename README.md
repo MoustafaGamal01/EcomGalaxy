@@ -1,83 +1,185 @@
-# Ecommerce MVC
-EcomGalaxy, a robust e-commerce platform designed to deliver a seamless shopping experience. This project showcases a modern e-commerce website built using the latest web technologies, featuring a user-friendly interface and efficient back-end functionalities.
+# EcomGalaxy — E-Commerce Platform
 
-## Technologies Used
-Backend
-* ASP.NET Core 8
-* Entity Framework Core
-* ASP.NET MVC
-* Identity for User Management
-* AutoMapper
+EcomGalaxy is a full-featured e-commerce platform built with ASP.NET Core 8 MVC, designed to support multiple user roles (Admin, Seller, Customer) with a clean dark-themed UI and a well-structured backend.
 
-Frontend
-* HTML
-* CSS
-* Java Script
+🌐 **Live Demo**: [ecomgalaxy.runasp.net](https://ecomgalaxy.runasp.net)
 
-Databases
-* MS SQL Server
+### Demo Accounts
+
+Use these pre-registered accounts to explore each role without signing up:
+
+| Role     | Email                | Password     |
+|----------|----------------------|--------------|
+| Admin    | Admin1@gmail.com     | Aa123456@#   |
+| Seller   | Seller1@gmail.com    | Aa123456@#   |
+| Customer | User1@gmail.com      | Aa123456@#   |
+
+---
+
+## Tech Stack
+
+**Backend**
+- ASP.NET Core 8 MVC
+- Entity Framework Core (Code First)
+- ASP.NET Core Identity
+- Repository + Service pattern (N-Tier architecture)
+- Dependency Injection
+
+**Frontend**
+- Razor Views
+- HTML / CSS / JavaScript
+- Font Awesome icons
+
+**Database**
+- Microsoft SQL Server
+
+---
 
 ## Architecture
-EComGalaxy follows N-tier architecture, which includes:
 
-* **Business Layer**: Implements core business logic.
-* **Data Access Layer**: Utilizes the Repository pattern for efficient data retrieval and interaction with the database.
-* **Repository Pattern**: Organizes data access logic.
-* **Dependency Injection**: Enhances code modularity and testability.
+EcomGalaxy follows a strict N-Tier architecture:
 
-### User Management and Authentication
-* User registration and login.
-* User Roles (Admin, Seller, Cutsomer).
-* Password Recovery.
-* Manage User Profiles Info.
-* Session Management.
-* Role-Based Access Control.
+```
+Controllers  →  Services  →  Repositories  →  DbContext (EF Core)
+     ↑               ↑
+  ViewModels      Domain Models
+```
 
-### Products Management
-* Add, update, and delete products.
-* Search Products based on their (Name, Category, Description).
-* Filter Products based on their (Price, Rate) .
+- **Controller Layer** — thin, handles HTTP only, no business logic
+- **Service Layer** — all business rules live here
+- **Repository Layer** — all DB queries live here, no logic bleeds up
+- **Domain Layer** — EF Core models, DbContext
+- **ViewModel Layer** — strongly typed models passed to views
 
-### Categories Management
-* Add, update, and delete Categories.
+---
 
-### Reviews and Rating Management
-* Add, update rates.
+## Features
 
-### Shopping Cart Management
-* Create, update, and delete shopping cart.
+### User Management
+- Registration, login, and logout
+- Role-based access control (Admin / Seller / Customer)
+- Password recovery via email
+- User profile management
+- Session management with sliding cookie expiration
+
+### Product Management
+- Add, update, and delete products (Seller / Admin)
+- Paginated product browsing (10 per page)
+- Search by name, category, and description
+- Filter by price range and minimum rating
+- Sort by price (asc/desc) and top rated
+- Filters and sort persist across pagination
+
+### Category Management
+- Add, update, and delete categories (Admin)
+
+### Reviews & Ratings
+- Customers can leave reviews and ratings on products
+
+### Shopping Cart
+- Add, update quantity, and remove items
 
 ### Order Management
-* Create, update, and cancel orders.
-* Track and Manage order status (Proccessing, Shipped, Delivered..etc)
+- Place, cancel, and track orders
+- Order statuses: Processing → Shipped → Delivered / Cancelled
+- Stock quantity automatically restored on cancellation
 
-## Running the Project
-To run EcomGalaxy MVC Project:
+### Payment
+- Payment record created on checkout and linked to each order
 
-1. Clone the repository.
-2. Add `appsettings.json` File.
-3. Configure connection strings in `appsettings.json` for database interaction.
-4. Configure Email Settings in `appsettings.json` for sending emails (email confirmation).
-5. Run database migrations to initialize the data structure.
-6. Build and run the application.
+---
+
+## Running Locally
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/MoustafaGamal01/EcomGalaxy.git
+   cd EcomGalaxy
+   ```
+
+2. Add `appsettings.json` to the project root (see Configuration below).
+
+3. Apply migrations:
+   ```bash
+   dotnet ef database update
+   ```
+   Or generate a SQL script if you prefer to run it manually:
+   ```bash
+   dotnet ef migrations script --output migration.sql
+   ```
+
+4. Run the project:
+   ```bash
+   dotnet run
+   ```
+
+> Roles (Admin, Seller, Customer) are seeded automatically on first startup.
+
+---
+
+## Deploying to Production
+
+1. Publish in Release mode:
+   ```bash
+   dotnet publish -c Release -o ./publish
+   ```
+
+2. Upload the contents of `./publish` to your hosting root.
+
+3. Create a `logs/` folder in the site root (required by IIS for stdout logging).
+
+4. Make sure `appsettings.json` uses your production connection string (see Configuration).
+
+5. Set `ASPNETCORE_ENVIRONMENT` to `Production` in `web.config`:
+   ```xml
+   <environmentVariable name="ASPNETCORE_ENVIRONMENT" value="Production" />
+   ```
+
+---
 
 ## Configuration
-Ensure that your `appsettings.json` is correctly set up for your environment. Here is an example:
+
+Create `appsettings.json` in the project root. **Never commit this file with real credentials.**
 
 ```json
 {
-    "ConnectionStrings":{
-    "MyCS": "data source=; Initial Catalog=; integrated Security=; Encrypt=; TrustServerCertificate=;"
-    },
-    "EmailSettings": {
-    "SmtpServer": "smtp.gmail.com", // for Gmail
-    "Port": "587",
-    "Username": "Your Name/Email Here@gmail.com",
-    "Password": "ThePasswordHere",
-    "From": "YourEmailHere@gmail.com"
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning",
+      "Microsoft.AspNetCore": "Warning"
     }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "RemoteCS": "Server=YOUR_SERVER; Database=YOUR_DB; User Id=YOUR_USER; Password=YOUR_PASSWORD; Encrypt=True; TrustServerCertificate=True;"
+  },
+  "EmailSettings": {
+    "SmtpServer": "smtp.gmail.com",
+    "Port": "587",
+    "Username": "your-email@gmail.com",
+    "Password": "your-gmail-app-password",
+    "From": "your-email@gmail.com"
+  }
 }
 ```
 
+> For Gmail, generate an **App Password** at [myaccount.google.com → Security → App passwords](https://myaccount.google.com/apppasswords). Do not use your real Gmail password.
+
+---
+
+## .gitignore Recommendations
+
+Make sure these are excluded from source control:
+
+```
+appsettings.json
+web.config
+logs/
+*.log
+```
+
+---
+
 ## Contact
-For any inquiries or issues, please contact the repository owner @MoustafaGamal01.
+
+For any inquiries or issues, open an issue or reach out to [@MoustafaGamal01](https://github.com/MoustafaGamal01).

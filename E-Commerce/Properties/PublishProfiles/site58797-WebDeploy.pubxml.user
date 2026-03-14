@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAGtvclbOeu0mOgm/IcR3ZTQAAAAACAAAAAAAQZgAAAAEAACAAAAB8KdqHRVEa9w/QzylqTOCiG9eP8mHHA6kuIj4a+W7ZMgAAAAAOgAAAAAIAACAAAAAQns7Hqfh7re4dT+Z31mxNSKv6a0Y8YK+FqjSWl8DCSCAAAAAJ9eRJ9s/o3bqV2IV+8w+XzGReUftCjCcy/LKugJaaaUAAAADLfuurBz4ufQEkKiz3w0KLPTOI46opbF9ow6Cx6zDO+SXjkJ2+jXpwh/j0yM3VpS7Vk4H46p3/kPlFhA/MIiKM</EncryptedPassword>
+    <History>True|2026-03-14T18:50:47.7385655Z||;True|2026-03-14T20:49:37.8611675+02:00||;True|2026-03-14T20:46:12.4398377+02:00||;True|2026-03-14T20:37:46.9350000+02:00||;True|2026-03-14T20:35:47.6505650+02:00||;True|2026-03-14T20:33:22.1297098+02:00||;True|2026-03-14T20:29:25.2427028+02:00||;True|2026-03-14T20:27:54.4487846+02:00||;True|2026-03-14T20:25:59.5674751+02:00||;True|2026-03-14T20:24:02.8741752+02:00||;True|2026-03-13T13:19:34.9149046+02:00||;True|2026-03-13T13:13:43.7664622+02:00||;True|2026-03-13T13:11:25.3722344+02:00||;True|2026-03-13T13:07:37.1878112+02:00||;True|2026-03-13T13:05:42.2688326+02:00||;True|2026-03-13T13:03:52.4160052+02:00||;True|2026-03-13T12:58:06.0806759+02:00||;True|2026-03-13T12:53:31.2879546+02:00||;True|2026-03-13T12:40:02.6032256+02:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="RemoteCS">
+      <Value>data source=%28localdb%29\MSSQLLocalDB%3bInitial Catalog=E-CommerceVFinal%3bintegrated Security=true%3bEncrypt=False%3bTrustServerCertificate=False%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

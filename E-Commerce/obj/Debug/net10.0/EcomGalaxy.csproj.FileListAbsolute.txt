@@ -226,10 +226,11 @@ G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\obj\Debug\net10.0\sta
 G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\obj\Debug\net10.0\staticwebassets.development.json
 G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\obj\Debug\net10.0\swae.build.ex.cache
-G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\obj\Debug\net10.0\EcomGalaxy.csproj.Up2Date
 G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\obj\Debug\net10.0\EcomGalaxy.dll
 G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\obj\Debug\net10.0\refint\EcomGalaxy.dll
 G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\obj\Debug\net10.0\EcomGalaxy.pdb
 G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\obj\Debug\net10.0\EcomGalaxy.genruntimeconfig.cache
 G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\obj\Debug\net10.0\ref\EcomGalaxy.dll
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\bin\Debug\net10.0\web.config

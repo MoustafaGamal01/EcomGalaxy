@@ -159,7 +159,7 @@
                     @if (item.userOrderStatus == OrderStatus.Shipped)
                     {
                         <div class="order-received-button">
-                            <form asp-action="RecievedOrder" asp-controller="Order" method="post" onsubmit="handleRecivedOrder(event)">
+                            <form asp-action="ReceivedOrder" asp-controller="Order" method="post" onsubmit="handleRecivedOrder(event)">
                                 <input type="hidden" name="orderId" value="@item.OrderId"></input>
 							    <button type="submit" class="btn btn-default">Order Recieved</button>
                             </form>

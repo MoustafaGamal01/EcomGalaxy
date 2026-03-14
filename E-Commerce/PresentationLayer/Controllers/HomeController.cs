@@ -3,7 +3,7 @@ using EcomGalaxy.Domain.Models.Product;
 
 namespace EcomGalaxy.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

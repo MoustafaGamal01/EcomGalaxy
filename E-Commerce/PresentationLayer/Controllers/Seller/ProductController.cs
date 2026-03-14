@@ -33,7 +33,7 @@ namespace EcomGalaxy.Controllers.Seller
         [AllowAnonymous]
         public async Task<IActionResult> Index([FromQuery] ProductQueryParams q)
         {
-            q.PageSize = DefaultPageSize;   // enforce server-side, ignore any ?pageSize= tampering
+            q.PageSize = DefaultPageSize;   
             var result = await _productService.GetPagedProductsAsync(q);
             return View(result);
         }

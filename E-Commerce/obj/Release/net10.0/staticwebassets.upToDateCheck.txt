@@ -1,0 +1,187 @@
+wwwroot\css\Blog-Template.css
+wwwroot\css\index.css
+wwwroot\css\nicepage.css
+wwwroot\css\Post-Template.css
+wwwroot\css\Product-Details-Template.css
+wwwroot\css\Product-List-Template.css
+wwwroot\css\styles.css
+wwwroot\css\Thank-You-Template.css
+wwwroot\favicon.ico
+wwwroot\images\1.jpg
+wwwroot\images\1.png
+wwwroot\images\2.jpg
+wwwroot\images\Ad1.jpg
+wwwroot\images\background1.png
+wwwroot\images\background2.png
+wwwroot\images\cart.png
+wwwroot\images\cat.jpg
+wwwroot\images\champ14ns.png
+wwwroot\images\Elven1.jpg
+wwwroot\images\Elven2.jpg
+wwwroot\images\EmptyProfilePic.jpeg
+wwwroot\images\Iphone2.jpg
+wwwroot\images\IPhone2.png
+wwwroot\images\NB1.jpg
+wwwroot\images\NewPhone1.1.jpg
+wwwroot\images\NewPhone1.jpg
+wwwroot\images\NewPhone2.jpg
+wwwroot\images\NewPhone3.1.jpg
+wwwroot\images\NewPhone3.2.jpg
+wwwroot\images\NewPhone3.jpg
+wwwroot\images\pexels-photo-1464625.jpeg
+wwwroot\images\PFGITHUB.png
+wwwroot\images\PhonesCover.jpg
+wwwroot\images\Picsart_23-01-31_21-58-37-47.png
+wwwroot\images\Sam1.jpg
+wwwroot\images\SE.jpg
+wwwroot\images\SE2.jpg
+wwwroot\images\Sh1.jpg
+wwwroot\images\sh2.jpg
+wwwroot\images\Sh333.jpg
+wwwroot\images\ShoesCover.jpeg
+wwwroot\images\Shwz1.1.jpg
+wwwroot\images\Shwz1.jpg
+wwwroot\images\Shwz2.jpg
+wwwroot\images\Shwz3.1.jpg
+wwwroot\images\Shwz3.2.jpg
+wwwroot\images\Shwz3.jpg
+wwwroot\images\stark's-heart.png
+wwwroot\images\wadwaw.jpg
+wwwroot\images\watchCover.jpeg
+wwwroot\images\Wch1.jpg
+wwwroot\images\wch3.jpg
+wwwroot\images\wch5.jpg
+wwwroot\images\Wchhh1.jpg
+wwwroot\images\wchwhwh.jpg
+wwwroot\images\wtch2.jpg
+wwwroot\images\wtch4.jpg
+wwwroot\js\datatables-simple-demo.js
+wwwroot\js\jquery-1.9.1.min.js
+wwwroot\js\nicepage.js
+wwwroot\js\scripts.js
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
+wwwroot\lib\bootstrap\LICENSE
+wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
+wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
+wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+wwwroot\lib\jquery-validation\dist\additional-methods.js
+wwwroot\lib\jquery-validation\dist\additional-methods.min.js
+wwwroot\lib\jquery-validation\dist\jquery.validate.js
+wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
+wwwroot\lib\jquery-validation\LICENSE.md
+wwwroot\lib\jquery\dist\jquery.js
+wwwroot\lib\jquery\dist\jquery.min.js
+wwwroot\lib\jquery\dist\jquery.min.map
+wwwroot\lib\jquery\LICENSE.txt
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\css\Blog-Template.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\css\index.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\css\nicepage.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\css\Post-Template.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\css\Product-Details-Template.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\css\Product-List-Template.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\css\styles.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\css\Thank-You-Template.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\favicon.ico
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\js\datatables-simple-demo.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\js\jquery-1.9.1.min.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\js\nicepage.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\js\scripts.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\js\bootstrap.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\jquery-validation\dist\additional-methods.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\jquery-validation\dist\additional-methods.min.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\jquery-validation\dist\jquery.validate.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\jquery-validation\LICENSE.md
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\jquery\dist\jquery.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\jquery\dist\jquery.min.js
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\jquery\dist\jquery.min.map
+G:\Programming\- Projects\EcomGalaxy\EcomGalaxy\E-Commerce\wwwroot\lib\jquery\LICENSE.txt

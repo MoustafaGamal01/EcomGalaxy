@@ -1,4 +1,4 @@
-using EcomGalaxy.ApplicationLayer.Services;
+﻿using EcomGalaxy.ApplicationLayer.Services;
 using EcomGalaxy.ApplicationLayer.Services.IServices;
 using EcomGalaxy.DataAccess.Repositories;
 using EcomGalaxy.DataAccess.Repositories.IRepository;
@@ -14,39 +14,54 @@ namespace EcomGalaxy
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<MyContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("RemoteCS")));
-
             builder.Services.AddRazorPages();
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
-                options=>options.Password.RequireDigit = true)
-                .AddEntityFrameworkStores<MyContext>()
-                .AddDefaultTokenProviders();
+
+            builder.Services.AddDbContext<MyContext>(options =>
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("RemoteCS")));
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            })
+            .AddEntityFrameworkStores<MyContext>()
+            .AddDefaultTokenProviders();
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Auth/LoginForm";
+                options.LogoutPath = "/Auth/Logout";
+                options.AccessDeniedPath = "/Auth/AccessDenied";
+                options.SlidingExpiration = true;
+                options.ExpireTimeSpan = TimeSpan.FromDays(7);
+            });
 
             builder.Services.Configure<DataProtectionTokenProviderOptions>(option =>
-                option.TokenLifespan = TimeSpan.FromHours(2));           
+                option.TokenLifespan = TimeSpan.FromHours(2));
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
-            builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-            builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
-            builder.Services.AddScoped<IReviewService,ReviewService>();
             builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
-            builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-            builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
             builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IReviewService, ReviewService>();
+            builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<IOrderItemsService, OrderItemsService>();
             builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
-            builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
-            builder.Services.AddScoped<IOrderItemsService, OrderItemsService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IUserService, UserService>();
-
 
             var emailConfig = builder.Configuration
                 .GetSection("EmailSettings")
@@ -54,25 +69,48 @@ namespace EcomGalaxy
             builder.Services.AddSingleton(emailConfig);
             builder.Services.AddScoped<IEmailSender, EmailSender>();
 
-
+            // ── Build ─────────────────────────────────────────────────────────────
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<MyContext>();
+                    await context.Database.MigrateAsync();
+
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    foreach (var role in new[] { "Admin", "Seller", "Customer" })
+                    {
+                        if (!await roleManager.RoleExistsAsync(role))
+                            await roleManager.CreateAsync(new IdentityRole(role));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred during migration or seeding.");
+                }
+            }
+
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseAuthentication();
+            app.UseAuthentication();  
             app.UseAuthorization();
             app.MapRazorPages();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            app.Run();
+            await app.RunAsync();
         }
     }
 }

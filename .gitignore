@@ -1,2 +1,6 @@
 appsettings.json
 *vsidx
+web.config
+
+logs/
+*.log

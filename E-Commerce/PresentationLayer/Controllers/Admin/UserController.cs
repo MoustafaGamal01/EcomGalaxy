@@ -68,7 +68,7 @@ namespace EcomGalaxy.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             var role = User.Claims
-    .FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+             .FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
             ProfileViewModel profileVM = new ProfileViewModel();
 
             profileVM.Name = user.Name;

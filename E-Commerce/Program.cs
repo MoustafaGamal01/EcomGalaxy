@@ -5,6 +5,8 @@ using EcomGalaxy.DataAccess.Repositories.IRepository;
 using EcomGalaxy.Domain.Models;
 using EcomGalaxy.Domain.Models.Context;
 using EcomGalaxy.Domain.Models.User;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 namespace EcomGalaxy
 {
@@ -20,6 +22,39 @@ namespace EcomGalaxy
             builder.Services.AddDbContext<MyContext>(options =>
                 options.UseSqlServer(
                     builder.Configuration.GetConnectionString("RemoteCS")));
+
+
+            builder.Services.AddRateLimiter(op =>
+            {
+                op.AddPolicy("LoginPolicy", httpContext =>
+                {
+                    // Read the email from the submitted form
+                    var email = httpContext.Request.Form["Email"].ToString().ToLower().Trim();
+
+                    var key = string.IsNullOrEmpty(email)
+                        ? httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown"
+                        : $"email:{email}";
+
+                    return RateLimitPartition.GetFixedWindowLimiter(
+                        partitionKey: key,
+                        factory: _ => new FixedWindowRateLimiterOptions
+                        {
+                            PermitLimit = 5,
+                            Window = TimeSpan.FromMinutes(1),
+                            QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                            QueueLimit = 0
+                        });
+                });
+
+                op.OnRejected = async (context, token) =>
+                {
+                    context.HttpContext.Response.StatusCode = 429;
+                    await context.HttpContext.Response.WriteAsync(
+                        "Too many login attempts. Please try again in a minute.",
+                        token
+                    );
+                };
+            });
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -103,8 +138,10 @@ namespace EcomGalaxy
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseRateLimiter(); // Add rate limiting middleware
             app.UseAuthentication();  
             app.UseAuthorization();
+
             app.MapRazorPages();
             app.MapControllerRoute(
                 name: "default",

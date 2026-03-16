@@ -4,6 +4,8 @@ using EcomGalaxy.DomainLayer.Models;
 using EcomGalaxy.ViewModel.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 namespace EcomGalaxy.Controllers
 {
@@ -57,16 +59,18 @@ namespace EcomGalaxy.Controllers
         {
             return View();
         }
+
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [EnableRateLimiting("LoginPolicy")]
         public async Task<IActionResult> Login(LoginViewModel loginVM)
         {
             if (ModelState.IsValid)
             {
                 // Login now returns both the result and the user's role
                 var (result, role) = await _authService.Login(loginVM);
-
+                
                 if (result == ResultEnum.Done)
                 {
                     if (role == Roles.Admin)
@@ -77,7 +81,7 @@ namespace EcomGalaxy.Controllers
                     {
                         return RedirectToAction("ProductsForSeller", "Product");
                     }
-                    else // Customer
+                    else 
                     {
                         return RedirectToAction("Index", "Home");
                     }
